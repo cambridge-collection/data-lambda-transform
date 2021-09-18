@@ -1,0 +1,12 @@
+{
+  "FunctionName": "AWSLambda_CUDLPackageDataJSON_AddEvent",
+  "Handler": "uk.ac.cam.lib.cudl.awslambda.XSLTTransformRequestHandler::handleRequest",
+  "Description": "",
+  "Timeout": 900,
+  "MemorySize": 512,
+  "Environment": {
+    "Variables": {
+      "VERSION": "LIVE"
+    }
+  }
+}

@@ -1,0 +1,1364 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/msDesc/consolidated-tei-schema/master/msdesc.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/msDesc/consolidated-tei-schema/master/msdesc.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="manuscript_1" version="5.0">
+
+    <teiHeader type="text">
+        <fileDesc>
+            <titleStmt>
+                <title>MS Add.1691.5</title>
+                <funder>AHRC</funder>
+                <principal>Vincenzo Vergiani</principal>
+            </titleStmt>
+            <publicationStmt>
+                
+                <publisher>Cambridge University Library</publisher>
+                <pubPlace>
+                    <address>
+                  <addrLine>Cambridge University Library</addrLine>
+                  <street>West Road</street>
+                  <settlement>Cambridge</settlement>
+                  <postCode>CB3 9DR</postCode>
+                  <addrLine>
+                     <ref target="http://www.lib.cam.ac.uk">Cambridge University Library
+                </ref>
+                  </addrLine>
+                  <addrLine>
+                     <email>library@lib.cam.ac.uk</email>
+                  </addrLine>
+                </address>
+                </pubPlace>
+                <idno>Sanskrit</idno>
+                
+                <availability xml:id="displayImageRights" status="restricted">
+                    <p>Zooming image © Cambridge University Library, All rights reserved.</p>
+                </availability>
+                <availability xml:id="downloadImageRights" status="restricted">
+                    <licence target="http://creativecommons.org/licenses/by-nc/3.0/">Images made
+                        available for download are licensed under a Creative Commons
+                        Attribution-NonCommercial 3.0 Unported License (CC BY-NC 3.0)</licence>
+                </availability>
+                <availability xml:id="metadataRights" status="restricted">
+                    <licence target="http://creativecommons.org/licenses/by-nc/3.0/">This
+                        metadata is licensed under a Creative Commons
+                        Attribution-NonCommercial 3.0 Unported License.</licence>
+                </availability>
+            </publicationStmt>
+            
+            
+            
+            <sourceDesc>
+                
+                <msDesc xml:id="Sanskrit" xml:lang="en">
+                    <msIdentifier>
+                        <country>United Kingdom</country>
+                        <region type="county">Cambridgeshire</region>
+                        <settlement>Cambridge</settlement>
+                        <institution>Cambridge University</institution>
+                        <repository>Cambridge University Library</repository>
+                        <collection>Additional Manuscripts</collection>
+                        <idno>MS Add.1691.5</idno>
+                      <altIdentifier type="internal"> 
+                     <collection type="CUL_collection">Sanskrit</collection> 
+                     <idno/> 
+                       </altIdentifier>
+                    </msIdentifier>
+                    
+                    <msContents n="1" defective="false">
+                        <!--increment n attribute for ms containing multiple ms items-->
+                        <summary>A Nepalese palm-leaf manuscript of the <title xml:lang="san">Cāndravyākaraṇa</title> of the Buddhist grammarian <name type="person" role="oth" key="local_00141 person_v46773592">
+                        <persName xml:lang="san" type="standard">Candragomin</persName>
+                     </name> (probably 5th c. CE)
+                            with its most widespread and best known commentary, the <title xml:lang="san">Cāndravyākaraṇavṛtti</title>, for a long time believed to be the work of Candragomin himself, but now generally attributed (Dash 1986; Oberlies 1989) 
+                            to an author called <name type="person" role="aut" key="local_00331 VIAF_">
+                        <persName xml:lang="san" type="standard">Dharmadāsa</persName>
+                     </name> who probably flourished in the 6th c. CE, but of whom nothing else is known. 
+                            The manuscript contains the whole fourth section (<term xml:lang="san">pāda</term>, literally “quarter”) of the fifth chapter (<term xml:lang="san">adhyāya</term>), which comprises 176 rules. However, due to the very poor condition of <locus from="18v" to="18v">f. 18v</locus>, 
+                            only one of the final four rules, namely 5.4.175, <term xml:lang="san">āne mug ataḥ</term>, is still legible, though barely, on <locus from="18v" to="18v">line 4</locus>. A few words from the commentary on the final <term xml:lang="san">sūtra</term>, 5.4.176, <term xml:lang="san">āsīnaḥ</term>, can also
+                            be identified, followed by a sequence of much faded <term xml:lang="san">akṣara</term>s that might be the final rubric either of the section or of the whole chapter five.   
+                            The manuscript is not very accurate and even the text of the <term xml:lang="san">sūtra</term>s shows numerous spelling mistakes.                            
+ </summary>
+                       
+                        <msItem n="1" defective="unknown">
+                            
+                            <author key="local_00331 VIAF_">Dharmadāsa</author>
+                            
+                            <title xml:lang="san">Cāndravyākaraṇavṛtti</title>
+                            <title xml:lang="san" type="alt">Cāndravṛtti</title>
+                            
+                            
+                            <head>Main Text</head>
+                            <rubric xml:lang="san">
+                        <locus from="1v" to="1v">[1v1]</locus> 
+                        <g>$</g> namaḥ sarasvatyai ||</rubric>
+                            <incipit type="main text" xml:lang="san" defective="false">
+                        <locus from="1v" to="1v">[1v1]</locus> yuvor aṇākāv <sic>asa</sic> 
+                     </incipit>
+                            
+                            <explicit type="main text" xml:lang="san" defective="false">
+                        <locus from="18v" to="18v">[18v4]</locus> āne mug ataḥ ||</explicit>
+                            
+                            <head>Commentary</head>    
+                            <incipit type="commentary" xml:lang="san" defective="false">
+                        <locus from="1v" to="1v">[1v1]</locus>
+                                || yor asakāra <g>%</g> kasya voś cānākāv <sic>ādeso</sic> bhavataḥ | nandanaḥ | gamanaṃ | kārakaḥ | kāccakaḥ | asa iti kiṃ |
+                                [1v2] <sic>kayuḥ</sic> | <sic>sayuḥ</sic> | yuvor iti samāhārasyaikatvād e <g>%</g>  kavacanaṃ | vikalpānuvṛtter <sic>anapusakatvaṃ</sic> yudhabudhādīnāṃ na bhavaty anarthakatvāt_ | <sic>yaute</sic> yavayavaka
+                                  [1v3] ketyāder jñāpakāt_ | bhujyur ity <sic>aunādikatvāt_</sic>  || <g>@</g> || 
+                                </incipit>
+                            
+                            <explicit type="commentary" xml:lang="san" defective="false">
+                        <locus from="18v" to="18v">[18v4]</locus>    
+                                āne parato [18v5] <unclear reason="damaged">kārāntasya mugāgamo bhavati | pacamānaḥ | <g>%</g> ata iti kiṃ kurvāṇaḥ | tapara iti kiṃ dadānaḥ | <damage>[-3-.]ty eva [-2-]</damage>
+                        </unclear>
+                                [18v6] <damage>-9-</damage>
+                        <unclear reason="damaged">nipātyate | āsīnaḥ ||     ||</unclear>
+                        <damage>-26-</damage>
+                            </explicit>
+                            
+                            <textLang mainLang="san">Sanskrit.</textLang>
+                        </msItem>
+                    </msContents>
+                    
+                    <physDesc>
+                        <objectDesc form="tālapatra"> 
+                            <supportDesc material="palm_leaf">
+                                <support> 
+                                    Palm leaf.
+                                    <p>
+                                        <dimensions type="folio" scope="most" unit="cm">
+                                            <height quantity="4.2" unit="mm">4.2</height>
+                                            <width quantity="30.5" unit="mm">30.5</width>
+                                        </dimensions>
+                                    </p>
+                                </support>
+                                
+                                <extent xml:id="folio" n="18"> 18 ff.</extent>
+                                
+                                <foliation n="1" type="original">Letter numerals, mid-left margin, verso, ff. 4-6 and 10-17 (in the latter group, ten is noted with a short a, while the units are proper numerals).</foliation>
+                                <foliation n="2" type="original">Nepālākṣara numerals, mid-left margin, verso, ff. 1-3, 7-9.</foliation>
+                                
+                                <condition>
+                                    Probably complete, but the verso of the <locus from="18v" to="18v">last folio</locus> is badly smudged and faded, and therefore hardly legible. The edges of some folios are broken. 
+                                </condition>
+                            </supportDesc>
+                            
+                           <layoutDesc>
+                               <layout columns="1" writtenLines="6">
+                               <dimensions type="written area" unit="cm">
+                                        <height quantity="3" unit="mm">3</height>
+                                       <width quantity="27.5" unit="mm">27.5</width>
+                                    </dimensions>
+
+                                    <p>5 to 7 lines per page, approximately 52 <term xml:lang="san">akṣara</term>s per line.</p>
+                                   <dimensions type="akṣara" unit="mm" n="4">
+                                        <height quantity="4" unit="mm">4</height>
+                                    </dimensions>
+                                  
+                                   <commentaryForm type="Continuous"/>
+                                    <stringHole type="true" quantity="1"> One string hole, to the left of the centre, inside an approximately 2.5 cm-wide blank space dividing the written portion
+                                        into two blocks.
+                                    </stringHole>
+                                  <p>Each <term xml:lang="san">sūtra</term> (i.e. rule) is separated from the commentary on the previous <term xml:lang="san">sūtra</term> by a double <term xml:lang="san">daṇḍa</term> 
+                                      followed by a small circle and another double <term xml:lang="san">daṇḍa</term>, and these elements are sometimes highlighted in red.</p> 
+                                </layout>
+                           </layoutDesc>
+                        </objectDesc>
+                        
+                        <handDesc>
+                            <handNote scope="sole" script="nepālākṣarā" medium="black_ink">
+                                <desc>Hooked Nepālākṣara (Bhujimol) in black ink.</desc>
+                             </handNote>
+                        </handDesc>
+                        
+                        
+                        <additions>
+                            <list type="simple">
+                                <head>Marginalia</head>
+                                <item>
+                                    <marginalia type="corrections">A few corrections in the portion above or below the written area, usually accompanied by the number of the line in which the correction should take place.</marginalia>
+                                </item>
+                                <item>
+                                    <marginalia type="annotations">On <locus from="1r" to="1r">f. 1r</locus>, a few words and numerals on the portion to the left of the string hole and a few lines to its right, all of them hardly legible.</marginalia>
+                                </item>
+                            </list>
+                        </additions>
+                        
+                       <!--<bindingDesc>
+                            <p><material>Wood</material> cover, original binding; additional <material>cardboard</material> cover, modern binding.</p>
+                            <p>On the <locus from="front cover" to="front cover">inner side of the front cover</locus>, ....</p>
+                        </bindingDesc><-->
+                    </physDesc>
+                    
+                    <history>
+                        <origin>
+                            <origDate calendar="Gregorian" notBefore="1301" notAfter="1500">14th-15th century.</origDate>
+                            <origPlace xml:lang="eng" key="1000132">Nepal.</origPlace>
+                        </origin>
+                        <provenance>Bought by <name type="person" role="dnr" key="local_00002 person_v7477330">
+                        <persName type="standard" xml:lang="eng">Wright, Daniel</persName>
+                        <persName type="display" xml:lang="eng">Dr. D. Wright</persName>
+                     </name> in <date calendar="Gregorian" from="1873" to="1876">1873-6</date>.
+                        </provenance>
+                        <!--<acquisition><date calendar="Gregorian" when="1873-07-21">XX July XXXX <!-\-(<stamp>University Library stamp</stamp>)-\->.</date></acquisition>-->
+                    </history>
+                    
+                    <additional>
+                        
+                        <adminInfo>
+                            <recordHist>
+                                <source> 
+                           <ref type="biblio" target="Bendall_1883">Bendall (1883: 180-181)</ref>, direct inspection.</source>
+                            </recordHist>
+                            <availability status="restricted">
+                                <p>Entry to read in the Library is permitted only on presentation of
+                                    a valid reader's card for admissions procedures contact <ref target="http://www.lib.cam.ac.uk/cgi-bin/eligibility.cgi/">Cambridge University Library Admissions</ref>).</p>
+                            </availability>
+                            <note anchored="true"/>
+                        </adminInfo>
+                        
+                        <listBibl type="ms_descriptions">
+                            <head>Descriptions of the manuscript</head>
+                            
+                            <biblStruct type="manuscript" xml:id="ULIB7355Bradshaw1870">
+                                <monogr>
+                                    <title level="m">Notes on the collections of Oriental, Thibetan and
+                                        'Additional' manuscripts [unpublished manuscript]</title>
+                                    <author>
+                                        <forename>Henry</forename>
+                                        <surname>ULIB 7/3/55 =
+                                            Bradshaw</surname>
+                                    </author>
+                                    <imprint>
+                                        <pubPlace>Cambridge</pubPlace>
+                                        <date>1870-80</date>
+                                        <!--<note type="url"
+                                            ><ref target="http://janus.lib.cam.ac.uk/db/node.xsp?id=EAD%2FGBR%2F0265%2FULIB%207%2F3%2F55">[link]</ref></note>-->
+                                    </imprint>
+                                </monogr>
+                            </biblStruct>
+                            
+                            <biblStruct type="manuscript" xml:id="ULIB714Griffith1873">
+                                <monogr>
+                                    <title level="m">Assorted lists of manuscripts and books, chiefly Oriental,
+                                        acquired by the Library, with related papers [unpublished manuscript]</title>
+                                    <author>
+                                        <forename>Ralph T. H.</forename>
+                                        <surname>ULIB 7/1/4 =
+                                            Griffith</surname>
+                                    </author>
+                                    <author>
+                                        <forename>Daniel</forename>
+                                        <surname>Wright</surname>
+                                    </author>
+                                    <imprint>
+                                        <pubPlace>Cambridge</pubPlace>
+                                        <date>1873</date>
+                                    </imprint>
+                                </monogr>
+                                <idno type="callNumber">ULIB 7/1/4</idno>
+                            </biblStruct>
+                            
+                            <biblStruct type="manuscript" xml:id="zoteroItem_243">
+                        <monogr>
+                                <title level="m">List Add.923-1827 = List of Additional Manuscripts 923-1827 [unpublished manuscript]</title>
+                                <imprint>
+                                    <pubPlace>Cambridge</pubPlace>
+                                    <date>1878</date>
+                                </imprint>
+                            </monogr>
+                        <idno type="callNumber">Handlist_Add_1878</idno>
+                     </biblStruct>
+                            
+                            <biblStruct type="manuscript" xml:id="Handlist_1900">
+                                <monogr>
+                                    <title>List of Oriental MSS. Class Catalogue of Oriental MSS.</title>
+                                    <imprint>
+                                        <pubPlace>Cambridge</pubPlace>
+                                        <date>1900–</date>
+                                    </imprint>
+                                </monogr>
+                                <idno type="callNumber">Handlist_1900</idno>
+                            </biblStruct>
+                            
+                            <!--  <ref type="biblio" target="Bendall_1883"> -->                                
+                            <biblStruct type="book" xml:id="Bendall1883">
+                                <monogr>
+                                    <title>Catalogue of the Buddhist Sanskrit Manuscripts in the University Library, Cambridge. 
+                                        With Introductory Notices and Illustrations of the Palæography and Chronology of Nepal and Bengal</title>
+                                    <author>
+                                        <forename>Cecil</forename>
+                                        <surname>Bendall</surname>
+                                    </author>
+                                    <imprint>
+                                        <pubPlace>Cambridge</pubPlace>
+                                        <publisher>University Press</publisher>
+                                        <date>1883</date>
+                                    </imprint>
+                                </monogr>
+                                <idno type="callNumber">Bendall_1883</idno>
+                            </biblStruct>
+                            
+                        </listBibl>
+                        
+                        <listBibl type="manuscripts">
+                            <head>Manuscripts</head>
+                            <bibl>
+                                <orgName>NGMCP</orgName>:
+                                <ref type="extant_mss"
+                             target="http://catalogue.ngmcp.uni-hamburg.de/w/index.php?title=Special%3ASearch&amp;search=candravyakarana"> 65 listed manuscripts</ref>
+                            </bibl>
+                            <bibl>
+                                <placeName>Cambridge</placeName>, <orgName>Cambridge University Library</orgName>: 
+                                <ref type="extant_mss"
+                             target="http://cudl.lib.cam.ac.uk/view/MS-ADD-01657-00001/1">Add.1657.1</ref>, 
+                                <ref type="extant_mss"
+                             target="http://cudl.lib.cam.ac.uk/view/MS-ADD-01657-00002/1">Add.1657.2</ref>,
+                                <ref type="extant_mss"
+                             target="http://cudl.lib.cam.ac.uk/view/MS-ADD-01657-00003/1">Add.1657.3</ref>,
+                                <ref type="extant_mss"
+                             target="http://cudl.lib.cam.ac.uk/view/MS-ADD-01691-00004/1">Add.1691.4</ref>,
+                                <ref type="extant_mss"
+                             target="http://cudl.lib.cam.ac.uk/view/MS-ADD-01691-00006/1">Add.1691.6</ref>,
+                                <ref type="extant_mss"
+                             target="http://cudl.lib.cam.ac.uk/view/MS-ADD-01691-00007/1">Add.1691.7</ref>,
+                                <ref type="extant_mss"
+                             target="http://cudl.lib.cam.ac.uk/view/MS-ADD-01705/1">Add.1705</ref>,
+                                <ref type="extant_mss"
+                             target="http://cudl.lib.cam.ac.uk/view/MS-ADD-02192/1">Add.2192</ref>,
+                                <ref type="extant_mss" target="http://cudl.lib.cam.ac.uk/view/MS-OR-01278/1">Or.1278</ref>.
+                            </bibl>
+                        </listBibl>
+                        
+                        <listBibl>
+                            <head>Edition(s)</head>
+                            <biblStruct type="book">
+                                <monogr>
+                                    <title>Cândra-Vyākaraṇa. Die Grammatik des Candragomin.</title>
+                                    <editor role="editor">
+                              <forename>Bruno</forename>
+                              <surname>Liebich</surname>
+                           </editor> 
+                                    <imprint>
+                              <pubPlace>Leipzig</pubPlace>
+                              <publisher>F.A. Brockhaus</publisher>
+                              <date>1902</date>
+                           </imprint>
+                                </monogr>
+                            </biblStruct>
+                            
+                            <biblStruct type="book">
+                                <monogr>
+                                    <title>Cândra-Vṛtti. Der Original-Kommentar Candragomins zu seinem grammatischen Sūtra.</title>
+                                    <editor role="editor">
+                              <forename>Bruno</forename>
+                              <surname>Liebich</surname>
+                           </editor> 
+                                    <imprint>
+                              <pubPlace>Leipzig</pubPlace>
+                              <publisher>F.A. Brockhaus</publisher>
+                              <date>1918</date>
+                           </imprint>
+                                </monogr>
+                            </biblStruct>
+                            
+                            <biblStruct type="book" xml:id="Chatterji1953b">
+                                <monogr>
+                                    <title level="m">Cāndravyākaraṇa of Candragomin (2 v.)</title>
+                                    <editor role="editor">
+                              <forename>Kshitish
+                                        Chandra</forename>
+                              <surname>Chatterji</surname>
+                           </editor>
+                                    <imprint>
+                                        <pubPlace>Poona</pubPlace>
+                                        <publisher>Deccan College Postgraduate and Research
+                                            Institute</publisher>
+                                        <date>1953-1961</date>
+                                    </imprint>
+                                </monogr>
+                            </biblStruct>
+                        </listBibl>
+                        
+                        <listBibl> 
+                            <head>Secondary Literature</head>
+                            
+                            <biblStruct type="bookSection">
+                                <analytic>
+                                    <title level="a">The Cāndra-Vyākaraṇa. Some questions</title>
+                                    <author>
+                              <forename>Johannes</forename>
+                              <surname>Bronkhorst</surname>
+                           </author>
+                                </analytic>
+                                <monogr>
+                                    <title level="m">Indian linguistic studies: festschrift in honor of George Cardona</title>
+                                    <editor role="editor">
+                              <forename>Madhav M.</forename>
+                              <surname>Deshpande</surname>
+                           </editor>
+                                    <editor role="editor">
+                              <forename>Peter Edwin </forename>
+                              <surname>Hook</surname>
+                           </editor>
+                                    <imprint>
+                                        <biblScope type="pp">182-201</biblScope>
+                                        <pubPlace>Delhi</pubPlace>
+                                        <publisher>Motilal Banarsidass</publisher>
+                                        <date>2002</date>
+                                    </imprint>
+                                </monogr>
+                            </biblStruct>
+                            
+                            <biblStruct type="book">
+                                <monogr>                                   
+                                    <title>A Comparative Study of the Pāṇinian and Cândra Systems of Grammar (Kṛdanta Portion)</title>
+                                    <author>
+                              <forename>P.C.</forename>
+                              <surname>Dash</surname>
+                           </author>
+                                    <imprint>
+                              <pubPlace>New Delhi</pubPlace>
+                              <publisher>Ramanand Vidya Bhavan</publisher>
+                              <date>1986</date>
+                           </imprint>   
+                                </monogr>
+                            </biblStruct>
+                            
+                            <biblStruct type="journalArticle">
+                                <analytic>
+                                    <title level="a">Candra-Gomin</title>
+                                    <author>
+                              <forename>S.K.</forename>
+                              <surname>De</surname>
+                           </author>
+                                </analytic>
+                                <monogr>
+                                    <title level="m">Indian Historical Quarterly. Calcutta</title>
+                                    <imprint>
+                                        <biblScope type="vol">14</biblScope>
+                                        <biblScope type="pp">256-260</biblScope>
+                                        <date>1938</date>
+                                    </imprint>
+                                </monogr>
+                            </biblStruct>
+                            
+                            <biblStruct type="bookSection">
+                                <analytic>
+                                    <title level="a">The Chāndra-Vyākaraṇa and the Kāśikā-Vṛtti</title>
+                                    <author>
+                              <forename>Franz</forename>
+                              <surname>Kielhorn</surname>
+                           </author>
+                                </analytic>
+                                <monogr>
+                                    <title level="m">Franz Kielhorn. Kleine Schriften (2 v.)</title>
+                                    <editor role="editor">
+                              <forename>Wilhelm</forename>
+                              <surname>Rau</surname>
+                           </editor>
+                                    <imprint>
+                                        <biblScope type="pp">244-246</biblScope>
+                                        <pubPlace>Wiesbaden</pubPlace>
+                                        <publisher>Steiner</publisher>
+                                        <date>1969</date>
+                                    </imprint>
+                                </monogr>
+                            </biblStruct>
+                            
+                            <biblStruct type="journalArticle">
+                                <analytic>
+                                    <title level="a">Das Cāndra-Vyākaraṇa</title>
+                                    <author>
+                              <forename>Bruno</forename>
+                              <surname>Liebich</surname>
+                           </author>
+                                </analytic>
+                                <monogr>
+                                    <title level="m">Nachrichten der königl. Gesellschaft der Wissenschaften zu Göttingen, Philologisch-historische Klasse</title>
+                                    <imprint>
+                                        <biblScope type="vol">3</biblScope>
+                                        <biblScope type="pp">308-315</biblScope>
+                                        <date>1895</date>
+                                    </imprint>
+                                </monogr>
+                            </biblStruct>
+                            
+                            <biblStruct type="journalArticle">
+                                <analytic>
+                                    <title level="a">Candra-Gomin</title>
+                                    <author>
+                              <forename>Puspa</forename>
+                              <surname>Niyogi</surname>
+                           </author>
+                                </analytic>
+                                <monogr>
+                                    <title level="m">Journal of ancient Indian history</title>
+                                    <imprint>
+                                        <biblScope type="vol">10</biblScope>
+                                        <biblScope type="pp">123-140</biblScope>
+                                        <date>1976-77</date>
+                                    </imprint>
+                                </monogr>
+                            </biblStruct>
+                            
+                            <biblStruct type="book">
+                                <monogr>                               
+                                    <title>Studie zum Cāndravyākaraṇa. Eine kritische Bearbeitung von Candra IV.4.52-148 und V.2.</title>
+                                    <author>
+                              <forename>Thomas</forename>
+                              <surname>Oberlies</surname>
+                           </author>
+                                    <imprint>
+                              <pubPlace>Stuttgart</pubPlace>
+                              <publisher>Franz Steiner</publisher>
+                              <date>1989</date>
+                           </imprint>   
+                                </monogr>
+                            </biblStruct>
+                            
+                            <biblStruct type="journalArticle">
+                                <analytic>
+                                    <title level="a">Verschiedene neu-entdeckte Texte des Cāndravyākaraṇa und ihre Verfasser (Studien zum Cāndravyākaraṇa II)</title>
+                                    <author>
+                              <forename>Thomas</forename>
+                              <surname>Oberlies</surname>
+                           </author>
+                                </analytic>
+                                <monogr>
+                                    <title level="m">Studien zur Indologie und Iranistik</title>
+                                    <imprint>
+                                        <biblScope type="vol">16-17</biblScope>
+                                        <biblScope type="pp">161-184</biblScope>
+                                        <date>1992</date>
+                                    </imprint>
+                                </monogr>
+                            </biblStruct>
+                            
+                            <biblStruct type="journalArticle">
+                                <analytic>
+                                    <title level="a">Das zeitliche und ideengeschichtliche Verhältnis der Cāndra-Vṛtti zu anderen V(ai)yākaraṇas (Studien zum Cāndravyākaraṇa III)</title>
+                                    <author>
+                              <forename>Thomas</forename>
+                              <surname>Oberlies</surname>
+                           </author>
+                                </analytic>
+                                <monogr>
+                                    <title level="m">Studien zur Indologie und Iranistik</title>
+                                    <imprint>
+                                        <biblScope type="vol">20</biblScope>
+                                        <biblScope type="pp">265-317</biblScope>
+                                        <date>1996</date>
+                                    </imprint>
+                                </monogr>
+                            </biblStruct>
+                            
+                            <biblStruct type="bookSection">
+                                <analytic>
+                                    <title level="a">Zum Sūtrapāṭha des Cāndravyākaraṇa (Studien zum Cāndravyākaraṇa 4)</title>
+                                    <author>
+                              <forename>Thomas</forename>
+                              <surname>Oberlies</surname>
+                           </author>
+                                </analytic>
+                                <monogr>
+                                    <title level="m">Jaina-Itihāsa-Ratna. Festschrift für Gustav Roth zum 90. Geburtstag</title>
+                                    <editor role="editor">
+                              <forename>Ute</forename>
+                              <surname>Huesken</surname>
+                           </editor>
+                                    <editor role="editor">
+                              <forename>Petra</forename>
+                              <surname>Kieffer-Pülz</surname>
+                           </editor>
+                                    <editor role="editor">
+                              <forename>Anne</forename>
+                              <surname>Peters</surname>
+                           </editor>
+                                    <imprint>
+                                        <biblScope type="vol">47</biblScope>
+                                        <biblScope type="pp">379-395</biblScope>
+                                        <pubPlace>Marburg</pubPlace>
+                                        <publisher>Indica et Tibetica</publisher>
+                                        <date>2006</date>
+                                    </imprint>
+                                </monogr>
+                            </biblStruct>
+                        </listBibl>
+                        
+                    </additional>
+                </msDesc>
+            </sourceDesc>
+        </fileDesc>
+        
+        <encodingDesc>
+            <classDecl>
+                <taxonomy xml:id="LCSH">
+                    <bibl>
+                        <ref target="http://id.loc.gov/authorities/about.html#lcsh">Library of
+                            Congress Subject Headings</ref>
+                    </bibl>
+                </taxonomy>
+            </classDecl>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="#LCSH">
+                    <list type="simple">
+                        <item>
+                     <term key="subject_sh85080761">Manuscripts, Sanskrit</term>
+                  </item>
+                        <!--<item>
+                            <ref target="http://id.loc.gov/authorities/subjects/sh87004934.html">Manuscripts, Prakrit</ref>
+                        </item>
+                        <item>
+                            <ref target="http://id.loc.gov/authorities/subjects/sh85080774.html">Manuscripts, Tamil</ref>
+                        </item>-->
+                    </list>
+                </keywords>
+                <keywords scheme="local">
+                    <list type="simple">
+                        <item>
+                     <term>Vyākaraṇa</term>
+                  </item>
+                        <item>
+                     <term>Cāndra</term>
+                  </item>
+                        <item>
+                     <term>Bauddha</term>
+                  </item>
+                    </list>
+                </keywords>
+            </textClass>
+        </profileDesc>
+        
+        <revisionDesc>
+            <change when="2014-03-31">
+                <persName>Vincenzo Vergiani.</persName>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+    <facsimile>
+      <graphic decls="#document-thumbnail"
+               rend="landscape"
+               url="MS-ADD-01691-00005-000-00001"/>
+      <surface n="1r" xml:id="i1">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00001"/>
+      </surface>
+      <surface n="1v" xml:id="i2">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00002"/>
+      </surface>
+      <surface n="2r" xml:id="i3">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00003"/>
+      </surface>
+      <surface n="2v" xml:id="i4">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00004"/>
+      </surface>
+      <surface n="3r" xml:id="i5">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00005"/>
+      </surface>
+      <surface n="3v" xml:id="i6">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00006"/>
+      </surface>
+      <surface n="4r" xml:id="i7">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00007"/>
+      </surface>
+      <surface n="4v" xml:id="i8">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00008"/>
+      </surface>
+      <surface n="5r" xml:id="i9">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00009"/>
+      </surface>
+      <surface n="5v" xml:id="i10">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00010"/>
+      </surface>
+      <surface n="6r" xml:id="i11">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00011"/>
+      </surface>
+      <surface n="6v" xml:id="i12">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00012"/>
+      </surface>
+      <surface n="7r" xml:id="i13">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00013"/>
+      </surface>
+      <surface n="7v" xml:id="i14">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00014"/>
+      </surface>
+      <surface n="8r" xml:id="i15">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00015"/>
+      </surface>
+      <surface n="8v" xml:id="i16">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00016"/>
+      </surface>
+      <surface n="9r" xml:id="i17">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00017"/>
+      </surface>
+      <surface n="9v" xml:id="i18">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00018"/>
+      </surface>
+      <surface n="10r" xml:id="i19">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00019"/>
+      </surface>
+      <surface n="10v" xml:id="i20">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00020"/>
+      </surface>
+      <surface n="11r" xml:id="i21">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00021"/>
+      </surface>
+      <surface n="11v" xml:id="i22">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00022"/>
+      </surface>
+      <surface n="12r" xml:id="i23">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00023"/>
+      </surface>
+      <surface n="12v" xml:id="i24">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00024"/>
+      </surface>
+      <surface n="13r" xml:id="i25">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00025"/>
+      </surface>
+      <surface n="13v" xml:id="i26">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00026"/>
+      </surface>
+      <surface n="14r" xml:id="i27">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00027"/>
+      </surface>
+      <surface n="14v" xml:id="i28">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00028"/>
+      </surface>
+      <surface n="15r" xml:id="i29">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00029"/>
+      </surface>
+      <surface n="15v" xml:id="i30">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00030"/>
+      </surface>
+      <surface n="16r" xml:id="i31">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00031"/>
+      </surface>
+      <surface n="16v" xml:id="i32">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00032"/>
+      </surface>
+      <surface n="17r" xml:id="i33">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00033"/>
+      </surface>
+      <surface n="17v" xml:id="i34">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00034"/>
+      </surface>
+      <surface n="18r" xml:id="i35">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00035"/>
+      </surface>
+      <surface n="18v" xml:id="i36">
+         <graphic decls="#downloadImageRights #download"
+                  height="4229px"
+                  width="8371px"
+                  rend="landscape"
+                  url="MS-ADD-01691-00005-000-00036"/>
+      </surface>
+   </facsimile>
+    <text>
+        <body>
+         <div>
+            <pb xml:id="pb-1r" n="1r" facs="#i1"/>
+            <pb xml:id="pb-1v" n="1v" facs="#i2"/>
+             <p>[<hi rend="italic">Complete list of the sūtras of <hi rend="rubric">Cāndravyākaraṇa</hi> 5.4 as they appear in the manuscript.</hi>]
+                 
+                 <locus from="1v" to="1v">[1v1]</locus> 
+                 [<hi rend="italic">1.</hi>] yuvor aṇākāv <sic>asa</sic>
+                 [1v3]
+                 [<hi rend="italic">2.</hi>] āyaneyīnīyiyaḥ <sic>phaḍhakhachaghā</sic> 
+               <sic>ṣphādyādīnī</sic>
+                 [1v5]
+                 [<hi rend="italic">3.</hi>] ṭhasy ekaḥ 
+             </p>
+            <pb xml:id="pb-2r" n="2r" facs="#i3"/>
+             <p>
+                 <locus from="2r" to="2r">[2r1]</locus>
+                 [<hi rend="italic">4.</hi>] <sic>isusugdorbhya</sic> kaḥ
+                 [2r3]
+                 [<hi rend="italic">5.</hi>] to śaśvataḥ
+                 [2r4]
+                 [<hi rend="italic">6.</hi>] anañsamāse ktvā lyap
+             </p>
+            <pb xml:id="pb-2v" n="2v" facs="#i4"/>
+             <p>
+                 <locus from="2v" to="2v">[2v1]</locus>
+                 [<hi rend="italic">7.</hi>] ṝta <sic>iddhāto</sic>
+                 [2v2]
+                 [<hi rend="italic">8.</hi>] upāntyasya
+                 [<hi rend="italic">9.</hi>] ud oṣṭhyāt
+                 [2v4]
+                 [<hi rend="italic">10.</hi>] <sic>ito num</sic>
+                 [2v5]
+                 [<hi rend="italic">11.</hi>] śe mucādīnāṃ 
+             </p>
+            <pb xml:id="pb-3r" n="3r" facs="#i5"/>
+             <p>
+                 <locus from="3r" to="3r">[3r1]</locus>
+                 [<hi rend="italic">12.</hi>] <sic>nāśā</sic> jhali
+                 [<hi rend="italic">13.</hi>] masjo ntyāt <sic>pūrva</sic>
+                 [<hi rend="italic">14.</hi>] jhabo ci
+                 [3r2]
+                 [<hi rend="italic">15.</hi>] radha
+                 [3r3]
+                 [<hi rend="italic">16.</hi>] iṭi liṭi                    
+                 [<hi rend="italic">17.</hi>] rabho śabliṭoḥ
+                 [3r4]
+                 [<hi rend="italic">18.</hi>] labhaḥ
+                 [3r5]
+                 [<hi rend="italic">19.</hi>] āṅo yi
+             </p>    
+            <pb xml:id="pb-3v" n="3v" facs="#i6"/>
+             <p>
+                 <locus from="3v" to="3v">[3v1]</locus>
+                 [<hi rend="italic">20.</hi>] upāt stutau
+                 [3v2]
+                 [<hi rend="italic">21.</hi>] prādibhyaḥ khalghāñoḥ
+                 [3v3]
+                 [<hi rend="italic">22.</hi>] na <sic>sudura</sic> kevalāt
+                 [3v4] 
+                 [<hi rend="italic">23.</hi>] <sic>cimomor</sic> aprāder vā 
+                 [3v5] 
+                 [<hi rend="italic">24.</hi>] <sic>pusuṭy</sic> 
+               <sic>ugita</sic>
+             </p>    
+            <pb xml:id="pb-4r" n="4r" facs="#i7"/>
+             <p>
+                 <locus from="4r" to="4r">[4r1]</locus>
+                 [<hi rend="italic">25.</hi>] <sic>añca</sic>
+                 [4r2]
+                 [<hi rend="italic">26.</hi>] yujer asamāse
+                 [4r3] 
+                 [<hi rend="italic">27.</hi>] śāv ayamaḥ
+                 [4r4] 
+                 [<hi rend="italic">28.</hi>] bahū<g>%</g>rji <sic>bahūrji</sic>
+                 [<hi rend="italic">29.</hi>] iko ci <sic>ṣupi</sic>    
+             </p>
+            <pb xml:id="pb-4v" n="4v" facs="#i8"/>
+             <p>
+                 <locus from="4v" to="4v">[4v3]</locus>
+                 [<hi rend="italic">30.</hi>] <sic>uktapunkasya</sic> ṭādau vā
+                 [4v4] 
+                 [<hi rend="italic">31.</hi>] <sic>athidadhisakthyakṣṇām</sic> anaṅ
+                 [<hi rend="italic">32.</hi>] <sic>nājheḥ</sic> śatuḥ    
+             </p>
+            <pb xml:id="pb-5r" n="5r" facs="#i9"/>
+             <p>
+                 <locus from="5r" to="5r">[5r1]</locus>
+                 [<hi rend="italic">33.</hi>] śau vā
+                 [5r2] 
+                 [<hi rend="italic">34.</hi>] ācchīṅyoḥ
+                 [5r3] 
+                 [<hi rend="italic">35.</hi>] śapśyanaḥ
+                 [5r4] 
+                 [<hi rend="italic">36.</hi>] sāv anaḍuhaḥ
+                 [5r5]
+                 [<hi rend="italic">37.</hi>] diva aut
+                 [<hi rend="italic">38.</hi>] pathimathyṛbhukṣāmāt    
+             </p>
+            <pb xml:id="pb-5v" n="5v" facs="#i10"/>
+             <p>
+                 <locus from="5v" to="5v">[5v1]</locus>
+                 [<hi rend="italic">39.</hi>] <sic>śisuṭye</sic>
+                 [5v2]
+                 [<hi rend="italic">40.</hi>] tho <sic>ntha</sic>
+                 [5v3]
+                 [<hi rend="italic">41.</hi>] ino’ci lopaḥ
+                 [5v4]
+                 [<hi rend="italic">42.</hi>] <sic>puso</sic> suṅ
+                 [5v5] 
+                 [<hi rend="italic">43.</hi>] gor auḥ <sic>svāthe</sic>   
+             </p>
+            <pb xml:id="pb-6r" n="6r" facs="#i11"/>
+             <p>
+                 <locus from="6r" to="6r">[6r1]</locus>
+                 [<hi rend="italic">44.</hi>] sakhyur aśāv et_
+                 [6r2-6r3]
+                 [<hi rend="italic">45.</hi>] ṛd <sic>uśanaspurudaso</sic> 
+               <sic>nehasā</sic> cānaṅ sau
+                 [6r4]
+                 [<hi rend="italic">46.</hi>] na sambuddhau 
+                 [<hi rend="italic">47.</hi>] vośanasaḥ
+                 [6r5]
+                 [<hi rend="italic">48.</hi>] kruśas tuna¦<g>%</g>s tṛc
+             </p>
+            <pb xml:id="pb-6v" n="6v" facs="#i12"/>
+             <p>
+                 <locus from="6v" to="6v">[6v1]</locus>
+                 [<hi rend="italic">49.</hi>] striyāṃ
+                 [6v3]
+                 [<hi rend="italic">50.</hi>] catur anaḍuhorām_
+                 [6v4] 
+                 [<hi rend="italic">51.</hi>] am sau sambuddhau
+                 [6v5]
+                 [<hi rend="italic">52.</hi>] aṣṭano vā supy āt_
+             </p>
+            <pb xml:id="pb-7r" n="7r" facs="#i13"/>
+             <p>
+                 <locus from="7r" to="7r">[7r1]</locus>
+                 [<hi rend="italic">53.</hi>] rāyo hali
+                 [7r2] 
+                 [<hi rend="italic">54.</hi>] yuṣmadasmador anādeśe
+                 [7r3] 
+                 [<hi rend="italic">55.</hi>] auśasamsu
+                 [7r5] 
+                 [<hi rend="italic">56.</hi>] yo ci&gt;
+                 [7r6] 
+                 [<hi rend="italic">57.</hi>] śeṣe lopo daḥ
+             </p>
+            <pb xml:id="pb-7v" n="7v" facs="#i14"/>
+             <p>
+                 <locus from="7v" to="7v">[7v1]</locus>
+                 [<hi rend="italic">58.</hi>] māntasya yuvāvau dvivacane
+                 [7v2] 
+                 [<hi rend="italic">59.</hi>] yūyavayau jasi
+                 [7v3] 
+                 [<hi rend="italic">60.</hi>] tvāhau sau
+                 [7v4] 
+                 [<hi rend="italic">61.</hi>] tubhyamahyau ṅayi
+                 [<hi rend="italic">62.</hi>] tavamamau ṅasi
+                 [7v5] 
+                 [<hi rend="italic">63.</hi>] tvamāv e<g>%</g>kasmin
+                 [7v6] 
+                 [<hi rend="italic">64.</hi>] tricaturoḥ striyāṃ tisṛcatasṛ
+             </p>
+            <pb xml:id="pb-8r" n="8r" facs="#i15"/>
+             <p>
+                 <locus from="8r" to="8r">[8r1]</locus>
+                 [<hi rend="italic">65.</hi>] tisṛkā
+                 [8r2]
+                 [<hi rend="italic">66.</hi>] ṛto ro ci 
+                 [<hi rend="italic">67.</hi>] jarāyā jaras vā
+                 [8r3]
+                 [<hi rend="italic">68.</hi>] tyadāṃ tasādiṣu cā dveraḥ
+                 [8r4] 
+                 [<hi rend="italic">69.</hi>] kimaḥ kaḥ
+                 [8r5] 
+                 [<hi rend="italic">70.</hi>] taḥ saḥ sau 
+             </p>
+            <pb xml:id="pb-8v" n="8v" facs="#i16"/>
+             <p>
+                 <locus from="8v" to="8v">[8v1]</locus>
+                 [<hi rend="italic">71.</hi>] asāv asuko sakau  
+                 [<hi rend="italic">72.</hi>] idam ayam iyam
+                 [8v2] 
+                 [<hi rend="italic">73.</hi>] do maḥ
+                 [8v3] 
+                 [<hi rend="italic">74.</hi>] ṭausy ako <sic>na</sic> 
+                 [<hi rend="italic">75.</hi>] haly aś 
+                 [8v4] 
+                 [<hi rend="italic">76.</hi>] etasya cānvadeśe <sic>dvitīyā</sic> cainaḥ
+             </p>
+            <pb xml:id="pb-9r" n="9r" facs="#i17"/>
+             <p>
+                 <locus from="9r" to="9r">[9r3]</locus>
+                 [<hi rend="italic">77.</hi>] <sic>pannaśmāhahṛdyūṣandoṣan</sic> śasādo vā
+                 [9r5]
+                 [<hi rend="italic">78.</hi>] <sic>li</sic> 
+               <sic>aśīrṅitiṅśiti</sic>  
+                 [9r6] 
+                 [<hi rend="italic">79.</hi>] aster bhūḥ
+             </p>
+            <pb xml:id="pb-9v" n="9v" facs="#i18"/>
+             <p>
+                 <locus from="9v" to="9v">[9v2]</locus> 
+                 [<hi rend="italic">80.</hi>] bruvo vac 
+                 [<hi rend="italic">81.</hi>] cakṣaḥ khyāñ
+                 [9v3] 
+                 [<hi rend="italic">82.</hi>] vā liṭi
+                 [9v4] 
+                 [<hi rend="italic">83.</hi>] nāsanavarjaneṣu
+                 [9v5] 
+                 [<hi rend="italic">84.</hi>] ajer <sic>vyayagha<g>%</g>ñapkyeṣu</sic>
+             </p>
+            <pb xml:id="pb-10r" n="10r" facs="#i19"/>
+             <p>
+                 <locus from="10r" to="10r">[10r1]</locus>
+                 [<hi rend="italic">85.</hi>] ti kity ado jagdhaḥ
+                 [10r2] 
+                 [<hi rend="italic">86.</hi>] lyapi
+                 [10r4] 
+                 [<hi rend="italic">87.</hi>] luṅsanajghañpsu ghasḷ
+                 
+             </p>
+            <pb xml:id="pb-10v" n="10v" facs="#i20"/>
+             <p>
+                 <locus from="10v" to="10v">[10v1]</locus>
+                 [<hi rend="italic">88.</hi>] veño liṭi vay vā  
+                 [<hi rend="italic">89.</hi>] hano vadha liṅi
+                 [10v2] 
+                 [<hi rend="italic">90.</hi>] luṅi
+                 [10v3] 
+                 [<hi rend="italic">91.</hi>] taṅi vā
+                 [<hi rend="italic">92.</hi>] eter gāḥ
+                 [10v4] 
+                 [<hi rend="italic">93.</hi>] ṇau gamabo<g>%</g>dhe
+                 [10v5] 
+                 [<hi rend="italic">94.</hi>] sani
+             </p>
+            <pb xml:id="pb-11r" n="11r" facs="#i21"/>
+             <p>
+                 <locus from="11r" to="11r">[11r1]</locus>
+                 [<hi rend="italic">95.</hi>] <sic>iṅa</sic>  
+                 [<hi rend="italic">96.</hi>] gāṅ liṭi
+                 [11r2] 
+                 [<hi rend="italic">97.</hi>] vā luṅlṛṅoḥ
+                 [11r3] 
+                 [<hi rend="italic">98.</hi>] ṇau saṃścaṅoḥ
+                 [11r4] 
+                 [<hi rend="italic">99.</hi>] valāder iṭ_
+                 [11r5] 
+                 [<hi rend="italic">100.</hi>] 100, graho syāliṭīṭ_
+                 [11r6] 
+                 [<hi rend="italic">101.</hi>] vṝto vā 
+                 
+             </p>
+            <pb xml:id="pb-11v" n="11v" facs="#i22"/>
+             <p>
+                 <locus from="11v" to="11v">[11v1]</locus>
+                 [<hi rend="italic">102.</hi>] na liṅi
+                 [11v2] 
+                 [<hi rend="italic">103.</hi>] sicy ataṅi
+                 [11v3] 
+                 [<hi rend="italic">104.</hi>] iṭ sano vā
+                 [11v4] 
+                 [<hi rend="italic">105.</hi>] liṅsicos taṅi
+                 [11v5] 
+                 [<hi rend="italic">106.</hi>] ṛtaḥ saṃyo<add place="below">gā</add>deḥ
+                 [<hi rend="italic">107.</hi>] <sic>svṛsūmūditaḥ</sic>
+             </p>
+            <pb xml:id="pb-12r" n="12r" facs="#i23"/>
+             <p>
+                 <locus from="12r" to="12r">[12r1]</locus>
+                 [<hi rend="italic">108.</hi>] <sic>radhādibhya</sic>
+                 [12r3] 
+                 [<hi rend="italic">109.</hi>] niṣkuṣaḥ 
+                 [<hi rend="italic">110.</hi>] tatavatoḥ
+                 [12r4] 
+                 [<hi rend="italic">111.</hi>] <sic>pūkliśa</sic> tvaś ca 
+                 
+             </p>
+            <pb xml:id="pb-12v" n="12v" facs="#i24"/>
+             <p>
+                 <locus from="12v" to="12v">[12v1]</locus>
+                 [<hi rend="italic">112.</hi>] vasakṣudha iṭ
+                 [12v2]
+                 [<hi rend="italic">113.</hi>] añco ne
+                 [12v3]
+                 [<hi rend="italic">114.</hi>] lubha ākule
+                 [12v4] 
+                 [<hi rend="italic">115.</hi>] jṝṣas tvaḥ
+                 [12v5] 
+                 [<hi rend="italic">116.</hi>] vraścitvā 
+                 [<hi rend="italic">117.</hi>] udito vā
+             </p>
+            <pb xml:id="pb-13r" n="13r" facs="#i25"/>
+             <p>
+                 <locus from="13r" to="13r">[13r1]</locus>
+                 [<hi rend="italic">118.</hi>] <sic>tīṣusahalubharuṣariṣa</sic>
+                 [13r2-13r3] 
+                 [<hi rend="italic">119.</hi>] <sic>
+                  <reg type="hyphenated">sanīvantardhabhrasjadambhuśrisvṛyūrṇubhava-jñāpisanitanipatidraridraḥ</reg>
+               </sic>
+                 [13r6] 
+                 [<hi rend="italic">120.</hi>] syasici <sic>kṛtacṛtacchṛdanṛdatṛda</sic> 
+             </p>
+            <pb xml:id="pb-13v" n="13v" facs="#i26"/>
+             <p>
+                 <locus from="13v" to="13v">[13v1]</locus>
+                 [<hi rend="italic">121.</hi>] aniṅ gamer iṭ_
+                 [13v2] 
+                 [<hi rend="italic">122.</hi>] na taṅānaiḥ
+                 [13v3] 
+                 [<hi rend="italic">123.</hi>] <sic>vṛdbhyaḥ ṭa</sic>
+                 [13v4] 
+                 [<hi rend="italic">124.</hi>] tāsaś ca <sic>kḷpa</sic>
+                 [13v5] 
+                 [<hi rend="italic">125.</hi>] na snoḥ
+             </p>
+            <pb xml:id="pb-14r" n="14r" facs="#i27"/>
+             <p>
+                 <locus from="14r" to="14r">[14r1]</locus>
+                 [<hi rend="italic">126.</hi>] kramaḥ
+                 [14r2] 
+                 [<hi rend="italic">127.</hi>] taṅviṣayāt kartary atiṅaḥ
+                 [14r3] 
+                 [<hi rend="italic">128.</hi>] vaśi
+                 [14r4] 
+                 [<hi rend="italic">129.</hi>] ter agrahādibhyaḥ
+                 [14r5] 
+                 [<hi rend="italic">130.</hi>] ekāco śviśriḍīśīṅyvādiṣaṭkāt_ 
+             </p>
+            <pb xml:id="pb-14v" n="14v" facs="#i28"/>
+             <p>
+                 <locus from="14v" to="14v">[14v3]</locus>
+                 [<hi rend="italic">131.</hi>] <sic>sidhibudhisvidimaṇipuṣaśliṣa</sic> śyanā
+                 [14v4] 
+                 [<hi rend="italic">132.</hi>] vider <sic>aluka</sic>
+                 [14v5] 
+                 [<hi rend="italic">133.</hi>] yaralād bhaḥ 
+                 [<hi rend="italic">134.</hi>] yaranagān maḥ
+                 [14v6] 
+                 [<hi rend="italic">135.</hi>] śakādibhyaḥ
+             </p>
+            <pb xml:id="pb-15r" n="15r" facs="#i29"/>
+             <p>
+                 <locus from="15r" to="15r">[15r4]</locus>
+                 [<hi rend="italic">136.</hi>] śryugūrṇoḥ kitaḥ
+                 [15r5] 
+                 [<hi rend="italic">137.</hi>] sano grahaguhoś ca
+                 [15r6]
+                 [<hi rend="italic">138.</hi>] svārthe
+             </p>
+            <pb xml:id="pb-15v" n="15v" facs="#i30"/>
+             <p>
+                 <locus from="15v" to="15v">[15v1]</locus>
+                 [<hi rend="italic">139.</hi>] śvīdit<del>i</del>as <unclear reason="damaged">tatavatoḥ</unclear> 
+                 [<hi rend="italic">140.</hi>] yato pater vvā
+                 [15v3] 
+                 [<hi rend="italic">141.</hi>] āditaḥ
+                 [<hi rend="italic">142.</hi>] bhāvārambhayor vā
+                 [15v4] 
+                 [<hi rend="italic">143.</hi>] japivamaḥ
+                 [15v5] 
+                 [<hi rend="italic">144.</hi>] vyāṅaḥ <sic>svaśaḥ</sic>
+                 [15v6] 
+                 [<hi rend="italic">145.</hi>] <sic>kṣubdhasvāntadā<g>%</g>dhvāntam</sic> 
+               <sic>machamanaḥ</sic>
+                 [15v7] 
+                 [<hi rend="italic">146.</hi>] <sic>viribdhahāṇṭabāḍhammliṣṭāni</sic> svarānāyāsabhṛsāspaṣṭeṣu
+             </p>
+            <pb xml:id="pb-16r" n="16r" facs="#i31"/>
+             <p>
+                 <locus from="16r" to="16r">[16r2]</locus>
+                 [<hi rend="italic">147.</hi>] dhṛṣaśasaḥ prāgalbhye
+                 [16r3] 
+                 [<hi rend="italic">148.</hi>] dṛḍhaḥ <sic>sthūlabalino</sic> 
+                 [<hi rend="italic">149.</hi>] prabhau parivṛḍhaḥ
+                 [16r4] 
+                 [<hi rend="italic">150.</hi>] <sic>kṛcchagahayoḥ</sic> kaṣaḥ
+                 [16r5] 
+                 [<hi rend="italic">151.</hi>] ghuṣer aviśabdane
+                 [16r6] 
+                 [<hi rend="italic">152.</hi>] saṃniver <sic>arddhaḥ</sic>
+             </p>
+            <pb xml:id="pb-16v" n="16v" facs="#i32"/>
+             <p>
+                 <locus from="16v" to="16v">[16v1]</locus>
+                 [<hi rend="italic">153.</hi>] abher avidūre 
+                 [<hi rend="italic">154.</hi>] ṇer vṛttaṃ granthe
+                 [16v2] 
+                 [<hi rend="italic">155.</hi>] vā dāntaśāntapūrṇṇadastaspaṣṭacchannajñaptāḥ
+                 [16v3-16v4] 
+                 [<hi rend="italic">156.</hi>] <sic>ruṣahṛṣāmatvarasaṅghusāśvana</sic>&gt;
+             </p>
+            <pb xml:id="pb-17r" n="17r" facs="#i33"/>
+             <p>
+                 <locus from="17r" to="17r">[17r1]</locus>
+                 [<hi rend="italic">157.</hi>] apacitiḥ
+                 [17r2] 
+                 [<hi rend="italic">158.</hi>] sṛbhṛvṛstudrusruśruvo <sic>liṭa</sic>
+                 [17r3] 
+                 [<hi rend="italic">159.</hi>] kṛño <sic>suṭa</sic>
+                 [17r4] 
+                 [<hi rend="italic">160.</hi>] <sic>ṛstas</sic> tāsi <sic>nityādiṭasthalaḥ</sic>
+                 [17r6] 
+                 [<hi rend="italic">161.</hi>] aco vā 
+             </p>
+            <pb xml:id="pb-17v" n="17v" facs="#i34"/>
+             <p>
+                 <locus from="17v" to="17v">[17v2]</locus>
+                 [<hi rend="italic">162.</hi>] pāṭe tva<g>%</g>taḥ
+                 [17v4] 
+                 [<hi rend="italic">163.</hi>] sṛjidṛśaḥ 
+                 [<hi rend="italic">164.</hi>] ṛvṛvyeñadaḥ
+                 [17v5] 
+                 [<hi rend="italic">165.</hi>] <sic>vasor</sic> ekā<unclear reason="damaged">jādgha</unclear>saḥ
+                 [17v7] 
+                 [<hi rend="italic">166.</hi>] vā hanagamavidaviśa
+                 [18r1] <unclear reason="damaged">-2-</unclear>
+             </p>
+            <pb xml:id="pb-18r" n="18r" facs="#i35"/>
+             <p>
+                 <locus from="18r" to="18r">18r2</locus>
+                 [<hi rend="italic">167.</hi>] ṛhanaḥ sye 
+                 [<hi rend="italic">168.</hi>] añjeḥ sicaḥ
+                 <locus from="18r" to="18r">18r3</locus>
+                 [<hi rend="italic">169.</hi>] stusuño taṅi
+                 <locus from="18r" to="18r">18r4</locus>
+                 [<hi rend="italic">170.</hi>] <sic>yamaramanamātā</sic> sak ca
+                 <locus from="18r" to="18r">18r5</locus>
+                 [<hi rend="italic">171.</hi>] ṛsmipūñañjaśaḥ sanaḥ
+                 <locus from="18r" to="18r">18r6</locus>
+                 [<hi rend="italic">172.</hi>] <sic>hṝbhyaḥ</sic> pañcabhyaḥ
+             </p>
+            <pb xml:id="pb-18v" n="18v" facs="#i36"/>
+             <p>
+                 <locus from="18v" to="18v">[18v]</locus> 
+                 [<hi rend="italic">173-174 are illegible.</hi>] <damage>-9-</damage> 
+                 [18v4] 
+                 [<hi rend="italic">175.</hi>] <unclear reason="damaged">
+                  <term xml:lang="san">āne mug ataḥ</term>
+               </unclear>
+                 [18v5 or 18v6] 
+                 [<hi rend="italic">176 is illegible.</hi>] <damage>-3-</damage>
+             </p>
+         </div>
+      </body>
+    </text>
+</TEI>
+<!--a) if the manuscript has final rubrics for sections
+
+b) if the manuscript has a final rubric
+
+c) if the manuscript has a colophon:
+
+- presence of an introductory formula and/or other types of text (ye dharmā etc.) (form; formye)
+
+- place of copying (pc)
+
+- occasion of copying (oc)
+
+-date (d)
+
+- final formula (śubham astu etc.) (ff)
+
+- name of the scribe(s) (write the full name)-->

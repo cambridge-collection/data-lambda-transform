@@ -1,0 +1,735 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="https://raw.githubusercontent.com/msDesc/consolidated-tei-schema/master/msdesc.rng" type="application/xml" schematypens="http://relaxng.org/ns/structure/1.0"?>
+<?xml-model href="https://raw.githubusercontent.com/msDesc/consolidated-tei-schema/master/msdesc.rng" type="application/xml" schematypens="http://purl.oclc.org/dsdl/schematron"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0" xml:id="manuscript_1">
+
+    <teiHeader>
+        <fileDesc>
+            <titleStmt>
+                <title>MS Add.919</title>
+                <funder>AHRC</funder>
+                <principal>Vincenzo Vergiani</principal>
+            </titleStmt>
+            <publicationStmt>
+                
+                <publisher>Cambridge University Library</publisher>
+                <pubPlace>
+                    <address>
+                  <addrLine>Cambridge University Library</addrLine>
+                  <street>West Road</street>
+                  <settlement>Cambridge</settlement>
+                  <postCode>CB3 9DR</postCode>
+                  <addrLine>
+                     <ref target="http://www.lib.cam.ac.uk">Cambridge University Library
+                </ref>
+                  </addrLine>
+                  <addrLine>
+                     <email>library@lib.cam.ac.uk</email>
+                  </addrLine>
+                </address>
+                </pubPlace>
+                <idno>Sanskrit</idno>
+                
+                <availability xml:id="displayImageRights" status="restricted">
+                    <p>Zooming image © Cambridge University Library, All rights reserved.</p>
+                </availability>
+                <availability xml:id="downloadImageRights" status="restricted">
+                    <licence target="http://creativecommons.org/licenses/by-nc/3.0/">Images made
+                        available for download are licensed under a Creative Commons
+                        Attribution-NonCommercial 3.0 Unported License (CC BY-NC 3.0)</licence>
+                </availability>
+                <availability xml:id="metadataRights" status="restricted">
+                    <licence target="http://creativecommons.org/licenses/by-nc/3.0/">This
+                        metadata is licensed under a Creative Commons
+                        Attribution-NonCommercial 3.0 Unported License.</licence>
+                </availability>
+                
+            </publicationStmt>
+            <sourceDesc>
+                
+                <msDesc xml:id="Sanskrit" xml:lang="en">
+                    <msIdentifier>
+                        <country>United Kingdom</country>
+                        <region type="county">Cambridgeshire</region>
+                        <settlement>Cambridge</settlement>
+                        <institution>Cambridge University</institution>
+                        <repository>Cambridge University Library</repository>
+                        <collection>Additional Manuscripts</collection>
+                        <idno>MS Add.919</idno>
+                      <altIdentifier type="internal"> 
+                     <collection type="CUL_collection">Sanskrit</collection> 
+                     <idno/> 
+                       </altIdentifier>
+                    </msIdentifier>
+                    
+                    <msContents n="1">
+                        <!--increment n attribute for ms containing multiple ms items-->
+                        <summary>
+                            This manuscript contains the <title xml:lang="san">Daśarūpaka</title> of 
+                                <name type="person" role="aut" key="local_00365 person_v263357483">
+                        <persName xml:lang="san" type="standard">Dhanañjaya</persName>
+                     </name>, 
+                            a treatise on dramaturgy, with the <title xml:lang="san">Avaloka</title> commentary by 
+                                <name type="person" role="aut" key="local_00366 person_v290232339">
+                        <persName xml:lang="san" type="standard">Dhanika</persName>
+                     </name>. Dhañjaya is said
+                            to have lived in Mālava in the end of the tenth century, during the reign of 
+                            <name type="person" role="oth" key="local_00367">
+                        <persName xml:lang="san" type="standard">Vākpatirāja II</persName>
+                     </name>. Dhanika, who
+                            had an official position in the king's court, is traditionally considered to be the brother of Dhanañjaya. 
+                            This item is a transcription of a manuscript from the Library of the Bengal Asiatic Society, made for 
+                            <name type="person" role="dnr" key="local_00005 person_v19752874">
+                        <persName xml:lang="eng" type="display">Prof. E. B. Cowell</persName>
+                                <persName xml:lang="eng" type="standard">Cowell, Edward B.</persName>
+                     </name>.
+                        </summary>
+                        
+                        
+                        <msItem n="1" defective="false">
+                            <!--repeat the <msItem> element for every work in the ms; 
+                           change the @defective to the following values: if the ms is complete, "false", if incomplete, "true"; 
+                           if you are unsure, choose "inapplicable", DO NOT use unknown;
+                           use <locus> element in the case of multiple msItems to indicate range in manuscript, otherwise delete it-->
+                            
+                            <author key="local_00365 person_v263357483">Dhanañjaya</author>
+                            <author key="local_00366 person_v290232339">Dhanika</author>
+                            <!--the following elements are optional, delete if not used
+                            <author>
+                                <name type="person" subtype="aut" key="local_ VIAF_"><persName xml:lang="san" type="alt">[if different, insert here the author's name as spelt in the ms]</persName></name>
+                            </author>
+                            <author>
+                                <name type="person" subtype="aut" key="local_ VIAF_"><persName xml:lang="san" type="alt">[insert here any other form of the author's name]</persName></name>
+                            </author> -->
+                            
+                            <title xml:lang="san">Daśarūpakāvaloka</title>
+                            <!--the following elements are optional, delete if not used -->
+                            <title xml:lang="san" type="alt">Daśarūpakāloka</title>
+                     <!--                            <title xml:lang="san" type="alt">[insert here any other form of the title]</title>
+                            <title xml:lang="san" type="alt">[same as above, repeat this element anytime is needed]</title> -->
+                            
+                            
+                            <head>Main Text</head>
+                            
+                            <incipit xml:lang="san">
+                        <locus from="1r" to="1r">[1r3]</locus>
+                                namas tasmai gaṇeśāya yatkaṇṭhaḥ puṣkarāyate |
+                                madābhogā-[1r4]d ghanadhvāno nīlakaṇṭhasya tāṇḍave || 1 ^ ||-
+                                [1r5] daśarūpānukāreṇa yasya mādyanti bhāvakāḥ | 
+                                namaḥ sarvavide [1r6] tasmai viṣṇave bharatāya ca iti || 2 ^ ||-
+                            </incipit>
+                                  
+                     <!--                            <finalRubric type="mula" xml:lang="san"><locus from="3r" to="3"></locus>|| <g>@</g>|| </finalRubric> -->
+                            
+                            <explicit type="mula" xml:lang="san">
+                        <locus from="59v" to="59v">[109v13]</locus>
+                                ramyaṃ jugupsitam udā[109v14]ram athāpi nīcam ugraṃ prasādi gahanaṃ vikṛtaṃ ca vastu | yad vāpya vastu kavibhāvakabhāvyamānaṃ tatrāsti [109v15] yatra rasabhāvam upaiti loke | viṣnoḥ sutenāpi<sic>pi</sic> 
+                        <sic>dhanajayena</sic> vidvanmanorāganivaddhahetuḥ ||
+                                [109v16] aviḥkṛtaṃ muṃjamahīśagoṣṭhīvaidagdhyabhājā daśarūpam etat ||
+                            </explicit>
+
+                            <head>Commentary</head>
+                            
+                            <rubric type="commentary" xml:lang="san">
+                        <locus from="1r" to="1r">[1r1]</locus> śrīgaṇeśāya namaḥ |</rubric>
+
+                            <incipit type="commentary" xml:lang="san">
+                        <locus from="1r" to="1r">[1r1]</locus>    
+                                iha saḍācāraṃ pramāṇyadbhir avighnena samāptyartham iṣṭa<del>ā</del>yoḥ prakṛtābhimatayoś ca
+                                [1r2] devatayor namaskāraḥ kriyate ślokadvayena ||
+                            </incipit>
+
+                            <explicit type="commentary" xml:lang="san">
+                        <locus from="59v" to="5v">[109v12]</locus>
+                                sāma bhedaḥ pradāne cety evamādini saṃdhyantarākhyāni - [109v13] ekaviṃśatirūpamādiṣv alaṃkāreṣu cotsāhādiṣv antarbhāvān pṛthag uktāni |
+                            </explicit>
+
+                            <finalRubric type="commentary" xml:lang="san">
+                        <locus from="59v" to="59v">[109v16]</locus>
+                                iti śrīviṣṇusū° ||
+                            </finalRubric>
+
+                     <!--                            <finalRubric type="commentary"xml:lang="san"><locus from="90r" to="90r">[90r2]</locus></finalRubric>
+                            
+                           <colophon type="commentary" xml:lang="san"><locus from="90r" to="90r">[90r2]</locus></colophon> -->
+                            
+                            <textLang mainLang="san">Sanskrit.</textLang>
+                            
+                        </msItem>
+                    </msContents>
+                    
+                    <physDesc>
+                        <objectDesc form="codex"> 
+                            <supportDesc material="paper">
+                                <support>Industrial paper and light blue paper.
+                                    <p>
+                                        <dimensions type="folio" scope="most" unit="cm">
+                                            <height quantity="33">ca. 33</height>
+                                            <width quantity="20.5">ca. 20.5</width>
+                                        </dimensions>
+                                    </p>
+                                </support>
+                                
+                                <extent xml:id="folio" n="62"> 62 ff. (including one flyleaf at the begining and two at the end).</extent> 
+                        <!-- including blank page (folio 47), not including flyleaves -->
+                                
+                                <foliation n="1" type="original">Pagination, Devanāgarī numerals numbering pages 1 to 48, then 59 to 94, then 89 to 96, followed by a blank page, followed by 97 and 98, centered in top margin. </foliation>
+                                <foliation n="2" type="original">Devanāgarī numerals numbering folios from 99 to 109, centered in top margin, verso.</foliation>
+ 
+                        <!--                                the following element contains free text; however, stick to the set phrases as far as possible!-->
+                                <condition>
+                                    Complete, in good condition.
+                                </condition>
+                            </supportDesc>
+                            
+                           <layoutDesc>
+                               <layout columns="1" ruledLines="21">
+<!--                                   the @ruledLines must be used only in those cases when there is actually a ruling, otherwise use the @writtenLines-->
+                                   <dimensions type="written area" unit="cm">
+                                        <height quantity="29">29</height>
+                                        <width atLeast="17.5" atMost="18">17.5</width>
+                                    </dimensions>
+                                    <p>21 lines per page, approximately 25 to 40 <term xml:lang="san">akṣara</term>s per line.</p>
+                                   <dimensions type="akṣara" unit="mm" n="25 40">
+                                       <height quantity="4">4</height> 
+                              <!-- 3 to 5 -->
+                                    </dimensions>
+                                   
+                                    <dimensions type="interlinear space" scope="most" unit="mm">
+                                        <height quantity="10">10</height>
+                                    </dimensions>
+                                   
+                                    <commentaryForm type="Continuous"/>
+                           <!-- Daniele you fix this -->
+                                   <p>Left and right marginal rulings in pencil are present on most pages. Line rulings are also often visible. 
+                                       After <locus from="46v" to="46v">folio 46</locus> (corresponding to verse 4.37 of the main text) there is a blank, unnumbered folio; after that, there is one more folio of white paper, and then the text continues written on blue paper -- the same type of paper as the flyleaf -- with the recto side always left blank and text on the verso side.</p>
+                                </layout>
+                           </layoutDesc>
+                        </objectDesc>
+                        
+                        <handDesc>
+                            <handNote scope="major" script="devanāgarī" medium="blackink">
+                                <desc>First hand: Devanāgarī  in black ink, from <locus from="1r" to="1r">page 1</locus> to <locus from="47v" to="47v">page 98</locus>. Some text highlighted in red ink.</desc>
+                            </handNote>
+                            <handNote scope="major" script="devanāgarī" medium="blackink">
+                                <desc>Second hand: Devanāgarī in black ink, from <locus from="47v" to="47v">page 98</locus> to the <locus from="59v" to="59v">end</locus>.
+                                </desc>
+                            </handNote>
+                             <handNote scope="minor" script="roman" medium="blackink"><!-- DANIELE FIX THIS TOO -->
+                                 <desc>Third hand: Roman in black ink (notes on the first flyleaf and classmark on the <locus from="1r" to="1r">first page</locus>).</desc>
+                            </handNote>
+                            <handNote scope="minor" script="roman" medium="blackink"><!-- DANIELE FIX THIS TOO, it's roman AND devanāgarī, FUCK! -->
+                                <desc>Fourth hand: Roman and Devanāgarī (Marginal notes and glosses in English, double underlines, and some corrections in Devanāgarī from <locus from="1r" to="1r">page 1</locus> to <locus from="3r" to="3r">page 5</locus>). Most likely <name type="person" role="dnr" key="local_00005 person_v19752874">
+                              <persName xml:lang="eng" type="display">Prof. E. B. Cowell</persName>
+                                    <persName xml:lang="eng" type="standard">Cowell, Edward B.</persName>
+                           </name>. </desc>
+                            </handNote>
+                         </handDesc>
+                        
+                        <!--decoDesc>
+                            <decoNote type="miniature">
+                                <desc>On <locus from="1v" to="1v">folio 1v</locus>, .............</desc>
+                            </decoNote>
+                        </decoDesc -->
+                        
+                        <additions>
+                            <list>
+                                <item>
+                                    On the recto side of the <locus from="flyleaf1r" to="flyleaf1r"> flyleaf</locus>, written in cursive in black ink, the letter <quote>A</quote> centered at the top, and then the text <quote xml:lang="eng">Presented to the University Library Cambridge by Prof. EB. Cowell. July 23. 1874</quote>.
+                                </item>
+                                <item>
+                                    On the verso side of the <locus from="flyleaf1v" to="flyleaf1v">flyleaf</locus>, written in cursive in black ink, the text <quote xml:lang="eng">The Daśarúpa with Comm. copied from a Ms. in the Library of the Bengal Asiatic Society in 1860, for E. B. Cowell.</quote>.
+                                </item>
+                                <item>
+                                    On the recto side of the <locus from="1r" to="1r">first folio</locus>, written in cursive in black ink, the classmark (<quote>Add.Ms. 919</quote>) in the top right corner.
+                                </item>
+                                <item>
+                                    On the recto side of the <locus from="1r" to="1r">first folio</locus>, the University Library stamp, showing an acquisition date of <quote>23 Jul 74</quote>.
+                                </item>
+                                <item>
+                                    On the verso side of the <locus from="59v" to="59v">last folio</locus>, the University Library stamp again.
+                                </item>
+                            </list>
+                                
+                             <list>
+                                 <head>Marginalia</head>
+                                <item>
+                                    <marginalia type="annotations">English annotations on <locus from="2r" to="2r">page 3</locus> (<quote xml:lang="eng">query</quote> for <quote xml:lang="san">ḍovī</quote>, probably <term xml:lang="san">ḍombī</term>) and <locus from="3r" to="3r">5</locus> (<quote xml:lang="eng">selfexplained</quote> on verse 1.15). Next to some verse passages that are written in larger characters, the annotator has written <quote xml:lang="eng">not capitals</quote> to indicate that they are not part of the main text, but rather quoted from another text in the commentary (Pages <locus from="1v" to="1v">2</locus>, <locus from="2r" to="2r">3</locus>, and <locus from="2v" to="2v">4</locus>). Some text marked with double underline. Some text marked with square brackets in pencil.</marginalia>
+                                </item>
+                                <item>
+                                    <marginalia type="corrections">Corrections in ink by the English annotator, with interlineal additions.</marginalia>
+                                </item>
+                                <item>
+                                    <marginalia type="corrections">Corrections in ink by the scribe, with interlineal additions.</marginalia>
+                                </item>
+                            </list>
+                        </additions>
+                        <bindingDesc>
+                            <p>
+                        <material>Leather cover</material> with title, classmark and decorations in golden letters on the spine;
+                                two flyleaves of European paper both at the beginning and the end; 19th-century library binding.
+                                In the top left corner of the <locus from="cover (inside)" to="cover (inside)">inside front cover</locus>, 
+                                written in black ink: <quote>Bound by Wiseman</quote> in small print, and underneath, <quote>507, 1874</quote>.</p>
+                        </bindingDesc>
+                    </physDesc>
+                    
+                    <history>
+                        <origin>
+                            <origDate calendar="Gregorian" when="1860">1860 CE.</origDate>
+                            <origPlace xml:lang="eng" key="local_00014 getty_7030776">Kolkata.</origPlace>
+                        </origin>
+                        <provenance>Presented to the University Library by <name type="person" role="dnr" key="local_00005 person_v19752874">
+                        <persName xml:lang="eng" type="display">Prof. E. B. Cowell</persName>
+                            <persName xml:lang="eng" type="standard">Cowell, Edward B.</persName>
+                     </name> in <date calendar="Gregorian" when="1874-07-23">23 July 1874</date>. <!-- DANIELE FIX THIS!! thanks-->
+                        </provenance>
+                        <acquisition>
+                     <date calendar="Gregorian" when="1874-07-23">23 July 1874 (<stamp>University Library stamp</stamp>).</date>
+                  </acquisition>
+                    </history>
+                    
+                    <additional>
+                        
+                        <adminInfo>
+                            <recordHist>
+                                <source>
+                           <ref type="biblio" target="LVP_Add.919">LVP Add.919</ref>, direct inspection.</source>
+                            </recordHist>
+                            <availability status="restricted">
+                                <p>Entry to read in the Library is permitted only on presentation of
+                                    a valid reader's card for admissions procedures contact <ref target="http://www.lib.cam.ac.uk/cgi-bin/eligibility.cgi/">Cambridge University Library Admissions</ref>).</p>
+                            </availability>
+                            <note/>
+                        </adminInfo>
+
+                            
+                            <listBibl type="ms_descriptions">
+                                <head>Descriptions of the manuscript</head>
+                                
+                                <biblStruct type="manuscript" xml:id="ULIB7355Bradshaw1870">
+                                    <monogr>
+                                        <title level="m">Notes on the collections of Oriental, Thibetan and
+                                            'Additional' manuscripts [unpublished manuscript]</title>
+                                        <author>
+                                            <forename>Henry</forename>
+                                            <surname>ULIB 7/3/55 =
+                                                Bradshaw</surname>
+                                        </author>
+                                        <imprint>
+                                            <pubPlace>Cambridge</pubPlace>
+                                            <date>1870-80</date>
+                                            <!--<note type="url"
+                                            ><ref target="http://janus.lib.cam.ac.uk/db/node.xsp?id=EAD%2FGBR%2F0265%2FULIB%207%2F3%2F55">[link]</ref></note>-->
+                                        </imprint>
+                                    </monogr>
+                                </biblStruct>
+                                
+                                <biblStruct type="manuscript" xml:id="ULIB714Griffith1873">
+                                    <monogr>
+                                        <title level="m">Assorted lists of manuscripts and books, chiefly Oriental,
+                                            acquired by the Library, with related papers [unpublished manuscript]</title>
+                                        <author>
+                                            <forename>Ralph T. H.</forename>
+                                            <surname>ULIB 7/1/4 =
+                                                Griffith</surname>
+                                        </author>
+                                        <author>
+                                            <forename>Daniel</forename>
+                                            <surname>Wright</surname>
+                                        </author>
+                                        <imprint>
+                                            <pubPlace>Cambridge</pubPlace>
+                                            <date>1873</date>
+                                        </imprint>
+                                    </monogr>
+                                    <idno type="callNumber">ULIB 7/1/4</idno>
+                                </biblStruct>
+                                
+                                <biblStruct type="manuscript" xml:id="Handlist_1900">
+                                    <monogr>
+                                        <title>List of Oriental MSS. Class Catalogue of Oriental MSS.</title>
+                                        <imprint>
+                                            <pubPlace>Cambridge</pubPlace>
+                                            <date>1900–</date>
+                                        </imprint>
+                                    </monogr>
+                                    <idno type="callNumber">Handlist_1900</idno>
+                                </biblStruct>
+                                
+                                <biblStruct type="manuscript" xml:id="de_La_Vallée_Poussin1916">
+                                    <monogr>
+                                        <title>U[niversity.L[ibrary].C[ambridge]. Catalogue of Sanskrit MSS</title>
+                                        <author>
+                                            <forename>Louis</forename>
+                                            <surname>LVP = de La Vallée Poussin</surname>
+                                        </author>
+                                        <author>
+                                            <forename>Caroline Mary</forename>
+                                            <surname>Ridding</surname>
+                                        </author>
+                                        <imprint>
+                                            <pubPlace>Cambridge</pubPlace>
+                                            <date>1916</date>
+                                        </imprint>
+                                    </monogr>
+                                    <idno type="callNumber">LVP</idno>
+                                </biblStruct>
+                            </listBibl>
+                        
+                        <listBibl type="manuscripts">
+                            <head>Manuscripts</head>
+                            <bibl>
+                                <orgName>NGMCP</orgName>:
+                                <ref type="extant_mss" target="">1 listed manuscripts</ref>
+                                <ref type="extant_mss"
+                             target="http://catalogue.ngmcp.uni-hamburg.de/wiki/A_19-4_Da%C5%9Bar%C5%ABpak%C4%81loka">A 19-4</ref>.
+                            </bibl>
+                            <bibl>
+                                CC: vol. 1 p. 247 and 789, vol. 2 p. 53, vol. 3 p. 53.
+                            </bibl>
+                            <bibl>
+                                NCC: vol. 3 p. 349-351.
+                            </bibl>
+                        </listBibl>
+                        
+                        <listBibl>
+                            <head>Edition(s)</head>
+                     <!--                            <ref type="biblio" target="Name_19XX"></ref> -->
+                            <biblStruct type="book">
+			                     <monogr>
+			                        <title>Daśarūpaka, with the Commentary Avaloka</title>
+			                        <editor>
+                              <forename>F. E.</forename>
+                              <surname>Hall</surname>
+                           </editor>
+			                        <imprint>
+                              <pubPlace>Calcutta</pubPlace>
+                              <date>1865</date>
+                           </imprint>
+			                     </monogr>
+			                  </biblStruct>
+                             <biblStruct type="book">
+			                     <monogr>
+			                        <title>The Daśarūpaka of Dhanaṃjaya with the Commentary Avaloka by Dhanika and the Sub-Commentary Laghuṭīkā by Bhaṭṭanṛsiṃha</title>
+			                        <editor>
+                              <forename>T.</forename>
+                              <surname>Venkatacharya</surname>
+                           </editor>
+			                        <imprint>
+                              <pubPlace>Adyar</pubPlace>
+                              <publisher>Adyar Library and Research Centre</publisher>
+                              <date>1969</date>
+                           </imprint>
+			                     </monogr>
+			                  </biblStruct>
+                             <biblStruct type="book">
+			                     <monogr>
+			                        <title>Daśarūpakam : Dhanikakṛtāvalokaṭīkāsahita "Pradīpa" Hindī-vyākhyayā samalaṅkṛtam</title>
+			                        <editor>
+                              <forename>Rājeśvara Śāstrī</forename>
+                              <surname>Musalagāṃvakara</surname>
+                           </editor>
+			                        <imprint>
+                              <pubPlace>Varanasi</pubPlace>
+                              <publisher>Caukhambhā Saṃskṛta Bhavana</publisher>
+                              <date>2000</date>
+                           </imprint>
+			                     </monogr>
+			                  </biblStruct>
+
+                        </listBibl>
+                        
+                        <listBibl> 
+                            <head>Secondary Literature</head>
+                            
+                            <biblStruct type="book" xml:id="Aufrecht1891">
+                                <monogr>
+                                    <title level="m">Catalogus Catalogorum. An Alphabetical Register
+                                        of Sanskrit Works and Authors</title>
+                                    <author>
+                              <forename>Theodor</forename>
+                              <surname>CC =
+                                        Aufrecht</surname>
+                           </author>
+                                    <imprint>
+                                        <pubPlace>Leipzig</pubPlace>
+                                        <publisher>F. A. Brockhaus</publisher>
+                                        <date>1891</date>
+                                    </imprint>
+                                </monogr>
+                            </biblStruct>
+                            
+                            <biblStruct type="book" xml:id="Raghavan1949">
+                                <monogr>
+                                    <title level="m">New Catalogus Catalogorum. An Alphabetical
+                                        Register of Sanskrit and Allied Works and Authors.</title>
+                                    <author>
+                              <forename>V. (Venkatarama)</forename>
+                              <surname>NCC =
+                                        Raghavan</surname>
+                           </author>
+                                    <author>
+                              <forename>K.</forename>
+                              <surname>Kunjunni
+                                        Raja</surname>
+                           </author>
+                                    <author>
+                              <forename>N.</forename>
+                              <surname>Veezhinathan</surname>
+                           </author>
+                                    <author>
+                              <forename>Theodor</forename>
+                              <surname>Aufrecht</surname>
+                           </author>
+                                    <imprint>
+                                        <pubPlace>Madras</pubPlace>
+                                        <publisher>University of Madras</publisher>
+                                        <date>1949</date>
+                                    </imprint>
+                                </monogr>
+                                <series>
+                           <title level="s">Madras University Sanskrit
+                                    series</title>
+                        </series>
+                                <idno type="callNumber">011/.31, Z6605.S3 U54 1949</idno>
+                            </biblStruct>
+                            
+                            <biblStruct type="book">
+			                     <monogr>
+			                        <title>The Daśarūpa: A Treatise on Hindu Dramaturgy</title>
+			                        <author>
+                              <forename>George C. O.</forename>
+                              <surname>Haas</surname>
+                           </author>
+			                        <imprint>
+                              <pubPlace>New York</pubPlace>
+                              <publisher>Columbia University Press</publisher>
+                              <date>1912</date>
+                           </imprint>
+			                     </monogr>
+			                  </biblStruct>
+                             <biblStruct type="book">
+			                     <monogr>
+			                        <title>An annotated bibliography of the Alaṃkāraśāstra</title>
+			                        <author>
+                              <forename>Timothy C</forename>
+                              <surname>Cahill</surname>
+                           </author>
+			                        <imprint>
+                              <pubPlace>Leiden</pubPlace>
+                              <publisher>Brill</publisher>
+                              <date>2001</date>
+                           </imprint>
+			                     </monogr>
+			                  </biblStruct>
+                        </listBibl>
+                    </additional>
+                </msDesc>
+            </sourceDesc>
+        </fileDesc>
+        
+        <encodingDesc>
+            <classDecl>
+                <taxonomy xml:id="LCSH">
+                    <bibl>
+                        <ref target="http://id.loc.gov/authorities/about.html#lcsh">Library of
+                            Congress Subject Headings</ref>
+                    </bibl>
+                </taxonomy>
+            </classDecl>
+        </encodingDesc>
+        <profileDesc>
+            <textClass>
+                <keywords scheme="#LCSH">
+                    <list>
+                        <item>
+                     <term key="subject_sh85080761">Manuscripts, Sanskrit</term>
+                  </item>
+                  <!--                        <item>
+                            <ref target="http://id.loc.gov/authorities/subjects/sh87004934.html">Manuscripts, Prakrit</ref>
+                        </item>
+                        <item>
+                            <ref target="http://id.loc.gov/authorities/subjects/sh85080774.html">Manuscripts, Tamil</ref>
+                        </item>-->
+                    </list>
+                </keywords>
+                <keywords scheme="local">
+                    <list>
+                        <item>
+                     <term>Alaṅkāraśāstra</term>
+                  </item>
+                        <item>
+                     <term/>
+                  </item>
+                        <item>
+                     <term/>
+                  </item>
+                    </list>
+                </keywords>
+            </textClass>
+        </profileDesc>
+        <revisionDesc>
+            <change when="2014-03-13">
+                <persName>Charles Li.</persName>
+            </change>
+        </revisionDesc>
+    </teiHeader>
+    <facsimile>
+        <!--here's where we'll list the images, no need to worry about this!-->
+        <graphic url="[link to image 1]"/>
+        <graphic url="[link to image 2]"/>
+    </facsimile>
+    <text>
+        <body>
+            <div>
+                <pb n="cover" facs="#i1"/>
+                <pb n="cover (inside)" facs="#i2"/>
+                <pb n="flyleaf1r" facs="#i3"/>
+                <pb n="flyleaf1v" facs="#i4"/>
+                <pb n="1r" facs="#i5"/>
+                <pb n="1v" facs="#i6"/>
+                <pb n="2r" facs="#i7"/>
+                <pb n="2v" facs="#i8"/>
+                <pb n="3r" facs="#i9"/>
+                <pb n="3v" facs="#i10"/>
+                <pb n="4r" facs="#i11"/>
+                <pb n="4v" facs="#i12"/>
+                <pb n="5r" facs="#i13"/>
+                <pb n="5v" facs="#i14"/>
+                <pb n="6r" facs="#i15"/>
+                <pb n="6v" facs="#i16"/>
+                <pb n="7r" facs="#i17"/>
+                <pb n="7v" facs="#i18"/>
+                <pb n="8r" facs="#i19"/>
+                <pb n="8v" facs="#i20"/>
+                <pb n="9r" facs="#i21"/>
+                <pb n="9v" facs="#i22"/>
+                <pb n="10r" facs="#i23"/>
+                <pb n="10v" facs="#i24"/>
+                <pb n="11r" facs="#i25"/>
+                <pb n="11v" facs="#i26"/>
+                <pb n="12r" facs="#i27"/>
+                <pb n="12v" facs="#i28"/>
+                <pb n="13r" facs="#i29"/>
+                <pb n="13v" facs="#i30"/>
+                <pb n="14r" facs="#i31"/>
+                <pb n="14v" facs="#i32"/>
+                <pb n="15r" facs="#i33"/>
+                <pb n="15v" facs="#i34"/>
+                <pb n="16r" facs="#i35"/>
+                <pb n="16v" facs="#i36"/>
+                <pb n="17r" facs="#i37"/>
+                <pb n="17v" facs="#i38"/>
+                <pb n="18r" facs="#i39"/>
+                <pb n="18v" facs="#i40"/>
+                <pb n="19r" facs="#i41"/>
+                <pb n="19v" facs="#i42"/>
+                <pb n="20r" facs="#i43"/>
+                <pb n="20v" facs="#i44"/>
+                <pb n="21r" facs="#i45"/>
+                <pb n="21v" facs="#i46"/>
+                <pb n="22r" facs="#i47"/>
+                <pb n="22v" facs="#i48"/>
+                <pb n="23r" facs="#i49"/>
+                <pb n="23v" facs="#i50"/>
+                <pb n="24r" facs="#i51"/>
+                <pb n="24v" facs="#i52"/>
+                <pb n="25r" facs="#i53"/>
+                <pb n="25v" facs="#i54"/>
+                <pb n="26r" facs="#i55"/>
+                <pb n="26v" facs="#i56"/>
+                <pb n="27r" facs="#i57"/>
+                <pb n="27v" facs="#i58"/>
+                <pb n="28r" facs="#i59"/>
+                <pb n="28v" facs="#i60"/>
+                <pb n="29r" facs="#i61"/>
+                <pb n="29v" facs="#i62"/>
+                <pb n="30r" facs="#i63"/>
+                <pb n="30v" facs="#i64"/>
+                <pb n="31r" facs="#i65"/>
+                <pb n="31v" facs="#i66"/>
+                <pb n="32r" facs="#i67"/>
+                <pb n="32v" facs="#i68"/>
+                <pb n="33r" facs="#i69"/>
+                <pb n="33v" facs="#i70"/>
+                <pb n="34r" facs="#i71"/>
+                <pb n="34v" facs="#i72"/>
+                <pb n="35r" facs="#i73"/>
+                <pb n="35v" facs="#i74"/>
+                <pb n="36r" facs="#i75"/>
+                <pb n="36v" facs="#i76"/>
+                <pb n="37r" facs="#i77"/>
+                <pb n="37v" facs="#i78"/>
+                <pb n="38r" facs="#i79"/>
+                <pb n="38v" facs="#i80"/>
+                <pb n="39r" facs="#i81"/>
+                <pb n="39v" facs="#i82"/>
+                <pb n="40r" facs="#i83"/>
+                <pb n="40v" facs="#i84"/>
+                <pb n="41r" facs="#i85"/>
+                <pb n="41v" facs="#i86"/>
+                <pb n="42r" facs="#i87"/>
+                <pb n="42v" facs="#i88"/>
+                <pb n="43r" facs="#i89"/>
+                <pb n="43v" facs="#i90"/>
+                <pb n="44r" facs="#i91"/>
+                <pb n="44v" facs="#i92"/>
+                <pb n="45r" facs="#i93"/>
+                <pb n="45v" facs="#i94"/>
+                <pb n="46r" facs="#i95"/>
+                <pb n="46v" facs="#i96"/>
+                <pb n="47r" facs="#i97"/>
+                <pb n="47v" facs="#i98"/>
+                <pb n="48r" facs="#i99"/>
+                <pb n="48v" facs="#i100"/>
+                <pb n="49r" facs="#i101"/>
+                <pb n="49v" facs="#i102"/>
+                <pb n="50r" facs="#i103"/>
+                <pb n="50v" facs="#i104"/>
+                <pb n="51r" facs="#i105"/>
+                <pb n="51v" facs="#i106"/>
+                <pb n="52r" facs="#i107"/>
+                <pb n="52v" facs="#i108"/>
+                <pb n="53r" facs="#i109"/>
+                <pb n="53v" facs="#i110"/>
+                <pb n="54r" facs="#i111"/>
+                <pb n="54v" facs="#i112"/>
+                <pb n="55r" facs="#i113"/>
+                <pb n="55v" facs="#i114"/>
+                <pb n="56r" facs="#i115"/>
+                <pb n="56v" facs="#i116"/>
+                <pb n="57r" facs="#i117"/>
+                <pb n="57v" facs="#i118"/>
+                <pb n="58r" facs="#i119"/>
+                <pb n="58v" facs="#i120"/>
+                <pb n="59r" facs="#i121"/>
+                <pb n="59v" facs="#i122"/>
+                <pb n="flyleaf2r" facs="#i123"/>
+                <pb n="flyleaf2v" facs="#i124"/>
+                <pb n="flyleaf3r" facs="#i125"/>
+                <pb n="flyleaf3v" facs="#i126"/>
+                <pb n="back cover (inside)" facs="#i127"/>
+                <pb n="back cover" facs="#i128"/>
+            </div>
+        </body>
+    </text>
+</TEI>
+<!--
+
+a) if the manuscript has final rubrics for sections
+
+b) if the manuscript has a final rubric
+
+c) if the manuscript has a colophon:
+
+- presence of an introductory formula and/or other types of text (ye dharmā etc.) (form; formye)
+
+- place of copying (pc)
+
+- occasion of copying (oc)
+
+-date (d)
+
+- final formula (śubham astu etc.) (ff)
+
+- name of the scribe(s) (write the full name)-->
