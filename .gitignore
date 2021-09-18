@@ -48,3 +48,5 @@ Thumbs.db
 *.mov
 *.wmv
 
+/AWSLambda_CUDLPackageDataJSON.iml
+/AWSLambda_XSLTTransform.iml
