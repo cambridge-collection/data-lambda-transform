@@ -41,7 +41,6 @@ public class XSLTHelper {
 
         Map<String,Templates> XSLTTemplates = new HashMap<>();
         for (String xsltS3Path: xsltPaths) {
-            System.out.println("xsltPath: "+xsltS3Path);
             File stylesheet = new File(xsltS3Path);
             XSLTTemplates.put(xsltS3Path, stf.newTemplates(new StreamSource(stylesheet)));
         }

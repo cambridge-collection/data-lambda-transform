@@ -8,6 +8,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.commons.io.FilenameUtils;
 
 import java.io.*;
 
@@ -23,23 +24,23 @@ public class S3Helper {
     public static final AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
     public final String dstBucket;
     public final String dstPrefix;
+    public final String dstSuffix;
 
     public S3Helper() throws IOException {
 
         Properties properties = new Properties();
         dstBucket = properties.getProperty("DST_BUCKET");
         dstPrefix = properties.getProperty("DST_PREFIX");
+        dstSuffix = properties.getProperty("DST_SUFFIX");
     }
 
     // takes the srcKey from the request (complete path) and preserves the dir
     // structure but replaces the bucket to the dst bucket (under dstPrefix path)
     public String translateSrcKeyToDestKey(String srcKey) {
 
-        String dstKey = new File(srcKey).getParent().replaceAll(".xml", "");
-        if (!srcKey.startsWith(dstPrefix)) {
-            dstKey = dstPrefix+dstKey;
-        }
-        return dstKey;
+        String baseName = FilenameUtils.getBaseName(srcKey);
+        return dstPrefix+baseName+dstSuffix;
+
     }
 
     public void writeToS3(ByteArrayOutputStream os, String dstKey) {

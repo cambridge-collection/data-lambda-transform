@@ -23,6 +23,7 @@ public class TestXSLTTransform {
     final String testDir;
     final SAXTransformerFactory stf = (SAXTransformerFactory) TransformerFactory.newInstance();
 
+    // TODO restructure so it can test the actual function
     public TestXSLTTransform() throws IOException {
 
         testDir = getClass().getResource(".").getPath();
