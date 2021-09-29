@@ -1,0 +1,114 @@
+// This is an example of what UI data for the *current* CUDL Viewer would look
+// like. Most things are hardcoded, there's not much to specify.
+// site-ui-example.json for a hypothetical example for a more data-driven UI.
+
+// This UI file is based on cudl-current-ui-example.json5 from
+// cudl-package-schemas. Currently we don't have a defined format for the UI
+// data, or do anything with it in the Viewer. It's current purpose is to cause
+// data to be bundled into the data package via @id references.
+{
+  "@type": "https://schemas.cudl.lib.cam.ac.uk/cudl/ui/v1/json",
+
+  "theme-name": "mdiv",
+
+  "theme-data": {
+    "pages": {
+      "general": {
+        "default-thumbnail": { "@id": "./pages/images/collectionsView/no-thumbnail.jpg" },
+        "default-collection-image": { "@id": "./pages/images/collectionsView/collection-blank.jpg" }
+      },
+
+      "home": {
+        "latest-news-html": { "@id": "./pages/html/index-latest-news.html" },
+        "carousel-enties-html": [
+          { "@id": "./pages/html/index-carousel-1.html" },
+          { "@id": "./pages/html/index-carousel-2.html" },
+          { "@id": "./pages/html/index-carousel-3.html" }
+        ]
+      },
+
+      "about": {
+        "html": { "@id": "./pages/html/about-main.html" },
+        "sidebar-html": { "@id": "./pages/html/about-side.html" }
+      },
+
+      // Currently the browse page is a hardcoded HTML file. We can generate
+      // it automatically by sorting collections by title and using the
+      // appropriate size summary, but the simplest thing would be to keep the
+      // hardcoded HTML.
+      "browse": {
+        "html": { "@id": "./pages/html/collections/collections.html" }
+      }
+    },
+
+    // Define static HTML pages. (These are references to local HTML files
+    // which get bundled up, along with any images etc they reference.)
+    "static-pages": {
+      "contributors": { "@id": "./pages/html/contributors.html" },
+      "help": { "@id": "./pages/html/help.html" },
+      "news": { "@id": "./pages/html/news.html" },
+      "terms-conditions": { "@id": "./pages/html/terms.html" }
+    },
+
+    // Note: nav menu contents are currently hardcoded, so no need to define
+    // their structure here. They reference the above static pages via
+    // hardcoded URL paths.
+
+    // Provide additional presentational/display data for collections.
+    "collections": [
+      {
+        // The collection we're specifying additional display data for.
+        "collection": { "@id": "./collections/hebrew.collection.json" },
+
+        // CUDL mostly displays collections with the "organisation" or
+        // "virtual" layouts. A few use "parent".
+        "layout": "organisation",
+
+        // The viewer expects thumbnail paths to follow this naming convention
+        "thumbnail": { "@id": "./pages/images/collectionsView/collection-hebrew.jpg" },
+
+        // lists of item order are going to be quite long, so it'd make
+        // sense to keep them separate and reference them.
+        //        "item-order": { "@id": "ui/collection-ordering/lanscapehistories.json" }
+      },
+      {
+        "collection": { "@id": "./collections/petrarch.collection.json" },
+        "layout": "virtual",
+        "thumbnail": { "@id": "./pages/images/collectionsView/collection-petrarch.jpg" },
+
+        // Order could be specified in other ways, e.g. by listing
+        // properties to select values from to use as a sort key.
+        "item-order": [
+          //          { "@id": "ead/MS-FOO-1" },
+          //          { "@id": "ead/MS-BAR-2" }
+          // [...]
+        ]
+      },
+      {
+        "collection": { "@id": "./collections/latin.collection.json" },
+        "layout": "virtual",
+        "thumbnail": { "@id": "./pages/images/collectionsView/collection-latin.jpg" }
+      },
+      {
+        "collection": { "@id": "./collections/persian.collection.json" },
+        "layout": "virtual",
+        "thumbnail": { "@id": "./pages/images/collectionsView/collection-persian.jpg" }
+      },
+      {
+        "collection": { "@id": "./collections/maps.collection.json" },
+        "layout": "virtual",
+        "thumbnail": { "@id": "./pages/images/collectionsView/collection-maps.jpg" }
+      },
+      {
+        "collection": { "@id": "./collections/peterloo.collection.json" },
+        "layout": "virtual",
+        "thumbnail": { "@id": "./pages/images/collectionsView/collection-peterloo.jpg" }
+      },
+      {
+        "collection": { "@id": "./collections/test.collection.json" },
+        "layout": "virtual",
+        "thumbnail": { "@id": "./pages/images/collectionsView/collection-maps.jpg" }
+      }
+    ]
+  }
+}
