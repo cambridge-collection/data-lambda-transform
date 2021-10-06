@@ -1,49 +1,63 @@
-package uk.ac.cam.lib.cudl.awslambda.util;
+package uk.ac.cam.lib.cudl.awslambda.output;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.commons.io.FilenameUtils;
+import uk.ac.cam.lib.cudl.awslambda.util.Properties;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 
 
 /**
  * This class is used for help with processing using pagify.xsl (used for chunking and pagifying) and
  * msTEITrans.xsl (used to convert pagified xml into html
  */
-public class S3Helper {
+public class S3Output {
 
-    private static final Logger logger = LoggerFactory.getLogger(S3Helper.class);
+    private static final Logger logger = LoggerFactory.getLogger(S3Output.class);
 
     public static final AmazonS3 s3Client = AmazonS3ClientBuilder.defaultClient();
     public final String dstBucket;
     public final String dstPrefix;
     public final String dstSuffix;
 
-    public S3Helper() throws IOException {
+    public S3Output() throws IOException {
 
         Properties properties = new Properties();
         dstBucket = properties.getProperty("DST_BUCKET");
-        dstPrefix = properties.getProperty("DST_PREFIX");
-        dstSuffix = properties.getProperty("DST_SUFFIX");
+        dstPrefix = properties.getProperty("DST_S3_PREFIX");
+        dstSuffix = properties.getProperty("DST_ITEMS_SUFFIX");
     }
 
-    // takes the srcKey from the request (complete path) and preserves the dir
+    // Takes the srcKey from the request (complete path) and preserves the dir
     // structure but replaces the bucket to the dst bucket (under dstPrefix path)
-    public String translateSrcKeyToDestKey(String srcKey) {
+    public String translateSrcKeyToDestPath(String srcKey) {
 
         String baseName = FilenameUtils.getBaseName(srcKey);
         return dstPrefix+baseName+dstSuffix;
 
     }
 
-    public void writeToS3(ByteArrayOutputStream os, String dstKey) {
+    public void writeFromString(String output, String dst) {
+
+        // write to destination
+        byte[] bytes = output.getBytes();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream(bytes.length);
+        baos.write(bytes, 0, bytes.length);
+
+        writeFromStream(baos, dst);
+
+    }
+
+    public void writeFromStream(ByteArrayOutputStream os, String dstKey) {
 
         // Check for empty result (no transcription/transformation)
         if (os.size()<=412) {
@@ -68,7 +82,7 @@ public class S3Helper {
 
     }
 
-    public void deleteFromS3AllObjectsUnderPath(String dstKey) {
+    public void deleteFromPath(String dstKey) {
 
         // Delete from S3 destination bucket
         logger.info("Deleting all items from: " + dstBucket + "/" + dstKey);
@@ -84,8 +98,4 @@ public class S3Helper {
 
     }
 
-    public File getFromS3(String srcBucket, String key, File file) {
-        s3Client.getObject(new GetObjectRequest(srcBucket, key), file);
-        return file;
-    }
 }

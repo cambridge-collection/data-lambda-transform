@@ -7,9 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.cam.lib.cudl.awslambda.model.ReceivedSQSMessage;
 
-public class SQSHandler {
+public class SQSHelper {
 
-    private static final Logger logger = LoggerFactory.getLogger(SQSHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(SQSHelper.class);
 
     public ReceivedSQSMessage getTypeOfEvent(SQSEvent.SQSMessage message, Context context) {
 

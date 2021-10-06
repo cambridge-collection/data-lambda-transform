@@ -1,7 +1,9 @@
 package uk.ac.cam.lib.cudl.awslambda.util;
 
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.ac.cam.lib.cudl.awslambda.input.S3Input;
 
 import javax.xml.transform.*;
 import javax.xml.transform.sax.SAXTransformerFactory;
@@ -24,11 +26,12 @@ public class XSLTHelper {
     private static final Logger logger = LoggerFactory.getLogger(XSLTHelper.class);
 
     private final Map<String,Templates> templates;
-    private final S3Helper s3Helper;
     private final SAXTransformerFactory stf = (SAXTransformerFactory) TransformerFactory.newInstance();
-    private final String tmpDir;
+    public final String dstPrefix;
+    public final String dstSuffix;
+    public final String itemsFolder;
 
-    public XSLTHelper(S3Helper s3Helper) throws TransformerConfigurationException, IOException {
+    public XSLTHelper(S3Input s3Input) throws TransformerConfigurationException, IOException {
 
         Properties properties = new Properties();
 
@@ -45,8 +48,10 @@ public class XSLTHelper {
             XSLTTemplates.put(xsltS3Path, stf.newTemplates(new StreamSource(stylesheet)));
         }
         templates = XSLTTemplates;
-        this.s3Helper = s3Helper;
-        tmpDir = properties.getProperty("TMP_DIR");
+
+        dstPrefix = properties.getProperty("DST_EFS_PREFIX");
+        dstSuffix = properties.getProperty("DST_ITEMS_SUFFIX");
+        itemsFolder = properties.getProperty("DST_ITEMS_FOLDER");
     }
 
     /**
@@ -71,7 +76,7 @@ public class XSLTHelper {
         StreamResult streamResult = new StreamResult(os);
         transform(filesrc, streamResult, templates.get(xsltPath), new HashMap<>());
 
-        logger.info("Successfully transformed " + sourceFile.getAbsolutePath() + " and uploaded to " + s3Helper.dstBucket + "/" + outputFile.getAbsolutePath());
+        logger.info("Successfully transformed " + sourceFile.getAbsolutePath() + " and uploaded to " + outputFile.getAbsolutePath());
 
     }
 
@@ -86,4 +91,12 @@ public class XSLTHelper {
         transformer.transform(src,result);
     }
 
+    // takes the srcKey from the request (complete path) and preserves the dir
+    // structure but replaces the bucket to the dst bucket (under dstPrefix path)
+    public String translateSrcKeyToEFSItemPath(String srcKey) {
+
+        String baseName = FilenameUtils.getBaseName(srcKey);
+        return dstPrefix+itemsFolder+baseName+dstSuffix;
+
+    }
 }

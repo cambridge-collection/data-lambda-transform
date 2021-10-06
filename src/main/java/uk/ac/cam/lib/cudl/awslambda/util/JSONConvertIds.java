@@ -14,30 +14,36 @@ import java.nio.file.Path;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ConvertIdsToBeRelativeToRoot {
+public class JSONConvertIds {
 
-    private static final Logger logger = LoggerFactory.getLogger(ConvertIdsToBeRelativeToRoot.class);
+    private static final Logger logger = LoggerFactory.getLogger(JSONConvertIds.class);
 
     /**
      * This process converts the @id elements to be relative to the root rather than
      * relative to JSON file.
-     * @param node
+     * @param file
      * @throws IOException
      */
-    public JsonNode rewriteIds(final JsonNode node, String srcKey) throws IOException {
+    public String rewriteIds(String file, String srcKey) throws IOException {
+
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode node = mapper.readTree(file);
+        node =  rewriteJSONIdsFromNode(node, srcKey);
+        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(node);
+
+    }
+
+    private JsonNode rewriteJSONIdsFromNode(JsonNode node, String srcKey) {
 
         ObjectMapper mapper = new ObjectMapper();
 
-        logger.info("NodeType: " + node.getNodeType().toString());
-
         // Node is Array
         if (node.isArray()) {
-            logger.info("Node IS ARRAY");
             ArrayNode arrayNode = (ArrayNode) node;
             ArrayNode newArrayNode = mapper.createArrayNode();
 
             for (int i = 0; i < arrayNode.size(); i++) {
-                JsonNode updatedNode = rewriteIds(arrayNode.get(i),srcKey);
+                JsonNode updatedNode = rewriteJSONIdsFromNode(arrayNode.get(i),srcKey);
                 newArrayNode.add(updatedNode);
             }
             return newArrayNode;
@@ -47,7 +53,6 @@ public class ConvertIdsToBeRelativeToRoot {
 
         // Node is Object
         if (node.isObject()) {
-            logger.info("Node IS Object");
             ObjectNode objectNode = (ObjectNode) node;
             Iterator<Map.Entry<String, JsonNode>> iter = objectNode.fields();
 
@@ -57,11 +62,9 @@ public class ConvertIdsToBeRelativeToRoot {
                 if ("@id".equals(entry.getKey()) && entry.getValue().getNodeType()== JsonNodeType.STRING) {
                     logger.info("replacing id: "+entry.toString()+" srcKey: "+srcKey);
                     String newId = convertIdToBeRelativeToRoot(entry.getValue().asText(), srcKey);
-                    logger.info("out: "+newId);
                     objectNode.put("@id", newId);
                 } else {
-                    logger.info("here");
-                    objectNode.set(entry.getKey(), rewriteIds(entry.getValue(), srcKey));
+                    objectNode.set(entry.getKey(), rewriteJSONIdsFromNode(entry.getValue(), srcKey));
                 }
             }
 
