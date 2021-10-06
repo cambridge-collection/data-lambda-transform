@@ -48,7 +48,7 @@ public class TestXSLTTransform {
         Templates template1 = stf.newTemplates(new StreamSource(new FileInputStream(testDir+XSLT1)));
         Templates template2 = stf.newTemplates(new StreamSource(new FileInputStream(testDir+XSLT2)));
 
-        String outputFile = runXSLT("src/test/resources/tei/MS-ADD-04000/MS-ADD-04000.xml", out+"/xml",  template1);
+        String outputFile = runXSLT("src/test/resources/tei/MS-ADD-03958/MS-ADD-03958.xml", out+"/xml",  template1);
         String files = runXSLT(outputFile, out+"/json", template2);
 
         System.out.println("files: "+files);
@@ -79,7 +79,7 @@ public class TestXSLTTransform {
     public static void cleanup() throws IOException {
 
         //clean up
-        FileUtils.deleteDirectory(new File(outputDirParent));
+      //  FileUtils.deleteDirectory(new File(outputDirParent));
     }
 
 }

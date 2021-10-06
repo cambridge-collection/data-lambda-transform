@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.Test;
-import uk.ac.cam.lib.cudl.awslambda.util.ConvertIdsToBeRelativeToRoot;
+import uk.ac.cam.lib.cudl.awslambda.util.HTMLConvertImgs;
+import uk.ac.cam.lib.cudl.awslambda.util.JSONConvertIds;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,10 +29,10 @@ public class TestConvertIds {
     }
 
     @Test
-    public void testConvertIds() throws IOException {
+    public void testConvertIdsCollection() throws IOException {
 
         // TODO Finish off
-        ConvertIdsToBeRelativeToRoot converter = new ConvertIdsToBeRelativeToRoot();
+        JSONConvertIds converter = new JSONConvertIds();
 
         String outputDir =  outputDirParent+Math.random();
         Files.createDirectories(Path.of(outputDir));
@@ -40,15 +41,32 @@ public class TestConvertIds {
         byte[] encoded = Files.readAllBytes(sourceFile.toPath());
         String file =  new String(encoded, StandardCharsets.UTF_8);
 
-        ObjectMapper mapper = new ObjectMapper();
-        final JsonNode rootNode = mapper.readTree(file);
-
         String srcKey="collections/hebrew.collections.json";
-        converter.rewriteIds(rootNode, srcKey);
+        String output = converter.rewriteIds(file, srcKey);
 
-        System.out.println(rootNode.toString());
+        System.out.println(output);
 
 
     }
 
+    @Test
+    public void testConvertIdsPages() throws IOException {
+
+        // TODO Finish off
+        HTMLConvertImgs converter = new HTMLConvertImgs();
+
+        String outputDir =  outputDirParent+Math.random();
+        Files.createDirectories(Path.of(outputDir));
+
+        File sourceFile = new File("src/test/resources/pages/html/collections/maps-source/summary.html");
+        byte[] encoded = Files.readAllBytes(sourceFile.toPath());
+        String file =  new String(encoded, StandardCharsets.UTF_8);
+
+        String srcKey="pages/html/collections/maps/summary.html";
+        String output = converter.rewriteIds(file,srcKey);
+
+        System.out.println(output);
+
+
+    }
 }

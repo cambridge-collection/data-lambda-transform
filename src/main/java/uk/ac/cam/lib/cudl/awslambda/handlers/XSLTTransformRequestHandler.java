@@ -1,24 +1,22 @@
 package uk.ac.cam.lib.cudl.awslambda.handlers;
 
 import com.amazonaws.services.lambda.runtime.Context;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.amazonaws.services.lambda.runtime.events.SQSEvent;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.cam.lib.cudl.awslambda.util.Properties;
-import uk.ac.cam.lib.cudl.awslambda.util.S3Helper;
-import uk.ac.cam.lib.cudl.awslambda.util.SQSHandler;
+import uk.ac.cam.lib.cudl.awslambda.input.S3Input;
 import uk.ac.cam.lib.cudl.awslambda.util.XSLTHelper;
-import uk.ac.cam.lib.cudl.awslambda.model.ReceivedSQSMessage;
 
 import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,86 +28,49 @@ import java.util.List;
  * NOTE: THIS IS FOR SIMPLE one .xml file -> one file result transformations.
  * You can pass a list of transformations in the properties files (from s3).
  */
-public class XSLTTransformRequestHandler implements RequestHandler<SQSEvent, String> {
+public class XSLTTransformRequestHandler extends AbstractRequestHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(XSLTTransformRequestHandler.class);
 
     public final String functionName;
     private final List<String> xsltLocations;
     private final XSLTHelper xsltHelper;
-    private final S3Helper s3Helper;
+    private final S3Input s3Input;
     private final String tmpDir;
-    private final SQSHandler handler;
+    private final boolean refreshEnabled;
+    private final boolean refreshAuthEnabled;
+    private final String refreshURL;
+    private final String refreshUsername;
+    private final String refreshPassword;
 
     public XSLTTransformRequestHandler() throws TransformerConfigurationException, IOException {
 
         Properties properties = new Properties();
-        s3Helper = new S3Helper();
-        xsltHelper = new XSLTHelper(s3Helper);
+        s3Input = new S3Input();
+        xsltHelper = new XSLTHelper(s3Input);
         tmpDir = properties.getProperty("TMP_DIR");
+        refreshURL = properties.getProperty("REFRESH_URL");
+
 
         functionName = properties.getProperty("FUNCTION_NAME");
         xsltLocations = Arrays.asList(properties.getProperty("XSLT").split(","));
-        handler = new SQSHandler();
+        refreshEnabled = "true".equals(properties.getProperty("REFRESH_URL_ENABLE").toLowerCase());
+        refreshAuthEnabled = "true".equals(properties.getProperty("REFRESH_URL_ENABLE_AUTH").toLowerCase());
+        refreshUsername = properties.getProperty("REFRESH_URL_USERNAME");
+        refreshPassword = properties.getProperty("REFRESH_URL_PASSWORD");
 
     }
 
-    /**
-     * For efficiency as much as possible should be done outside this function.
-     * It also assumes that this is used for a lambda function which is configured to
-     * only pass *.xml files suitable for transformation (via a SQS Queue).
-     *
-     * List of transformations to apply in properties. Should be s3 locations.
-     *
-     * @param context
-     * @return
-     */
     @Override
-    public String handleRequest(SQSEvent sqsEvent, Context context) {
-
-        ArrayList<Exception> errors = new ArrayList<>();
-        List<SQSEvent.SQSMessage> events = sqsEvent.getRecords();
-        for (SQSEvent.SQSMessage message : events) {
-            try {
-                ReceivedSQSMessage receivedSQSMessage = handler.getTypeOfEvent(message, context);
-                switch (receivedSQSMessage.getEventType()){
-                    case ObjectCreated:
-                        handlePutEvent(receivedSQSMessage.getS3Bucket(), receivedSQSMessage.getS3Key(), context);
-                        break;
-                    case ObjectRemoved:
-                        handleDeleteEvent(receivedSQSMessage.getS3Bucket(), receivedSQSMessage.getS3Key(), context);
-                        break;
-                }
-            } catch (TransformerException | IOException e) {
-                errors.add(e);
-            }
-        }
-
-        if (errors.size()==0) {
-            return "Ok";
-        } else {
-
-            for (Exception error : errors) {
-                error.printStackTrace();
-            }
-            throw new RuntimeException("Found errors when processing this batch request: "+errors.size()+" " +
-                    "errors found. Showing first error:", errors.get(0).getCause());
-
-        }
-
-    }
-
-    public String handlePutEvent(String srcBucket, String srcKey, Context context) throws IOException, TransformerException {
+    public String handlePutEvent(String srcBucket, String srcKey, Context context) throws Exception {
 
         logger.info("Put Event");
 
-        String dstKey = s3Helper.translateSrcKeyToDestKey(srcKey);
+        File sourceFile = getSourceFile(srcBucket, srcKey, context, s3Input, tmpDir);
 
         String tmpFile = tmpDir + context.getAwsRequestId();
-        Files.createDirectories(Path.of(tmpFile));
 
         // Chain together XSLT calls (from properties)
-        File sourceFile = s3Helper.getFromS3(srcBucket, srcKey, new File(tmpFile+File.separator+Math.random()+"_source"));
         for (String xslt: xsltLocations) {
             File outputFile = new File(tmpFile+File.separator+Math.random()+"_output");
             xsltHelper.transformAndWriteToFile(sourceFile, xslt, outputFile);
@@ -120,13 +81,38 @@ public class XSLTTransformRequestHandler implements RequestHandler<SQSEvent, Str
         ByteArrayOutputStream baos = new ByteArrayOutputStream(bytes.length);
         baos.write(bytes, 0, bytes.length);
 
-        s3Helper.writeToS3(baos, dstKey);
+        String dstKey = xsltHelper.translateSrcKeyToEFSItemPath(srcKey);
+        System.out.println("dstKey: "+dstKey);
 
+        // write to efs storage (shared with ec2)
+        FileUtils.copyFile(sourceFile, new File(dstKey));
+
+        refreshCache();
         return "Ok";
 
     }
 
-    public String handleDeleteEvent(String srcBucket, String srcKey, Context context) {
+    private void refreshCache() {
+        try {
+            if (!refreshEnabled) { return; }
+
+            URL url = new URL(refreshURL);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            if (refreshAuthEnabled) {
+                String auth = refreshUsername + ":" + refreshPassword;
+                byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(StandardCharsets.UTF_8));
+                String authHeaderValue = "Basic " + new String(encodedAuth);
+                connection.setRequestProperty("Authorization", authHeaderValue);
+            }
+            System.out.println(connection.getResponseCode() + " " + connection.getResponseMessage());
+            connection.disconnect();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public String handleDeleteEvent(String srcBucket, String srcKey, Context context) throws Exception {
 
 /*        logger.info("Delete Event");
         // should be at same path as src but have dstPrefix and end in .html
