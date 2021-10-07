@@ -20,13 +20,13 @@
   },
   "items": [
     {
-      "@id": "items/json/MS-HEBREW-GASTER-00086.json"
+      "@id": "json/MS-HEBREW-GASTER-00086.json"
     },
     {
-      "@id": "items/json/MS-HEBREW-MSS-00008.json"
+      "@id": "json/MS-HEBREW-GASTER-00274.json"
     },
     {
-      "@id": "items/json/AR-GDN-00150-00001.json"
+      "@id": "json/MS-HEBREW-MSS-00008.json"
     }
   ]
 }

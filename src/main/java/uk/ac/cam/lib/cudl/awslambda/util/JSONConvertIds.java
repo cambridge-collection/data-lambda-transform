@@ -8,6 +8,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.transform.TransformerConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -17,23 +18,28 @@ import java.util.Map;
 public class JSONConvertIds {
 
     private static final Logger logger = LoggerFactory.getLogger(JSONConvertIds.class);
+    private final XSLTHelper xsltHelper;
 
+    public JSONConvertIds() throws IOException, TransformerConfigurationException {
+        Properties properties = new Properties();
+        xsltHelper = new XSLTHelper(properties.getProperty("XSLT"));
+    }
     /**
      * This process converts the @id elements to be relative to the root rather than
      * relative to JSON file.
-     * @param file
+     * @param json
      * @throws IOException
      */
-    public String rewriteIds(String file, String srcKey) throws IOException {
+    public String rewriteIds(String json, String srcKey) throws Exception {
 
         ObjectMapper mapper = new ObjectMapper();
-        JsonNode node = mapper.readTree(file);
-        node =  rewriteJSONIdsFromNode(node, srcKey);
+        JsonNode node = mapper.readTree(json);
+        node =  rewriteJSONIdsFromNode(node, srcKey, false);
         return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(node);
 
     }
 
-    private JsonNode rewriteJSONIdsFromNode(JsonNode node, String srcKey) {
+    private JsonNode rewriteJSONIdsFromNode(JsonNode node, String srcKey, boolean isItemNode) throws IOException, TransformerConfigurationException {
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -43,7 +49,8 @@ public class JSONConvertIds {
             ArrayNode newArrayNode = mapper.createArrayNode();
 
             for (int i = 0; i < arrayNode.size(); i++) {
-                JsonNode updatedNode = rewriteJSONIdsFromNode(arrayNode.get(i),srcKey);
+                JsonNode jsonNode = arrayNode.get(i);
+                JsonNode updatedNode = rewriteJSONIdsFromNode(jsonNode, srcKey, isItemNode);
                 newArrayNode.add(updatedNode);
             }
             return newArrayNode;
@@ -60,11 +67,19 @@ public class JSONConvertIds {
 
                 Map.Entry<String, JsonNode> entry = iter.next();
                 if ("@id".equals(entry.getKey()) && entry.getValue().getNodeType()== JsonNodeType.STRING) {
-                    logger.info("replacing id: "+entry.toString()+" srcKey: "+srcKey);
-                    String newId = convertIdToBeRelativeToRoot(entry.getValue().asText(), srcKey);
+
+                    // Item ids are replaced at a different path
+                    String newId;
+                    if (isItemNode) {
+                        newId = xsltHelper.translateSrcKeyToItemPath(entry.getValue().asText());
+                    } else {
+                        newId = convertIdToBeRelativeToRoot(entry.getValue().asText(), srcKey);
+                    }
+                    logger.info("replacing id: "+entry.toString()+" output:"+newId+" isItems: "+isItemNode);
                     objectNode.put("@id", newId);
                 } else {
-                    objectNode.set(entry.getKey(), rewriteJSONIdsFromNode(entry.getValue(), srcKey));
+                    boolean isItems = "items".equalsIgnoreCase(entry.getKey());
+                    objectNode.set(entry.getKey(), rewriteJSONIdsFromNode(entry.getValue(), srcKey, isItems));
                 }
             }
 
