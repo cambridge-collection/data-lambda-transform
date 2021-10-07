@@ -7,7 +7,7 @@ import uk.ac.cam.lib.cudl.awslambda.input.S3Input;
 import uk.ac.cam.lib.cudl.awslambda.output.EFSFileOutput;
 import uk.ac.cam.lib.cudl.awslambda.util.JSONConvertIds;
 
-import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerConfigurationException;
 import java.io.IOException;
 
 public class ConvertJSONIdsHandler extends AbstractRequestHandler {
@@ -17,7 +17,7 @@ public class ConvertJSONIdsHandler extends AbstractRequestHandler {
     private final JSONConvertIds converter;
     private final EFSFileOutput fileOutput;
 
-    public ConvertJSONIdsHandler() throws IOException {
+    public ConvertJSONIdsHandler() throws IOException, TransformerConfigurationException {
 
         s3Input = new S3Input();
         converter = new JSONConvertIds();
@@ -41,7 +41,7 @@ public class ConvertJSONIdsHandler extends AbstractRequestHandler {
     }
 
     @Override
-    public String handleDeleteEvent(String srcBucket, String srcKey, Context context) throws IOException, TransformerException {
+    public String handleDeleteEvent(String srcBucket, String srcKey, Context context) {
         // TODO
         return null;
     }

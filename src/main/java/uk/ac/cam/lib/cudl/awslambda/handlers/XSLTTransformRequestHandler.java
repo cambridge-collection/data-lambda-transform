@@ -42,12 +42,13 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
     private final String refreshURL;
     private final String refreshUsername;
     private final String refreshPassword;
+    public final String dstPrefix;
 
     public XSLTTransformRequestHandler() throws TransformerConfigurationException, IOException {
 
         Properties properties = new Properties();
         s3Input = new S3Input();
-        xsltHelper = new XSLTHelper(s3Input);
+        xsltHelper = new XSLTHelper(properties.getProperty("XSLT"));
         tmpDir = properties.getProperty("TMP_DIR");
         refreshURL = properties.getProperty("REFRESH_URL");
 
@@ -58,6 +59,7 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
         refreshAuthEnabled = "true".equals(properties.getProperty("REFRESH_URL_ENABLE_AUTH").toLowerCase());
         refreshUsername = properties.getProperty("REFRESH_URL_USERNAME");
         refreshPassword = properties.getProperty("REFRESH_URL_PASSWORD");
+        dstPrefix = properties.getProperty("DST_EFS_PREFIX");
 
     }
 
@@ -81,7 +83,7 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(bytes.length);
         baos.write(bytes, 0, bytes.length);
 
-        String dstKey = xsltHelper.translateSrcKeyToEFSItemPath(srcKey);
+        String dstKey = dstPrefix+xsltHelper.translateSrcKeyToItemPath(srcKey);
         System.out.println("dstKey: "+dstKey);
 
         // write to efs storage (shared with ec2)

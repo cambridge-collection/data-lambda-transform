@@ -3,7 +3,6 @@ package uk.ac.cam.lib.cudl.awslambda.util;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.ac.cam.lib.cudl.awslambda.input.S3Input;
 
 import javax.xml.transform.*;
 import javax.xml.transform.sax.SAXTransformerFactory;
@@ -27,11 +26,10 @@ public class XSLTHelper {
 
     private final Map<String,Templates> templates;
     private final SAXTransformerFactory stf = (SAXTransformerFactory) TransformerFactory.newInstance();
-    public final String dstPrefix;
     public final String dstSuffix;
     public final String itemsFolder;
 
-    public XSLTHelper(S3Input s3Input) throws TransformerConfigurationException, IOException {
+    public XSLTHelper(String xsltList) throws TransformerConfigurationException, IOException {
 
         Properties properties = new Properties();
 
@@ -39,17 +37,19 @@ public class XSLTHelper {
         // request function.
         stf.setAttribute("http://saxon.sf.net/feature/xinclude-aware", Boolean.TRUE);
 
-        String xsltList = properties.getProperty("XSLT");
         String[] xsltPaths = xsltList.split(",");
 
         Map<String,Templates> XSLTTemplates = new HashMap<>();
-        for (String xsltS3Path: xsltPaths) {
-            File stylesheet = new File(xsltS3Path);
-            XSLTTemplates.put(xsltS3Path, stf.newTemplates(new StreamSource(stylesheet)));
+        for (String xsltPath: xsltPaths) {
+            File stylesheet = new File(xsltPath);
+            if (stylesheet.exists()) {
+                XSLTTemplates.put(xsltPath, stf.newTemplates(new StreamSource(stylesheet)));
+            } else {
+                logger.error("Can't find stylesheet at: "+stylesheet);
+            }
         }
         templates = XSLTTemplates;
 
-        dstPrefix = properties.getProperty("DST_EFS_PREFIX");
         dstSuffix = properties.getProperty("DST_ITEMS_SUFFIX");
         itemsFolder = properties.getProperty("DST_ITEMS_FOLDER");
     }
@@ -91,12 +91,10 @@ public class XSLTHelper {
         transformer.transform(src,result);
     }
 
-    // takes the srcKey from the request (complete path) and preserves the dir
-    // structure but replaces the bucket to the dst bucket (under dstPrefix path)
-    public String translateSrcKeyToEFSItemPath(String srcKey) {
+    public String translateSrcKeyToItemPath(String srcKey) {
 
         String baseName = FilenameUtils.getBaseName(srcKey);
-        return dstPrefix+itemsFolder+baseName+dstSuffix;
+        return itemsFolder+baseName+dstSuffix;
 
     }
 }

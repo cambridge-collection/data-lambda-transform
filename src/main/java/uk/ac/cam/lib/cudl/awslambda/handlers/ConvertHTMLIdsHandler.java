@@ -42,7 +42,7 @@ public class ConvertHTMLIdsHandler extends AbstractRequestHandler {
     }
 
     @Override
-    public String handleDeleteEvent(String srcBucket, String srcKey, Context context) throws IOException, TransformerException {
+    public String handleDeleteEvent(String srcBucket, String srcKey, Context context) {
         // TODO
         return null;
     }

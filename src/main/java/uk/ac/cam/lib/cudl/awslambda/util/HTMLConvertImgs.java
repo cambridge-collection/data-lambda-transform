@@ -3,6 +3,7 @@ package uk.ac.cam.lib.cudl.awslambda.util;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.parser.Parser;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,12 +25,12 @@ public class HTMLConvertImgs {
     /**
      * This process converts the @id elements to be relative to the root rather than
      * relative to HTML file.
-     * @param file
+     * @param html
      * @throws IOException
      */
-    public String rewriteIds(String file, String srcKey) throws IOException {
+    public String rewriteIds(String html, String srcKey) throws IOException {
 
-        Document doc = Jsoup.parse(file);
+        Document doc = Jsoup.parse(html, "", Parser.xmlParser());
         doc =  rewriteHTMLIdsFromDocument(doc, srcKey);
         doc.outputSettings().prettyPrint(true);
         return doc.html();
