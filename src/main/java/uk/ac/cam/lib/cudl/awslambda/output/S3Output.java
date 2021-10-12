@@ -5,7 +5,6 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
-import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.cam.lib.cudl.awslambda.util.Properties;
@@ -41,8 +40,7 @@ public class S3Output {
     // structure but replaces the bucket to the dst bucket (under dstPrefix path)
     public String translateSrcKeyToDestPath(String srcKey) {
 
-        String baseName = FilenameUtils.getBaseName(srcKey);
-        return dstPrefix+baseName+dstSuffix;
+        return dstPrefix+srcKey;
 
     }
 
