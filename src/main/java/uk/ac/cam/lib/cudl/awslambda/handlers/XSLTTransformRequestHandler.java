@@ -5,6 +5,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.ac.cam.lib.cudl.awslambda.output.S3Output;
 import uk.ac.cam.lib.cudl.awslambda.util.Properties;
 import uk.ac.cam.lib.cudl.awslambda.input.S3Input;
 import uk.ac.cam.lib.cudl.awslambda.util.XSLTHelper;
@@ -43,6 +44,8 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
     private final String refreshUsername;
     private final String refreshPassword;
     public final String dstPrefix;
+    public final String dstS3Prefix;
+    public final S3Output s3Output;
 
     public XSLTTransformRequestHandler() throws TransformerConfigurationException, IOException {
 
@@ -60,6 +63,8 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
         refreshUsername = properties.getProperty("REFRESH_URL_USERNAME");
         refreshPassword = properties.getProperty("REFRESH_URL_PASSWORD");
         dstPrefix = properties.getProperty("DST_EFS_PREFIX");
+        dstS3Prefix = properties.getProperty("DST_S3_PREFIX");
+        s3Output = new S3Output();
 
     }
 
@@ -88,6 +93,10 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
 
         // write to efs storage (shared with ec2)
         FileUtils.copyFile(sourceFile, new File(dstKey));
+
+        // write to s3
+        String dstS3Key = dstS3Prefix+xsltHelper.translateSrcKeyToItemPath(srcKey);
+        s3Output.writeFromStream(baos, dstS3Key);
 
         refreshCache();
         return "Ok";
