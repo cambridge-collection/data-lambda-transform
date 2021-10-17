@@ -39,7 +39,7 @@ public class JSONConvertIds {
 
     }
 
-    private JsonNode rewriteJSONIdsFromNode(JsonNode node, String srcKey, boolean isItemNode) throws IOException, TransformerConfigurationException {
+    private JsonNode rewriteJSONIdsFromNode(JsonNode node, String srcKey, boolean isItemNode) {
 
         ObjectMapper mapper = new ObjectMapper();
 
@@ -75,6 +75,13 @@ public class JSONConvertIds {
                     } else {
                         newId = convertIdToBeRelativeToRoot(entry.getValue().asText(), srcKey);
                     }
+
+                    // If id is html (starts with pages html) remove this as html is relative to the
+                    // html directory in the cudl-viewer.
+                    if (newId.startsWith("pages/html/")) {
+                        newId = newId.replaceFirst("pages/html/", "");
+                    }
+
                     logger.info("replacing id: "+entry.toString()+" output:"+newId+" isItems: "+isItemNode);
                     objectNode.put("@id", newId);
                 } else {
