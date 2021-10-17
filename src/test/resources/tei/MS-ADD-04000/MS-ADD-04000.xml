@@ -40,7 +40,7 @@
                   <country>UK</country>
                   <settlement>Cambridge</settlement>
                   <repository>Cambridge University Library</repository>
-                  <collection>Portsmouth Collection</collection>
+                  <CollectionJSON>Portsmouth Collection</CollectionJSON>
                   <idno>MS Add. 4000</idno>
                </msIdentifier>
                <msContents>

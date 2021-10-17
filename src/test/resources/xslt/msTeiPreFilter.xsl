@@ -59,7 +59,7 @@
 
 
         <!-- FIXME: Temporarilly returning nothing until we can refactor this out. -->
-        <!-- <xsl:for-each select="document(concat($servicesURI, 'v1/rdb/membership/collections/', $itemid))/collections/collection">
+        <!-- <xsl:for-each select="document(concat($servicesURI, 'v1/rdb/membership/collections/', $itemid))/collections/CollectionJSON">
          <xsl:copy-of select="."/>
       </xsl:for-each> -->
     </xsl:function>
@@ -227,7 +227,7 @@
 
                         <xsl:call-template name="get-doc-metadata"/>
 
-                        <xsl:call-template name="get-collection-memberships"/>
+                        <xsl:call-template name="get-CollectionJSON-memberships"/>
 
 
 
@@ -307,7 +307,7 @@
 
                         <xsl:call-template name="get-doc-metadata"/>
 
-                        <xsl:call-template name="get-collection-memberships"/>
+                        <xsl:call-template name="get-CollectionJSON-memberships"/>
 
                     </part>
 
@@ -356,7 +356,7 @@
 
             <xsl:call-template name="get-item-biblio"/>
 
-            <xsl:call-template name="get-collection-memberships"/>
+            <xsl:call-template name="get-CollectionJSON-memberships"/>
 
         </part>
 
@@ -4250,7 +4250,7 @@
 
 
     <!--************************************COLLECTIONS-->
-    <xsl:template name="get-collection-memberships">
+    <xsl:template name="get-CollectionJSON-memberships">
         <!-- Lookup collections of which this item is a member (from SQL database) -->
 
         <xsl:element name="collections">
@@ -4258,7 +4258,7 @@
 
             <xsl:for-each select="cudl:get-memberships($fileID)">
 
-                <xsl:element name="collection">
+                <xsl:element name="CollectionJSON">
                     <xsl:value-of select="title"/>
                 </xsl:element>
             </xsl:for-each>
@@ -4683,7 +4683,7 @@
                         <xsl:value-of select="$fileID"/>
                     </fileID>
 
-                    <!-- Below is a bit of a fudge. It uses the "top-level" dmdID in all cases. What it should really do is work out where this page is in the logical structure. But as collection facet already propagated throughout, and subjects and dates(?) only at top level, can probably get away with it without losing out on fact inheritance -->
+                    <!-- Below is a bit of a fudge. It uses the "top-level" dmdID in all cases. What it should really do is work out where this page is in the logical structure. But as CollectionJSON facet already propagated throughout, and subjects and dates(?) only at top level, can probably get away with it without losing out on fact inheritance -->
 
                     <xsl:if test="//*:sourceDesc/*:msDesc/*:msContents/*:msItem">
                         <xsl:choose>

@@ -54,10 +54,10 @@
                         <settlement>Cambridge</settlement>
                         <institution>Cambridge University</institution>
                         <repository>Cambridge University Library</repository>
-                        <collection>Additional Manuscripts</collection>
+                        <CollectionJSON>Additional Manuscripts</CollectionJSON>
                         <idno>MS Add.919</idno>
                       <altIdentifier type="internal"> 
-                     <collection type="CUL_collection">Sanskrit</collection> 
+                     <CollectionJSON type="CUL_collection">Sanskrit</CollectionJSON>
                      <idno/> 
                        </altIdentifier>
                     </msIdentifier>
