@@ -5,8 +5,9 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.SQSEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import uk.ac.cam.lib.cudl.awslambda.model.ReceivedSQSMessage;
 import uk.ac.cam.lib.cudl.awslambda.input.S3Input;
+import uk.ac.cam.lib.cudl.awslambda.model.ReceivedSQSMessage;
+import uk.ac.cam.lib.cudl.awslambda.util.RefreshHelper;
 import uk.ac.cam.lib.cudl.awslambda.util.SQSHelper;
 
 import java.io.File;
@@ -34,6 +35,8 @@ public abstract class AbstractRequestHandler implements RequestHandler<SQSEvent,
 
         SQSHelper handler = new SQSHelper();
         ArrayList<Exception> errors = new ArrayList<>();
+        RefreshHelper refreshHelper = new RefreshHelper();
+
         List<SQSEvent.SQSMessage> events = sqsEvent.getRecords();
         for (SQSEvent.SQSMessage message : events) {
             try {
@@ -41,9 +44,11 @@ public abstract class AbstractRequestHandler implements RequestHandler<SQSEvent,
                 switch (receivedSQSMessage.getEventType()){
                     case ObjectCreated:
                         handlePutEvent(receivedSQSMessage.getS3Bucket(), receivedSQSMessage.getS3Key(), context);
+                        refreshHelper.refreshCache();
                         break;
                     case ObjectRemoved:
                         handleDeleteEvent(receivedSQSMessage.getS3Bucket(), receivedSQSMessage.getS3Key(), context);
+                        refreshHelper.refreshCache();
                         break;
                 }
             } catch (Exception e) {
@@ -67,7 +72,7 @@ public abstract class AbstractRequestHandler implements RequestHandler<SQSEvent,
 
     protected File getSourceFile(String srcBucket, String srcKey, Context context, S3Input s3Input, String tmpDir) throws Exception {
         // Get the source file from s3
-        logger.info("Put Event");
+        logger.info("get Source File");
 
         String tmpFile = tmpDir + context.getAwsRequestId();
         Files.createDirectories(Path.of(tmpFile));
@@ -76,9 +81,9 @@ public abstract class AbstractRequestHandler implements RequestHandler<SQSEvent,
 
     }
 
-    protected String getSourceString(String srcBucket, String srcKey, S3Input s3Input) throws Exception {
+    protected String getSourceString(String srcBucket, String srcKey, S3Input s3Input)  {
         // Get the source file from s3
-        logger.info("Put Event");
+        logger.info("get Source String");
 
         return s3Input.getString(srcBucket, srcKey);
 

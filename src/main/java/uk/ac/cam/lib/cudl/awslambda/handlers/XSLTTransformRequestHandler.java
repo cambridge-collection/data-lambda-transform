@@ -5,6 +5,7 @@ import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.cam.lib.cudl.awslambda.input.S3Input;
+import uk.ac.cam.lib.cudl.awslambda.output.EFSFileOutput;
 import uk.ac.cam.lib.cudl.awslambda.output.S3Output;
 import uk.ac.cam.lib.cudl.awslambda.util.Properties;
 import uk.ac.cam.lib.cudl.awslambda.util.RefreshHelper;
@@ -38,7 +39,7 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
     public final String dstPrefix;
     public final String dstS3Prefix;
     public final S3Output s3Output;
-    public final RefreshHelper refreshHelper;
+    public final EFSFileOutput fileOutput;
 
     public XSLTTransformRequestHandler() throws TransformerConfigurationException, IOException {
 
@@ -53,8 +54,7 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
         dstPrefix = properties.getProperty("DST_EFS_PREFIX");
         dstS3Prefix = properties.getProperty("DST_S3_PREFIX");
         s3Output = new S3Output();
-        refreshHelper = new RefreshHelper();
-
+        fileOutput = new EFSFileOutput();
     }
 
     @Override
@@ -86,7 +86,6 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
         String dstS3Key = dstS3Prefix+xsltHelper.translateSrcKeyToItemPath(srcKey);
         s3Output.writeFromStream(baos, dstS3Key);
 
-        refreshHelper.refreshCache();
         return "Ok";
 
     }
@@ -94,10 +93,14 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
     @Override
     public String handleDeleteEvent(String srcBucket, String srcKey, Context context) throws Exception {
 
-/*        logger.info("Delete Event");
-        // should be at same path as src but have dstPrefix and end in .html
-        String dstKey = s3Helper.translateSrcKeyToDestKey(srcKey);
-        s3Helper.deleteFromS3AllObjectsUnderPath(dstKey);*/
-        return "OK";
+        logger.info("Delete Event");
+        String dst = dstPrefix+xsltHelper.translateSrcKeyToItemPath(srcKey);
+        fileOutput.deleteFromPath(dst);
+
+        String dstKey = s3Output.translateSrcKeyToDestPath(dst);
+        s3Output.deleteFromPath(dstKey);
+
+        return "Ok";
     }
+
 }
