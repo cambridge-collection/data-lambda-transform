@@ -51,8 +51,14 @@ public class CopyFileHandler extends AbstractRequestHandler {
     }
 
     @Override
-    public String handleDeleteEvent(String srcBucket, String srcKey, Context context) {
-        // TODO
-        return null;
+    public String handleDeleteEvent(String srcBucket, String srcKey, Context context) throws IOException {
+        logger.info("Delete Event");
+        String dst = fileOutput.translateSrcKeyToDestPath(srcKey);
+        fileOutput.deleteFromPath(dst);
+
+        String dstKey = s3Output.translateSrcKeyToDestPath(srcKey);
+        s3Output.deleteFromPath(dstKey);
+
+        return "Ok";
     }
 }

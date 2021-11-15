@@ -53,8 +53,15 @@ public class EFSFileOutput {
     }
 
 
-    public void deleteFromPath(String dstKey) {
-    // TODO
+    public void deleteFromPath(String dst) throws IOException {
+        // delete from EFS
+        File f = new File (dst);
+        boolean successful = f.delete();
+
+        if (!successful) {
+            throw new IOException("ERROR: could not delete file "+dst);
+        }
+
     }
 
 }

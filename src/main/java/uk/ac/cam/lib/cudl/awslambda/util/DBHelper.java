@@ -266,4 +266,20 @@ public class DBHelper {
     private String getItemId(String itemIdPath) {
         return FilenameUtils.getBaseName(itemIdPath);
     }
+
+    public void deleteCollection(String collectionId) throws SQLException {
+
+        Connection conn = DriverManager.getConnection(url, username, password);
+        QueryRunner queryRunner = new QueryRunner();
+        try {
+            // delete any items from items in collection under the collection url
+            queryRunner.update(conn,
+                    "DELETE FROM itemsincollection WHERE collectionid=? ", collectionId);
+
+            queryRunner.update(conn,
+                    "DELETE FROM collections WHERE collectionid=? ", collectionId);
+        } finally {
+            DbUtils.close(conn);
+        }
+    }
 }

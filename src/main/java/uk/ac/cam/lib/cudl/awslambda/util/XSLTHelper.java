@@ -93,6 +93,7 @@ public class XSLTHelper {
 
     public String translateSrcKeyToItemPath(String srcKey) {
 
+        logger.info("Item srcKey: "+srcKey);
         String baseName = FilenameUtils.getBaseName(srcKey);
         return itemsFolder+baseName+dstSuffix;
 

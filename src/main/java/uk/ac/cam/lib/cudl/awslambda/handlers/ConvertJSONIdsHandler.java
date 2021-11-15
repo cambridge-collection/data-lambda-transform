@@ -9,6 +9,7 @@ import uk.ac.cam.lib.cudl.awslambda.output.S3Output;
 import uk.ac.cam.lib.cudl.awslambda.util.JSONConvertIds;
 
 import javax.xml.transform.TransformerConfigurationException;
+import java.io.File;
 import java.io.IOException;
 
 public class ConvertJSONIdsHandler extends AbstractRequestHandler {
@@ -50,8 +51,14 @@ public class ConvertJSONIdsHandler extends AbstractRequestHandler {
     }
 
     @Override
-    public String handleDeleteEvent(String srcBucket, String srcKey, Context context) {
-        // TODO
-        return null;
+    public String handleDeleteEvent(String srcBucket, String srcKey, Context context) throws IOException {
+        logger.info("Delete Event");
+        String dst = fileOutput.translateSrcKeyToDestPath(srcKey);
+        fileOutput.deleteFromPath(dst);
+
+        String dstKey = s3Output.translateSrcKeyToDestPath(srcKey);
+        s3Output.deleteFromPath(dstKey);
+
+        return "Ok";
     }
 }
