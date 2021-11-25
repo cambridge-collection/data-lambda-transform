@@ -9,8 +9,6 @@ import uk.ac.cam.lib.cudl.awslambda.model.CollectionJSON;
 import uk.ac.cam.lib.cudl.awslambda.util.DBHelper;
 import uk.ac.cam.lib.cudl.awslambda.util.JSONHelper;
 
-import java.io.IOException;
-
 public class UpdateDBHandler extends AbstractRequestHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(UpdateDBHandler.class);
@@ -18,7 +16,7 @@ public class UpdateDBHandler extends AbstractRequestHandler {
     private final DBHelper dbHelper;
     private final JSONHelper JSONHelper;
 
-    public UpdateDBHandler() throws IOException {
+    public UpdateDBHandler() {
         s3Input = new S3Input();
         dbHelper = new DBHelper();
         JSONHelper = new JSONHelper();
@@ -37,6 +35,10 @@ public class UpdateDBHandler extends AbstractRequestHandler {
 
         // update items in collection
         dbHelper.updateItemsInCollection(collectionJSON);
+
+        // update parent collections id if there is a list of subcollections
+        // (Throws error if subcollection not found)
+        dbHelper.updateParentCollectionId(collectionJSON, s3Input, srcBucket);
 
         return "Ok";
     }

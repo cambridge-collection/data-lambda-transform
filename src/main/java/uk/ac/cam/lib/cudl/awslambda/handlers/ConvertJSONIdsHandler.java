@@ -9,7 +9,6 @@ import uk.ac.cam.lib.cudl.awslambda.output.S3Output;
 import uk.ac.cam.lib.cudl.awslambda.util.JSONConvertIds;
 
 import javax.xml.transform.TransformerConfigurationException;
-import java.io.File;
 import java.io.IOException;
 
 public class ConvertJSONIdsHandler extends AbstractRequestHandler {

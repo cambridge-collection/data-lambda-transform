@@ -9,14 +9,14 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.cam.lib.cudl.awslambda.dao.CollectionDB;
+import uk.ac.cam.lib.cudl.awslambda.dao.Item;
 import uk.ac.cam.lib.cudl.awslambda.dao.ItemsInCollection;
+import uk.ac.cam.lib.cudl.awslambda.input.S3Input;
 import uk.ac.cam.lib.cudl.awslambda.model.CollectionJSON;
 import uk.ac.cam.lib.cudl.awslambda.model.Id;
-import uk.ac.cam.lib.cudl.awslambda.dao.Item;
 
 import java.io.IOException;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,27 +26,15 @@ import java.util.Map;
 public class DBHelper {
 
     private static final Logger logger = LoggerFactory.getLogger(DBHelper.class);
-    private final String driver;
-    private final String url;
-    private final String username;
-    private final String password;
     public final String DEFAULT_COLLECTION_TYPE = "organisation";
     public final int DEFAULT_COLLECTION_ORDER = 100;
     public final String DEFAULT_PARENT_COLLECTION_ID = null;
 
-    public DBHelper() throws IOException {
-        Properties properties = new Properties();
-        driver = properties.getProperty("DB_JDBC_DRIVER");
-        url = properties.getProperty("DB_URL");
-        username = properties.getProperty("DB_USERNAME");
-        password = properties.getProperty("DB_PASSWORD");
-
-        DbUtils.loadDriver(driver);
+    public DBHelper() {
     }
 
     public CollectionDB getCollection(String urlslug) throws SQLException {
-
-        Connection conn = DriverManager.getConnection(url, username, password);
+        Connection conn = DBCPDataSource.getConnection();
         QueryRunner queryRunner = new QueryRunner();
         ResultSetHandler<CollectionDB> resultHandler = new BeanHandler<>(CollectionDB.class);
 
@@ -68,7 +56,7 @@ public class DBHelper {
             // Add new Collection
             ResultSetHandler<CollectionDB> resultHandler = new BeanHandler<>(CollectionDB.class);
             QueryRunner queryRunner = new QueryRunner();
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DBCPDataSource.getConnection();
 
             try {
                 logger.info("Adding new collection: "+collectionJSON.getName().getUrlSlug());
@@ -90,7 +78,7 @@ public class DBHelper {
             // Update existing collections
             logger.info("Update existing collection: "+collectionJSON.getName().getUrlSlug());
             QueryRunner queryRunner = new QueryRunner();
-            Connection conn = DriverManager.getConnection(url, username, password);
+            Connection conn = DBCPDataSource.getConnection();
 
             try {
                 queryRunner.update(conn,
@@ -180,7 +168,7 @@ public class DBHelper {
     }
 
     public Item getItemFromDB(String itemId) throws SQLException {
-        Connection conn = DriverManager.getConnection(url, username, password);
+        Connection conn = DBCPDataSource.getConnection();
         QueryRunner queryRunner = new QueryRunner();
         ResultSetHandler<Item> resultHandler = new BeanHandler<>(Item.class);
         try {
@@ -193,7 +181,7 @@ public class DBHelper {
     }
 
     public void addItemToDB(Item item) throws SQLException {
-        Connection conn = DriverManager.getConnection(url, username, password);
+        Connection conn = DBCPDataSource.getConnection();
         QueryRunner queryRunner = new QueryRunner();
         ResultSetHandler<Item> resultHandler = new BeanHandler<>(Item.class);
         try {
@@ -207,7 +195,7 @@ public class DBHelper {
     }
 
     public List<ItemsInCollection> getItemsInCollectionFromDB(String collectionId) throws SQLException {
-        Connection conn = DriverManager.getConnection(url, username, password);
+        Connection conn = DBCPDataSource.getConnection();
         QueryRunner queryRunner = new QueryRunner();
         ResultSetHandler<List<ItemsInCollection>> resultHandler = new BeanListHandler<>(ItemsInCollection.class);
         try {
@@ -220,7 +208,7 @@ public class DBHelper {
     }
 
     public void updateItemsInCollectionFromDB(ItemsInCollection itemsInCollection) throws SQLException {
-        Connection conn = DriverManager.getConnection(url, username, password);
+        Connection conn = DBCPDataSource.getConnection();
         QueryRunner queryRunner = new QueryRunner();
         ResultSetHandler<ItemsInCollection> resultHandler = new BeanHandler<>(ItemsInCollection.class);
         try {
@@ -236,7 +224,7 @@ public class DBHelper {
     }
 
     public void addItemsInCollectionToDB(ItemsInCollection itemsInCollection) throws SQLException {
-        Connection conn = DriverManager.getConnection(url, username, password);
+        Connection conn = DBCPDataSource.getConnection();
         QueryRunner queryRunner = new QueryRunner();
         ResultSetHandler<ItemsInCollection> resultHandler = new BeanHandler<>(ItemsInCollection.class);
         try {
@@ -252,7 +240,7 @@ public class DBHelper {
     }
 
     public void removeItemsInCollectionFromDB(String itemId, String collectionId) throws SQLException {
-        Connection conn = DriverManager.getConnection(url, username, password);
+        Connection conn = DBCPDataSource.getConnection();
         QueryRunner queryRunner = new QueryRunner();
         try {
             queryRunner.update(conn,
@@ -269,7 +257,7 @@ public class DBHelper {
 
     public void deleteCollection(String collectionId) throws SQLException {
 
-        Connection conn = DriverManager.getConnection(url, username, password);
+        Connection conn = DBCPDataSource.getConnection();
         QueryRunner queryRunner = new QueryRunner();
         try {
             // delete any items from items in collection under the collection url
@@ -280,6 +268,36 @@ public class DBHelper {
                     "DELETE FROM collections WHERE collectionid=? ", collectionId);
         } finally {
             DbUtils.close(conn);
+        }
+    }
+
+    public void updateParentCollectionId(CollectionJSON collectionJSON, S3Input input, String srcBucket) throws SQLException, IOException {
+        // If the collection has a list of sub collections, go through sub collections and set parent id
+        // Error if sub collection not there (as it may not have been created yet)
+        logger.info("Update parent collection for: "+collectionJSON.getName().getUrlSlug());
+
+        Connection conn = DBCPDataSource.getConnection();
+        JSONHelper jsonHelper = new JSONHelper();
+
+        try {
+            for (Id id: collectionJSON.getSubCollectionIds()) {
+
+                logger.info("Found sub-collection with id: "+id.getId()+" in bucket: "+srcBucket);
+
+                String file = input.getString(srcBucket,id.getId());
+                CollectionJSON subCollection = jsonHelper.getCollection(file);
+
+                logger.info("Setting database parentcollectionid "+collectionJSON.getName().getUrlSlug()
+                        +" for collectionid: "+subCollection.getName().getUrlSlug());
+
+                QueryRunner queryRunner = new QueryRunner();
+                queryRunner.update(conn,
+                        "UPDATE collections SET parentcollectionid=? WHERE collectionid=? ",
+                        collectionJSON.getName().getUrlSlug(), subCollection.getName().getUrlSlug());
+
+            }
+        } finally {
+           DbUtils.close(conn);
         }
     }
 }
