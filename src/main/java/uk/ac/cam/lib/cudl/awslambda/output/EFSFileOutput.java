@@ -7,19 +7,18 @@ import uk.ac.cam.lib.cudl.awslambda.util.Properties;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class EFSFileOutput {
 
     private final String dstPrefix;
-    private final String tmpDir;
     private static final Logger logger = LoggerFactory.getLogger(EFSFileOutput.class);
 
-    public EFSFileOutput() throws IOException {
+    public EFSFileOutput() {
         Properties properties = new Properties();
         dstPrefix = properties.getProperty("DST_EFS_PREFIX");
-        tmpDir = properties.getProperty("TMP_DIR");
     }
 
     public String translateSrcKeyToDestPath(String srcKey) {
@@ -30,16 +29,12 @@ public class EFSFileOutput {
 
         logger.info("writing to: "+dst);
 
+        File fileDst = new File(dst);
+        Files.createDirectories(Paths.get(fileDst.getParent()));
+
+        // write to efs storage (shared with ec2)
         byte[] bytes = output.getBytes();
-        FileUtils.copyInputStreamToFile(new ByteArrayInputStream(bytes), new File (dst));
-
-        File tempFile = File.createTempFile(tmpDir, ".tmp");
-        tempFile.deleteOnExit();
-
-        FileOutputStream out = new FileOutputStream(tempFile);
-        out.write(bytes);
-
-        writeFromFile(tempFile, dst);
+        FileUtils.copyInputStreamToFile(new ByteArrayInputStream(bytes), fileDst);
 
     }
 
@@ -47,8 +42,11 @@ public class EFSFileOutput {
 
         logger.info("writing to: "+dst);
 
+        File fileDst = new File(dst);
+        Files.createDirectories(Paths.get(fileDst.getParent()));
+
         // write to efs storage (shared with ec2)
-        FileUtils.copyFile(file, new File(dst));
+        FileUtils.copyFile(file, fileDst);
 
     }
 

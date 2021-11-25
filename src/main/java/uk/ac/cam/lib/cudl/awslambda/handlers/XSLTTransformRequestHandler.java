@@ -8,7 +8,6 @@ import uk.ac.cam.lib.cudl.awslambda.input.S3Input;
 import uk.ac.cam.lib.cudl.awslambda.output.EFSFileOutput;
 import uk.ac.cam.lib.cudl.awslambda.output.S3Output;
 import uk.ac.cam.lib.cudl.awslambda.util.Properties;
-import uk.ac.cam.lib.cudl.awslambda.util.RefreshHelper;
 import uk.ac.cam.lib.cudl.awslambda.util.XSLTHelper;
 
 import javax.xml.transform.TransformerConfigurationException;
@@ -16,8 +15,11 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * Triggered by a edit from cudl data in s3.  One event s3 is sent per file edited.  These are put into
@@ -61,6 +63,12 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
     public String handlePutEvent(String srcBucket, String srcKey, Context context) throws Exception {
 
         logger.info("Put Event");
+
+        logger.info("Layer contents:");
+        try (Stream<Path> paths = Files.walk(Paths.get("/opt"))) {
+            paths.filter(Files::isRegularFile)
+                    .forEach((fileString) -> {logger.info(fileString.toString());});
+        }
 
         File sourceFile = getSourceFile(srcBucket, srcKey, context, s3Input, tmpDir);
 
