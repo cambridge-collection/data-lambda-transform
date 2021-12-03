@@ -36,6 +36,11 @@ public class CopyFileHandler extends AbstractRequestHandler {
         // Get the source file from s3
         File sourceFile = getSourceFile(srcBucket,srcKey, context, s3Input, tmpDir);
 
+        if (sourceFile==null || !sourceFile.exists() || sourceFile.isDirectory() || Files.size(sourceFile.toPath())==0) {
+            logger.info("sourceFile :"+sourceFile+ " was not a file or empty.  From srcKey: "+srcKey);
+            return "Ok";
+        }
+
         // Write to EFS
         String dst = fileOutput.translateSrcKeyToDestPath(srcKey);
         fileOutput.writeFromFile(sourceFile, dst);
