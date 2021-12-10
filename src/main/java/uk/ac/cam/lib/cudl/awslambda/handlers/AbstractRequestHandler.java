@@ -42,6 +42,9 @@ public abstract class AbstractRequestHandler implements RequestHandler<SQSEvent,
             try {
                 ReceivedSQSMessage receivedSQSMessage = handler.getTypeOfEvent(message, context);
                 switch (receivedSQSMessage.getEventType()){
+                    case TestEvent:
+                        // do nothing
+                        break;
                     case ObjectCreated:
                         handlePutEvent(receivedSQSMessage.getS3Bucket(), receivedSQSMessage.getS3Key(), context);
                         refreshHelper.refreshCache();

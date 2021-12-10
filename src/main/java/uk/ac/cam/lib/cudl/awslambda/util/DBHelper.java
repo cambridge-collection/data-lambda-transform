@@ -18,10 +18,7 @@ import uk.ac.cam.lib.cudl.awslambda.model.Id;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class DBHelper {
 
@@ -39,20 +36,41 @@ public class DBHelper {
         ResultSetHandler<CollectionDB> resultHandler = new BeanHandler<>(CollectionDB.class);
 
         try {
-            CollectionDB collection = queryRunner.query(conn,
+            return queryRunner.query(conn,
                     "SELECT * FROM collections WHERE collectionid=?", resultHandler, urlslug);
-            return collection;
 
         } finally {
             DbUtils.close(conn);
         }
     }
 
-    public void updateCollection(CollectionJSON collectionJSON) throws SQLException {
+    public List<CollectionDB> getCollections() throws SQLException {
+        Connection conn = DBCPDataSource.getConnection();
+        QueryRunner queryRunner = new QueryRunner();
+        ResultSetHandler<List<CollectionDB>> resultHandler = new BeanListHandler<>(CollectionDB.class);
+
+        try {
+            return queryRunner.query(conn,
+                    "SELECT * FROM collections", resultHandler);
+
+        } finally {
+            DbUtils.close(conn);
+        }
+    }
+
+    /**
+     * Used by both editing collection file and dataset file.  Only editing a dataset file will add a new
+     * collection, otherwise does nothing if collection does not exist.  (This is because to exist in DB
+     * collection must be in dataset file).
+     * @param collectionJSON
+     * @param addIfNotExist
+     * @throws SQLException
+     */
+    public void updateCollection(CollectionJSON collectionJSON, boolean addIfNotExist) throws SQLException {
 
         logger.info("Updating collections");
         CollectionDB collectionDB = getCollection(collectionJSON.getName().getUrlSlug());
-        if (collectionDB ==null) {
+        if (collectionDB == null && addIfNotExist) {
             // Add new Collection
             ResultSetHandler<CollectionDB> resultHandler = new BeanHandler<>(CollectionDB.class);
             QueryRunner queryRunner = new QueryRunner();
@@ -73,7 +91,7 @@ public class DBHelper {
                 DbUtils.close(conn);
             }
 
-        } else {
+        } else if (collectionDB != null){
 
             // Update existing collections
             logger.info("Update existing collection: "+collectionJSON.getName().getUrlSlug());
@@ -82,11 +100,10 @@ public class DBHelper {
 
             try {
                 queryRunner.update(conn,
-                        "UPDATE collections SET collectionid=?, title=? ,summaryurl=?, sponsorsurl=?, type=?, " +
-                                " collectionorder=?, parentcollectionid=?, metadescription=? " +
+                        "UPDATE collections SET collectionid=?, title=? ,summaryurl=?, sponsorsurl=?, " +
+                                " metadescription=? " +
                                 " WHERE collectionid=?", collectionJSON.getName().getUrlSlug(), collectionJSON.getName().getFull(),
                         collectionJSON.getDescription().getFull().getId(), collectionJSON.getCredit().getProse().getId(),
-                        collectionDB.getType(), collectionDB.getCollectionorder(), collectionDB.getParentcollectionid(),
                         collectionJSON.getDescription().getMedium(), collectionJSON.getName().getUrlSlug());
 
             } finally {
@@ -300,4 +317,46 @@ public class DBHelper {
            DbUtils.close(conn);
         }
     }
+
+    public void updateCollectionType(String urlSlug, String layout) throws SQLException, IOException {
+
+        Connection conn = DBCPDataSource.getConnection();
+
+        try {
+
+            logger.info("Updating collection "+urlSlug+" to layout "+layout);
+
+            layout = layout.toLowerCase().trim();
+            if (!"virtual".equals(layout) && !"organisation".equals(layout) && !"parent".equals(layout)) {
+                throw new IOException("layout is not a known type: "+layout);
+            }
+
+            QueryRunner queryRunner = new QueryRunner();
+            queryRunner.update(conn,
+                    "UPDATE collections SET type=? WHERE collectionid=? ",
+                    layout, urlSlug);
+
+        } finally {
+            DbUtils.close(conn);
+        }
+    }
+
+    public void updateCollectionOrder(String urlSlug, int order) throws SQLException, IOException {
+
+        Connection conn = DBCPDataSource.getConnection();
+
+        try {
+
+            logger.info("Updating collection "+urlSlug+" to order "+order);
+
+            QueryRunner queryRunner = new QueryRunner();
+            queryRunner.update(conn,
+                    "UPDATE collections SET collectionorder=? WHERE collectionid=? ",
+                    order, urlSlug);
+
+        } finally {
+            DbUtils.close(conn);
+        }
+    }
+
 }

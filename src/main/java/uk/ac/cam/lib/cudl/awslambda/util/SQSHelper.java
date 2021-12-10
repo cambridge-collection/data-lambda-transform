@@ -16,6 +16,12 @@ public class SQSHelper {
         logger.info("Event Received: "+message.getBody());
 
         JSONObject json = new JSONObject(message.getBody());
+
+        // Catch test event, created when altering triggers etc. These are not batched.
+        if (!json.isNull("Event") && "s3:TestEvent".equals(json.get("Event"))) {
+            return new ReceivedSQSMessage(ReceivedSQSMessage.eventTypes.TestEvent, null, null);
+        }
+
         JSONObject record = json.getJSONArray("Records").getJSONObject(0);
         String srcBucket = record.getJSONObject("s3").getJSONObject("bucket").getString("name");
         String srcKey = record.getJSONObject("s3").getJSONObject("object").getString("key");
