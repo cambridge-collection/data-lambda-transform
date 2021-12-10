@@ -12,7 +12,7 @@ public class Dataset {
     private final String name;
     private final List<Id> collections;
 
-    @ConstructorProperties({"type", "name", "collections"})
+    @ConstructorProperties({"@type", "name", "collections"})
     @JsonCreator(mode = JsonCreator.Mode.PROPERTIES)
     public Dataset(@JsonProperty("@type") String type,
                    @JsonProperty("name") String name,
@@ -28,10 +28,12 @@ public class Dataset {
         return type;
     }
 
+    @JsonProperty("name")
     public String getName() {
         return name;
     }
 
+    @JsonProperty("collections")
     public List<Id> getCollections() {
         return collections;
     }

@@ -9,14 +9,14 @@ import uk.ac.cam.lib.cudl.awslambda.model.CollectionJSON;
 import uk.ac.cam.lib.cudl.awslambda.util.DBHelper;
 import uk.ac.cam.lib.cudl.awslambda.util.JSONHelper;
 
-public class UpdateDBHandler extends AbstractRequestHandler {
+public class CollectionFileDBHandler extends AbstractRequestHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(UpdateDBHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(CollectionFileDBHandler.class);
     private final S3Input s3Input;
     private final DBHelper dbHelper;
     private final JSONHelper JSONHelper;
 
-    public UpdateDBHandler() {
+    public CollectionFileDBHandler() {
         s3Input = new S3Input();
         dbHelper = new DBHelper();
         JSONHelper = new JSONHelper();
@@ -31,7 +31,7 @@ public class UpdateDBHandler extends AbstractRequestHandler {
         CollectionJSON collectionJSON = JSONHelper.getCollection(file);
 
         // Update the DB with collection data
-        dbHelper.updateCollection(collectionJSON);
+        dbHelper.updateCollection(collectionJSON, false);
 
         // update items in collection
         dbHelper.updateItemsInCollection(collectionJSON);

@@ -2,7 +2,7 @@ package uk.ac.cam.lib.cudl.awslambda.model;
 
 public class ReceivedSQSMessage {
 
-    public enum eventTypes { ObjectCreated, ObjectRemoved }
+    public enum eventTypes { ObjectCreated, ObjectRemoved, TestEvent }
     private final eventTypes eventType;
     private final String s3Bucket;
     private final String s3Key;
