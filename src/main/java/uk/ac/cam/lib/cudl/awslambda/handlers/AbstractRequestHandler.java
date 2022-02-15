@@ -3,6 +3,8 @@ package uk.ac.cam.lib.cudl.awslambda.handlers;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.SQSEvent;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.cam.lib.cudl.awslambda.input.S3Input;
@@ -19,6 +21,14 @@ import java.util.List;
 public abstract class AbstractRequestHandler implements RequestHandler<SQSEvent, String> {
 
     private static final Logger logger = LoggerFactory.getLogger(AbstractRequestHandler.class);
+
+    /**
+     * This is used for displaying the text when there has been an error in processing and is
+     * picked up by file cloudwatch filter.  So this should not be altered unless the corresponding
+     * filters are changed.  Could be moved to a properties file.
+     *
+     */
+    private static final String processingExceptionText = "DATA-PROCESSING-EXCEPTION-FOR-UI-DISPLAY (message,error,stacktrace) || %s || %s || %s";
 
     /**
      * For efficiency as much as possible should be done outside this function.
@@ -56,18 +66,19 @@ public abstract class AbstractRequestHandler implements RequestHandler<SQSEvent,
                 }
             } catch (Exception e) {
                 errors.add(e);
+
+                logger.error(String.format(processingExceptionText,
+                        StringUtils.normalizeSpace(message.getBody()),
+                        StringUtils.normalizeSpace(e.getMessage()),
+                        StringUtils.normalizeSpace(ExceptionUtils.getStackTrace(e))));
             }
         }
 
         if (errors.size()==0) {
             return "Ok";
         } else {
-
-            for (Exception error : errors) {
-                error.printStackTrace();
-            }
             throw new RuntimeException("Found errors when processing this batch request: "+errors.size()+" " +
-                    "errors found. Showing first error:", errors.get(0).getCause());
+                    "errors found. See logs above for details.");
 
         }
 

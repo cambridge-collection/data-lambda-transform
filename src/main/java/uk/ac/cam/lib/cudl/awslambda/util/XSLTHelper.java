@@ -45,7 +45,7 @@ public class XSLTHelper {
             if (stylesheet.exists()) {
                 XSLTTemplates.put(xsltPath, stf.newTemplates(new StreamSource(stylesheet)));
             } else {
-                logger.error("Can't find stylesheet at: "+stylesheet);
+                logger.info("Initiatised XSLTHelper without stylesheet: "+stylesheet);
             }
         }
         templates = XSLTTemplates;
