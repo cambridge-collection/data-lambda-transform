@@ -5,11 +5,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>uk.ac.cam.lib.cudl.awslambda</groupId>
-    <artifactId>AWSLambda_XSLTTransform</artifactId>
+    <artifactId>AWSLambda_Data_Transform</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <name>AWSLambda_XSLTTransform</name>
     <url>http://cudl.lib.cam.ac.uk</url>
+
+    <scm>
+        <connection>scm:git:ssh://git@bitbucket.org/CUDL/data-lambda-transform.git</connection>
+        <developerConnection>scm:git:ssh://git@bitbucket.org/CUDL/data-lambda-transform.git</developerConnection>
+        <url>https://github.com/cambridge-collection/cudl-viewer</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -141,9 +148,26 @@
                 </plugin>
 
                 <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5.3</version>
+                    <configuration>
+                        <!-- Don't automatically push changes to the remote repo
+                             while executing release:prepare. -->
+                        <pushChanges>false</pushChanges>
+                        <!-- Use the local repo with release:perform instead of the
+                             upstream repository specified in <scm>. -->
+                        <localCheckout>true</localCheckout>
+                        <preparationGoals>clean compile assembly:single</preparationGoals>
+                        <goals>clean compile assembly:single deploy</goals>
+                    </configuration>
+                </plugin>
+
+                <plugin>
                     <artifactId>maven-assembly-plugin</artifactId>
                     <version>3.3.0</version>
                     <configuration>
+                        <finalName>AWSLambda_Data_Transform</finalName>
                         <descriptorRefs>
                             <descriptorRef>jar-with-dependencies</descriptorRef>
                         </descriptorRefs>
