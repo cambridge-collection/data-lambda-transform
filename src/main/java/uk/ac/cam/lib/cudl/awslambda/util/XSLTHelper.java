@@ -12,7 +12,6 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +28,7 @@ public class XSLTHelper {
     public final String dstSuffix;
     public final String itemsFolder;
 
-    public XSLTHelper(String xsltList) throws TransformerConfigurationException, IOException {
+    public XSLTHelper(String xsltList) throws TransformerConfigurationException {
 
         Properties properties = new Properties();
 
@@ -57,6 +56,7 @@ public class XSLTHelper {
     /**
      * Runs transform on a set of local files and returns file paths for output
      * Can be used where transform oututs one file.
+     * NOTE: For JSON transformation the path of the file should be /<ITEM_ID>/<ITEM_ID>.xml
      *
      * @param sourceFile
      * @param xsltPath

@@ -3,6 +3,8 @@ package uk.ac.cam.lib.cudl.awslambda.handlers;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.SQSEvent;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
@@ -53,7 +55,7 @@ public abstract class AbstractRequestHandler implements RequestHandler<SQSEvent,
                 ReceivedSQSMessage receivedSQSMessage = handler.getTypeOfEvent(message, context);
                 switch (receivedSQSMessage.getEventType()){
                     case TestEvent:
-                        // do nothing
+                        // do nothing, this is created when a trigger is made in the console.
                         break;
                     case ObjectCreated:
                         handlePutEvent(receivedSQSMessage.getS3Bucket(), receivedSQSMessage.getS3Key(), context);
@@ -84,15 +86,17 @@ public abstract class AbstractRequestHandler implements RequestHandler<SQSEvent,
 
     }
 
-    protected File getSourceFile(String srcBucket, String srcKey, Context context, S3Input s3Input, String tmpDir) throws Exception {
+    protected File getSourceFile(String srcBucket, String srcKey, Context context, S3Input s3Input, String tmpPath) throws Exception {
         // Get the source file from s3
         logger.info("get Source File");
 
-        String tmpFile = tmpDir + context.getAwsRequestId();
-        Files.createDirectories(Path.of(tmpFile));
+        // create tmp directory with unique id, copying path structure underneath (XSLTs sometimes use this)
+        String tmpDir = tmpPath + context.getAwsRequestId()+File.separator+Math.random()+File.separator+srcKey;
+        File tmpFile = new File(tmpDir);
 
-        return s3Input.getFile(srcBucket, srcKey, new File(tmpFile+File.separator+Math.random()+"_source"));
+        Files.createDirectories(tmpFile.toPath().getParent());
 
+        return s3Input.getFile(srcBucket, srcKey, tmpFile);
     }
 
     protected String getSourceString(String srcBucket, String srcKey, S3Input s3Input)  {

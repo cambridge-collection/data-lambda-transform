@@ -77,6 +77,7 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
         // Chain together XSLT calls (from properties)
         for (String xslt: xsltLocations) {
             File outputFile = new File(tmpFile+File.separator+Math.random()+"_output");
+            // source file needs to be in <ITEM_ID>/<ITEM_ID>.xml format as this is used in XSLT
             xsltHelper.transformAndWriteToFile(sourceFile, xslt, outputFile);
             sourceFile = outputFile;
         }
