@@ -6,7 +6,6 @@ import org.apache.commons.io.FileUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.parser.Parser;
-import org.jsoup.select.Elements;
 import org.junit.jupiter.api.Test;
 
 import javax.xml.transform.TransformerConfigurationException;
@@ -21,7 +20,8 @@ class XSLTHelperTest {
     @Test
     void transformAndWriteToFile() throws IOException, TransformerException {
 
-        File sourceFile = new File("src/test/resources/tei/MS-ADD-03958/MS-ADD-03958.xml");
+        String srckey = "src/test/resources/tei/MS-ADD-03958/MS-ADD-03958.xml";
+        File sourceFile = new File(srckey);
         String xsltPaths = "src/test/resources/xslt/msTeiPreFilter.xsl,src/test/resources/xslt/jsonDocFormatter.xsl";
         String[] xsltPathArray = xsltPaths.split(",");
         File outputFile1 =  File.createTempFile("output", ".xml");

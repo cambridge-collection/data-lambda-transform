@@ -9,13 +9,13 @@
   "description": {
     "short": "The University of Manchester Library holds over 400 Hebrew manuscripts.",
     "full": {
-      "@id": "pages/html/collections/hebrew/summary.html"
+      "@id": "collections/hebrew/summary.html"
     },
     "medium": "The University of Manchester Library holds over 400 Hebrew manuscripts. They include de luxe decorated manuscripts such as the famous Rylands Haggadah; rare and unique items which illuminate marginal forms of Judaism; a collection of Ketubbot (marriage contracts); and amulets and other magical texts assembled by Moses Gaster."
   },
   "credit": {
     "prose": {
-      "@id": "pages/html/collections/hebrew/sponsors.html"
+      "@id": "collections/hebrew/sponsors.html"
     }
   },
   "items": [
