@@ -28,3 +28,8 @@ This will tag a version in git and upload it to s3.
 
 After this is done you should run `git push` and `git push --tags` to mae sure the 
 tags are pushed to the remote git repo.
+
+After this version is published to s3 the AWS console can be used to update the lambda functions 
+with the new version.  Once tested a new fixed version of the lambda function can be created and the 
+LIVE alias updated to use this version.  This will make the live process use this code.
+
