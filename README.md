@@ -8,7 +8,7 @@ Set JAVA_HOME to java 11
 Make sure you set JAVA_HOME to be your java 11 installation. 
 Then run: 
 
-mvn clean compile assembly:single
+  `mvn clean compile assembly:single`
  
  upload target/AWSLambda_DATA_Transform-<VERSION>-SNAPSHOT-jar-with-dependencies.jar
  to AWS function.  Tests are defined in the aws console.
