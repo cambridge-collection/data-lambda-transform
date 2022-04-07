@@ -3,20 +3,16 @@ package uk.ac.cam.lib.cudl.awslambda.handlers;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
 import com.amazonaws.services.lambda.runtime.events.SQSEvent;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.cam.lib.cudl.awslambda.input.S3Input;
 import uk.ac.cam.lib.cudl.awslambda.model.ReceivedSQSMessage;
-import uk.ac.cam.lib.cudl.awslambda.util.RefreshHelper;
 import uk.ac.cam.lib.cudl.awslambda.util.SQSHelper;
 
 import java.io.File;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,7 +43,6 @@ public abstract class AbstractRequestHandler implements RequestHandler<SQSEvent,
 
         SQSHelper handler = new SQSHelper();
         ArrayList<Exception> errors = new ArrayList<>();
-        RefreshHelper refreshHelper = new RefreshHelper();
 
         List<SQSEvent.SQSMessage> events = sqsEvent.getRecords();
         for (SQSEvent.SQSMessage message : events) {
@@ -59,11 +54,9 @@ public abstract class AbstractRequestHandler implements RequestHandler<SQSEvent,
                         break;
                     case ObjectCreated:
                         handlePutEvent(receivedSQSMessage.getS3Bucket(), receivedSQSMessage.getS3Key(), context);
-                        refreshHelper.refreshCache();
                         break;
                     case ObjectRemoved:
                         handleDeleteEvent(receivedSQSMessage.getS3Bucket(), receivedSQSMessage.getS3Key(), context);
-                        refreshHelper.refreshCache();
                         break;
                 }
             } catch (Exception e) {
