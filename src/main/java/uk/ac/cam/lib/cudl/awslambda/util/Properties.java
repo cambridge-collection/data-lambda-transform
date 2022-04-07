@@ -9,8 +9,10 @@ public class Properties {
     public Properties () {
         try {
             String version = System.getenv("VERSION");
-            if (version != null && version.equals("LIVE")) {
+            if ("LIVE".equals(version)) {
                 properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("lambda.live.properties"));
+            } else if ("STAGING".equals(version)) {
+                properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("lambda.staging.properties"));
             } else {
                 properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("lambda.dev.properties"));
             }
