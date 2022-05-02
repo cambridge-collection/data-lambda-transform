@@ -22,7 +22,7 @@ public class EFSFileOutput {
     }
 
     public String translateSrcKeyToDestPath(String srcKey) {
-        return dstPrefix+srcKey;
+        return dstPrefix+"/"+srcKey;
     }
 
     public void writeFromString(String output, String dst) throws IOException {

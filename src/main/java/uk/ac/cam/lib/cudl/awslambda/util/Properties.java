@@ -1,5 +1,7 @@
 package uk.ac.cam.lib.cudl.awslambda.util;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 public class Properties {
@@ -8,14 +10,9 @@ public class Properties {
 
     public Properties () {
         try {
-            String version = System.getenv("VERSION");
-            if ("LIVE".equals(version)) {
-                properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("lambda.live.properties"));
-            } else if ("STAGING".equals(version)) {
-                properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("lambda.staging.properties"));
-            } else {
-                properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("lambda.dev.properties"));
-            }
+            File f = new File("/opt/java/lib/cudl-loader-lambda.properties");
+            properties.load(new FileInputStream(f));
+
         } catch (IOException e) {
             e.printStackTrace();
         }

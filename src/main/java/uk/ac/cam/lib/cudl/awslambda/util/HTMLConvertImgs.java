@@ -38,7 +38,7 @@ public class HTMLConvertImgs {
 
     public String translateSrcKeyToEFSPath(String srcKey) {
 
-        return dstPrefix+srcKey;
+        return dstPrefix+"/"+srcKey;
 
     }
 

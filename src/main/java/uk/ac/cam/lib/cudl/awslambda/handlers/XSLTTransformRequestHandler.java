@@ -33,7 +33,6 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
 
     private static final Logger logger = LoggerFactory.getLogger(XSLTTransformRequestHandler.class);
 
-    public final String functionName;
     private final List<String> xsltLocations;
     private final XSLTHelper xsltHelper;
     private final S3Input s3Input;
@@ -50,7 +49,6 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
         xsltHelper = new XSLTHelper(properties.getProperty("XSLT"));
         tmpDir = properties.getProperty("TMP_DIR");
 
-        functionName = properties.getProperty("FUNCTION_NAME");
         xsltLocations = Arrays.asList(properties.getProperty("XSLT").split(","));
 
         dstPrefix = properties.getProperty("DST_EFS_PREFIX");
@@ -86,7 +84,7 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(bytes.length);
         baos.write(bytes, 0, bytes.length);
 
-        String dstKey = dstPrefix+xsltHelper.translateSrcKeyToItemPath(srcKey);
+        String dstKey = dstPrefix+"/"+xsltHelper.translateSrcKeyToItemPath(srcKey);
 
         // write to efs storage (shared with ec2)
         FileUtils.copyFile(sourceFile, new File(dstKey));
@@ -103,7 +101,7 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
     public String handleDeleteEvent(String srcBucket, String srcKey, Context context) throws Exception {
 
         logger.info("Delete Event");
-        String dst = dstPrefix+xsltHelper.translateSrcKeyToItemPath(srcKey);
+        String dst = dstPrefix+"/"+xsltHelper.translateSrcKeyToItemPath(srcKey);
         fileOutput.deleteFromPath(dst);
 
         String dstKey = s3Output.translateSrcKeyToDestPath(dst);
