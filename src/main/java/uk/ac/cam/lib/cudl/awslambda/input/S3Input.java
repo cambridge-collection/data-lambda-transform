@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.InputStream;
 
 
 /**
@@ -21,6 +22,10 @@ public class S3Input {
     public File getFile(String srcBucket, String key, File file) {
         s3Client.getObject(new GetObjectRequest(srcBucket, key), file);
         return file;
+    }
+
+    public InputStream getInputStream(String srcBucket, String key) {
+        return s3Client.getObject(srcBucket, key).getObjectContent();
     }
 
     public String getString(String srcBucket, String key) {

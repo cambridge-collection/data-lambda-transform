@@ -12,6 +12,7 @@ import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -29,9 +30,9 @@ class XSLTHelperTest {
         outputFile1.deleteOnExit();
         outputFile2.deleteOnExit();
         XSLTHelper xsltHelper = new XSLTHelper(xsltPaths);
-        xsltHelper.transformAndWriteToFile(sourceFile, xsltPathArray[0], outputFile1);
+        xsltHelper.transformAndWriteToFile(sourceFile, xsltPathArray[0], outputFile1, new HashMap<>());
         String s1 = FileUtils.readFileToString(outputFile1, "UTF-8");
-        xsltHelper.transformAndWriteToFile(outputFile1, xsltPathArray[1], outputFile2);
+        xsltHelper.transformAndWriteToFile(outputFile1, xsltPathArray[1], outputFile2, new HashMap<>());
         String s2 = FileUtils.readFileToString(outputFile2, "UTF-8");
 
         Document documentGenerated = Jsoup.parse(s1.trim(), "", Parser.xmlParser());

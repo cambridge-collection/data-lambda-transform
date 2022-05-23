@@ -15,11 +15,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Stream;
 
 /**
  * Triggered by a edit from cudl data in s3.  One event s3 is sent per file edited.  These are put into
@@ -62,21 +60,20 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
 
         logger.info("Put Event");
 
-        logger.info("Layer contents:");
+/*        logger.info("Layer contents:");
         try (Stream<Path> paths = Files.walk(Paths.get("/opt"))) {
             paths.filter(Files::isRegularFile)
                     .forEach((fileString) -> {logger.info(fileString.toString());});
-        }
+        }*/
 
         File sourceFile = getSourceFile(srcBucket, srcKey, context, s3Input, tmpDir);
-
         String tmpFile = tmpDir + context.getAwsRequestId();
 
         // Chain together XSLT calls (from properties)
         for (String xslt: xsltLocations) {
             File outputFile = new File(tmpFile+File.separator+Math.random()+"_output");
             // source file needs to be in <ITEM_ID>/<ITEM_ID>.xml format as this is used in XSLT
-            xsltHelper.transformAndWriteToFile(sourceFile, xslt, outputFile);
+            xsltHelper.transformAndWriteToFile(sourceFile, xslt, outputFile, new HashMap<>());
             sourceFile = outputFile;
         }
 

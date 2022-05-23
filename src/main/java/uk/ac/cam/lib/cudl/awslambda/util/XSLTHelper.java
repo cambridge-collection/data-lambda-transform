@@ -12,6 +12,7 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,7 +55,7 @@ public class XSLTHelper {
     }
 
     /**
-     * Runs transform on a set of local files and returns file paths for output
+     * Runs transform on a local file and returns the file output
      * Can be used where transform oututs one file.
      * NOTE: For JSON transformation the path of the file should be /<ITEM_ID>/<ITEM_ID>.xml
      *
@@ -63,9 +64,11 @@ public class XSLTHelper {
      * @param outputFile
      * @throws TransformerException
      */
-    public void transformAndWriteToFile(File sourceFile, String xsltPath, File outputFile) throws TransformerException {
+    public void transformAndWriteToFile(File sourceFile, String xsltPath, File outputFile, Map<String,String> params) throws TransformerException, IOException {
 
         StreamSource filesrc = new StreamSource(sourceFile);
+        filesrc.setSystemId(sourceFile.getName());
+
         FileOutputStream os = null;
         try {
             os = new FileOutputStream(outputFile);
@@ -74,13 +77,19 @@ public class XSLTHelper {
         }
 
         StreamResult streamResult = new StreamResult(os);
-        transform(filesrc, streamResult, templates.get(xsltPath), new HashMap<>());
+        streamResult.setSystemId(sourceFile.getName());
+
+        transform(filesrc, streamResult, templates.get(xsltPath), params);
 
         logger.info("Successfully transformed " + sourceFile.getAbsolutePath() + " and uploaded to " + outputFile.getAbsolutePath());
 
     }
 
-    private void transform(StreamSource src, StreamResult result, Templates template, Map<String,String> params) throws TransformerException {
+    public Templates getTemplate(String name) {
+        return templates.get(name);
+    }
+
+    public void transform(StreamSource src, StreamResult result, Templates template, Map<String,String> params) throws TransformerException {
         logger.info("Transforming: "+src.getSystemId()+" to "+result.getSystemId()+ " with template: "+template+" and params: "+params);
         TransformerHandler th1 = stf.newTransformerHandler(template);
         Transformer transformer = th1.getTransformer();

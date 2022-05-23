@@ -11,8 +11,9 @@ import uk.ac.cam.lib.cudl.awslambda.util.Properties;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.File;
 import java.io.InputStream;
+import java.net.URLConnection;
 
 
 /**
@@ -28,12 +29,19 @@ public class S3Output {
     public final String dstPrefix;
     public final String dstSuffix;
 
-    public S3Output() throws IOException {
-
+    public S3Output() {
         Properties properties = new Properties();
+
         dstBucket = properties.getProperty("DST_BUCKET");
         dstPrefix = properties.getProperty("DST_S3_PREFIX");
         dstSuffix = properties.getProperty("DST_ITEMS_SUFFIX");
+    }
+
+    public S3Output(String dstBucket, String dstPrefix, String dstSuffix) {
+
+        this.dstBucket = dstBucket;
+        this.dstPrefix = dstPrefix;
+        this.dstSuffix = dstSuffix;
     }
 
     // Takes the srcKey from the request (complete path) and preserves the dir
@@ -55,7 +63,15 @@ public class S3Output {
 
     }
 
-    public void writeFromStream(ByteArrayOutputStream os, String dstKey) {
+    public boolean exists(String dstBucket, String dstKey) {
+        return s3Client.doesObjectExist(dstBucket,dstKey);
+    }
+
+    public void writeFromStream(ByteArrayOutputStream os,  String dstKey) {
+        writeFromStream(os, dstBucket, dstKey);
+    }
+
+    public void writeFromStream(ByteArrayOutputStream os, String dstBucket, String dstKey) {
 
         // Check for empty result (no transcription/transformation)
         if (os.size()<=412) {
@@ -67,7 +83,9 @@ public class S3Output {
         InputStream is = new ByteArrayInputStream(os.toByteArray());
         ObjectMetadata meta = new ObjectMetadata();
         meta.setContentLength(os.size());
-        meta.setContentType("text/html");
+        //meta.setContentType("text/html");
+        String mimeType = URLConnection.guessContentTypeFromName(dstKey);
+        meta.setContentType(mimeType);
 
         // Uploading to S3 destination bucket
         logger.info("Writing to: " + dstBucket + "/" + dstKey);
@@ -81,6 +99,10 @@ public class S3Output {
     }
 
     public void deleteFromPath(String dstKey) {
+        deleteFromPath(dstBucket, dstKey);
+    }
+
+    public void deleteFromPath(String dstBucket, String dstKey) {
 
         // Delete from S3 destination bucket
         logger.info("Deleting all items from: " + dstBucket + "/" + dstKey);
