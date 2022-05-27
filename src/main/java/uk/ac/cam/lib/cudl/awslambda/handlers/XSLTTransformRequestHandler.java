@@ -98,10 +98,13 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
     public String handleDeleteEvent(String srcBucket, String srcKey, Context context) throws Exception {
 
         logger.info("Delete Event");
-        String dst = dstPrefix+"/"+xsltHelper.translateSrcKeyToItemPath(srcKey);
+        String jsonItemPath = xsltHelper.translateSrcKeyToItemPath(srcKey);
+        String dst = dstPrefix+"/"+jsonItemPath;
+        logger.info("Deleting from EFS: "+dst);
         fileOutput.deleteFromPath(dst);
 
-        String dstKey = s3Output.translateSrcKeyToDestPath(dst);
+        String dstKey = s3Output.translateSrcKeyToDestPath(jsonItemPath);
+        logger.info("Deleting from S3: "+dstKey);
         s3Output.deleteFromPath(dstKey);
 
         return "Ok";
