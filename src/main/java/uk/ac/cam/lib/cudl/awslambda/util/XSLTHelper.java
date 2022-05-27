@@ -67,8 +67,6 @@ public class XSLTHelper {
     public void transformAndWriteToFile(File sourceFile, String xsltPath, File outputFile, Map<String,String> params) throws TransformerException, IOException {
 
         StreamSource filesrc = new StreamSource(sourceFile);
-        filesrc.setSystemId(sourceFile.getName());
-
         FileOutputStream os = null;
         try {
             os = new FileOutputStream(outputFile);
@@ -77,8 +75,6 @@ public class XSLTHelper {
         }
 
         StreamResult streamResult = new StreamResult(os);
-        streamResult.setSystemId(sourceFile.getName());
-
         transform(filesrc, streamResult, templates.get(xsltPath), params);
 
         logger.info("Successfully transformed " + sourceFile.getAbsolutePath() + " and uploaded to " + outputFile.getAbsolutePath());
