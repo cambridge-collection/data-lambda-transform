@@ -76,11 +76,12 @@ public class GenerateTranscriptionHTMLHandler extends AbstractRequestHandler {
 
         boolean chunkify = chunkify(srcBucket, srcKey);
         File outputDir = new File(tmpDir+context.getAwsRequestId()+"_"+Math.random());
-        StreamSource streamSource = new StreamSource(s3Input.getInputStream(srcBucket,srcKey));
-        streamSource.setSystemId(new File(srcKey).getName()); // Required for pagify
 
         logger.info("chunkify: "+chunkify);
         if (chunkify) {
+
+            StreamSource streamSource = new StreamSource(s3Input.getInputStream(srcBucket,srcKey));
+            streamSource.setSystemId(new File(srcKey).getName()); // Required for pagify
 
             // Chunking uses pagify.xsl to generate chunks and then writes them to S3 and
             // invokes this function for each chunk.
@@ -111,6 +112,9 @@ public class GenerateTranscriptionHTMLHandler extends AbstractRequestHandler {
 
         // Single file processing, no chunking
         logger.info("no chunking needed");
+
+        StreamSource streamSource = new StreamSource(s3Input.getInputStream(srcBucket,srcKey));
+        streamSource.setSystemId(new File(srcKey).getName()); // Required for pagify
 
         File xmlOutputDir = new File(outputDir,"xml_output");
         Files.createDirectories(xmlOutputDir.toPath());
