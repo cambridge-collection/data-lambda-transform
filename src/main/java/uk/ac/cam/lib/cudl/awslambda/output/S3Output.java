@@ -4,16 +4,17 @@ import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.amazonaws.services.s3.model.S3ObjectSummary;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.ac.cam.lib.cudl.awslambda.model.MimeTypes;
 import uk.ac.cam.lib.cudl.awslambda.util.Properties;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.InputStream;
+import java.io.*;
 import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 
 /**
@@ -83,9 +84,8 @@ public class S3Output {
         InputStream is = new ByteArrayInputStream(os.toByteArray());
         ObjectMetadata meta = new ObjectMetadata();
         meta.setContentLength(os.size());
-        //meta.setContentType("text/html");
-        String mimeType = URLConnection.guessContentTypeFromName(dstKey);
-        meta.setContentType(mimeType);
+        // String mimeType = URLConnection.guessContentTypeFromName(dstKey);
+        meta.setContentType(MimeTypes.getMimeType(dstKey));
 
         // Uploading to S3 destination bucket
         logger.info("Writing to: " + dstBucket + "/" + dstKey);
