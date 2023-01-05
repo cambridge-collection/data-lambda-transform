@@ -5,7 +5,7 @@
 
     <groupId>uk.ac.cam.lib.cudl.awslambda</groupId>
     <artifactId>AWSLambda_Data_Transform</artifactId>
-    <version>0.13</version>
+    <version>0.14-SNAPSHOT</version>
 
     <name>AWSLambda_XSLTTransform</name>
     <url>http://cudl.lib.cam.ac.uk</url>
@@ -14,7 +14,7 @@
         <connection>scm:git:ssh://git@bitbucket.org/CUDL/data-lambda-transform.git</connection>
         <developerConnection>scm:git:ssh://git@bitbucket.org/CUDL/data-lambda-transform.git</developerConnection>
         <url>https://github.com/cambridge-collection/cudl-viewer</url>
-        <tag>AWSLambda_Data_Transform-0.13</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <properties>
