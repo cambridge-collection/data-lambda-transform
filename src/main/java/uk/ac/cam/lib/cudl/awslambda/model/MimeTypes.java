@@ -27,8 +27,8 @@ public class MimeTypes {
         mimeTypes.put("svg", "image/svg+xml");
         mimeTypes.put("webp", "image/webp");
         mimeTypes.put("ico", "image/vnd.microsoft.icon");
-        mimeTypes.put("js", "text/javascript");
-        mimeTypes.put("min.js", "text/javascript");
+        mimeTypes.put("js", "application/javascript"); // this is what cudl-services expects (not text/javascript)
+        mimeTypes.put("min.js", "application/javascript");
         mimeTypes.put("css", "text/css");
         mimeTypes.put("json", "application/json");
         mimeTypes.put("jsonld", "application/ld+json");
