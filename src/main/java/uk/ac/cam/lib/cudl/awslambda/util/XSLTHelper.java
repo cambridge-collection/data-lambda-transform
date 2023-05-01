@@ -51,8 +51,8 @@ public class XSLTHelper {
         }
         templates = XSLTTemplates;
 
-        dstSuffix = properties.getProperty("DST_ITEMS_SUFFIX");
-        itemsFolder = properties.getProperty("DST_ITEMS_FOLDER");
+        dstSuffix = properties.getProperty("DST_XSLT_OUTPUT_SUFFIX");
+        itemsFolder = properties.getProperty("DST_XSLT_OUTPUT_FOLDER");
     }
 
     /**
@@ -97,11 +97,19 @@ public class XSLTHelper {
         transformer.transform(src,result);
     }
 
+    /**
+     * NOTE: If <ITEM_ID> appears in the DST_XSLT_OUTPUT_FOLDER parameter this is
+     * replaced with the basename from the key.
+     *
+     * @param srcKey
+     * @return
+     */
     public String translateSrcKeyToItemPath(String srcKey) {
 
         logger.info("Item srcKey: "+srcKey);
         String baseName = FilenameUtils.getBaseName(srcKey);
-        return itemsFolder+baseName+dstSuffix;
+
+        return itemsFolder.replaceAll("<ITEM_ID>", baseName)+baseName+dstSuffix;
 
     }
 }

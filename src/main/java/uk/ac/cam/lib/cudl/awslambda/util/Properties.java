@@ -21,4 +21,8 @@ public class Properties {
     public String getProperty(String key) {
         return properties.getProperty(key);
     }
+
+    public boolean exists(String key) {
+        return properties.containsKey(key.trim());
+    }
 }

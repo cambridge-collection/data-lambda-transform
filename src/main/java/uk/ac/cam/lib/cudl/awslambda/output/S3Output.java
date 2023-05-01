@@ -35,7 +35,7 @@ public class S3Output {
 
         dstBucket = properties.getProperty("DST_BUCKET");
         dstPrefix = properties.getProperty("DST_S3_PREFIX");
-        dstSuffix = properties.getProperty("DST_ITEMS_SUFFIX");
+        dstSuffix = properties.getProperty("DST_XSLT_OUTPUT_SUFFIX");
     }
 
     public S3Output(String dstBucket, String dstPrefix, String dstSuffix) {

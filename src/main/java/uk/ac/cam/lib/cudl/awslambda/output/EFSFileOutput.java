@@ -14,11 +14,16 @@ import java.nio.file.Paths;
 public class EFSFileOutput {
 
     private final String dstPrefix;
+    private boolean efsEnabled = false;
     private static final Logger logger = LoggerFactory.getLogger(EFSFileOutput.class);
 
     public EFSFileOutput() {
         Properties properties = new Properties();
         dstPrefix = properties.getProperty("DST_EFS_PREFIX");
+        String efsEnabledProperty = properties.getProperty("DST_EFS_ENABLED");
+        if (efsEnabledProperty!=null && "true".equals(efsEnabledProperty.trim().toLowerCase())) {
+            efsEnabled = true;
+        }
     }
 
     public String translateSrcKeyToDestPath(String srcKey) {
@@ -26,6 +31,8 @@ public class EFSFileOutput {
     }
 
     public void writeFromString(String output, String dst) throws IOException {
+
+        if (!efsEnabled) { return; }
 
         logger.info("writing to: "+dst);
 
@@ -40,6 +47,8 @@ public class EFSFileOutput {
 
     public void writeFromFile(File file, String dst) throws IOException {
 
+        if (!efsEnabled) { return; }
+
         logger.info("writing to: "+dst);
 
         File fileDst = new File(dst);
@@ -52,6 +61,9 @@ public class EFSFileOutput {
 
 
     public void deleteFromPath(String dst) throws IOException {
+
+        if (!efsEnabled) { return; }
+
         // delete from EFS
         File f = new File (dst);
         boolean successful = f.delete();
