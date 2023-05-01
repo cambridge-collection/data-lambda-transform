@@ -1,7 +1,6 @@
 package uk.ac.cam.lib.cudl.awslambda.handlers;
 
 import com.amazonaws.services.lambda.runtime.Context;
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.cam.lib.cudl.awslambda.input.S3Input;
@@ -13,11 +12,8 @@ import uk.ac.cam.lib.cudl.awslambda.util.XSLTHelper;
 import javax.xml.transform.TransformerConfigurationException;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.IOException;
 import java.nio.file.Files;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Triggered by a edit from cudl data in s3.  One event s3 is sent per file edited.  These are put into
@@ -32,6 +28,7 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
     private static final Logger logger = LoggerFactory.getLogger(XSLTTransformRequestHandler.class);
 
     private final List<String> xsltLocations;
+    private final List<Map<String,String>> xsltParams = new ArrayList<>();
     private final XSLTHelper xsltHelper;
     private final S3Input s3Input;
     private final String tmpDir;
@@ -40,7 +37,7 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
     public final S3Output s3Output;
     public final EFSFileOutput fileOutput;
 
-    public XSLTTransformRequestHandler() throws TransformerConfigurationException, IOException {
+    public XSLTTransformRequestHandler() throws TransformerConfigurationException {
 
         Properties properties = new Properties();
         s3Input = new S3Input();
@@ -48,6 +45,20 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
         tmpDir = properties.getProperty("TMP_DIR");
 
         xsltLocations = Arrays.asList(properties.getProperty("XSLT").split(","));
+
+        // Get xslt parameters if set
+        for (int i=0; i<xsltLocations.size(); i++) {
+            String paramEnv="XSLT_"+(i+1)+"_PARAMS";
+            if (properties.exists(paramEnv)) {
+                String params = properties.getProperty(paramEnv);
+                Map<String,String> map = new Hashtable<>();
+                for (String param :params.split(",")) {
+                    String[] paramArray = param.split(":");
+                    map.put(paramArray[0],paramArray[1]);
+                }
+                xsltParams.add(i, map);
+            }
+        }
 
         dstPrefix = properties.getProperty("DST_EFS_PREFIX");
         dstS3Prefix = properties.getProperty("DST_S3_PREFIX");
@@ -60,20 +71,23 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
 
         logger.info("Put Event");
 
-/*        logger.info("Layer contents:");
-        try (Stream<Path> paths = Files.walk(Paths.get("/opt"))) {
-            paths.filter(Files::isRegularFile)
-                    .forEach((fileString) -> {logger.info(fileString.toString());});
-        }*/
-
         File sourceFile = getSourceFile(srcBucket, srcKey, context, s3Input, tmpDir);
         String tmpFile = tmpDir + context.getAwsRequestId();
 
         // Chain together XSLT calls (from properties)
-        for (String xslt: xsltLocations) {
+        for (int i=0; i<xsltLocations.size(); i++) {
+            String xslt = xsltLocations.get(i);
             File outputFile = new File(tmpFile+File.separator+Math.random()+"_output");
+
+            //  Get parameters if they exist for this xslt in properties
+            Map<String, String> params = new Hashtable<>();
+            if (xsltParams.size()>i) {
+                 params = xsltParams.get(i);
+            }
+
             // source file needs to be in <ITEM_ID>/<ITEM_ID>.xml format as this is used in XSLT
-            xsltHelper.transformAndWriteToFile(sourceFile, xslt, outputFile, new HashMap<>());
+            // for the tei->json transform
+            xsltHelper.transformAndWriteToFile(sourceFile, xslt, outputFile, params);
             sourceFile = outputFile;
         }
 
@@ -81,10 +95,9 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
         ByteArrayOutputStream baos = new ByteArrayOutputStream(bytes.length);
         baos.write(bytes, 0, bytes.length);
 
-        String dstKey = dstPrefix+"/"+xsltHelper.translateSrcKeyToItemPath(srcKey);
-
         // write to efs storage (shared with ec2)
-        FileUtils.copyFile(sourceFile, new File(dstKey));
+        String dstKey = dstPrefix+"/"+xsltHelper.translateSrcKeyToItemPath(srcKey);
+        fileOutput.writeFromFile(sourceFile, dstKey);
 
         // write to s3
         String dstS3Key = dstS3Prefix+xsltHelper.translateSrcKeyToItemPath(srcKey);
