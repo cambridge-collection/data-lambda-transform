@@ -54,7 +54,9 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
                 Map<String,String> map = new Hashtable<>();
                 for (String param :params.split(",")) {
                     String[] paramArray = param.split(":");
-                    map.put(paramArray[0],paramArray[1]);
+                    if (paramArray.length==2) {
+                        map.put(paramArray[0],paramArray[1]);
+                    } // Could throw an error here for invalid format for params.
                 }
                 xsltParams.add(i, map);
             }
