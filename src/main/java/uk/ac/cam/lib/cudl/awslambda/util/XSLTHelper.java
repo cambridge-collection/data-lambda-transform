@@ -4,7 +4,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.activation.FileDataSource;
 import javax.xml.transform.*;
 import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
@@ -109,7 +108,14 @@ public class XSLTHelper {
         logger.info("Item srcKey: "+srcKey);
         String baseName = FilenameUtils.getBaseName(srcKey);
 
-        return itemsFolder.replaceAll("<ITEM_ID>", baseName)+baseName+dstSuffix;
+        return replacePlaceholders(itemsFolder, baseName)+baseName+dstSuffix;
 
+    }
+
+    /**
+     * Only <ITEM_ID> is currently supported and repl
+     */
+    public String replacePlaceholders(String input, String itemId) {
+        return input.replaceAll("<ITEM_ID>", itemId);
     }
 }

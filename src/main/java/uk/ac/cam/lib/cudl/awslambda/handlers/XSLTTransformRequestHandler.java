@@ -1,10 +1,13 @@
 package uk.ac.cam.lib.cudl.awslambda.handlers;
 
 import com.amazonaws.services.lambda.runtime.Context;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.cam.lib.cudl.awslambda.input.S3Input;
 import uk.ac.cam.lib.cudl.awslambda.output.EFSFileOutput;
+import uk.ac.cam.lib.cudl.awslambda.output.LambdaLocalFileOutput;
 import uk.ac.cam.lib.cudl.awslambda.output.S3Output;
 import uk.ac.cam.lib.cudl.awslambda.util.Properties;
 import uk.ac.cam.lib.cudl.awslambda.util.XSLTHelper;
@@ -14,6 +17,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Triggered by a edit from cudl data in s3.  One event s3 is sent per file edited.  These are put into
@@ -35,7 +42,9 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
     public final String dstPrefix;
     public final String dstS3Prefix;
     public final S3Output s3Output;
-    public final EFSFileOutput fileOutput;
+    public final EFSFileOutput efsFileOutput;
+    public final LambdaLocalFileOutput localFileOutput;
+    public final String s3_item_resources;
 
     public XSLTTransformRequestHandler() throws TransformerConfigurationException {
 
@@ -64,8 +73,10 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
 
         dstPrefix = properties.getProperty("DST_EFS_PREFIX");
         dstS3Prefix = properties.getProperty("DST_S3_PREFIX");
+        s3_item_resources = properties.getProperty("XSLT_S3_ITEM_RESOURCES");
         s3Output = new S3Output();
-        fileOutput = new EFSFileOutput();
+        efsFileOutput = new EFSFileOutput();
+        localFileOutput = new LambdaLocalFileOutput();
     }
 
     @Override
@@ -75,6 +86,7 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
 
         File sourceFile = getSourceFile(srcBucket, srcKey, context, s3Input, tmpDir);
         String tmpFile = tmpDir + context.getAwsRequestId();
+        getS3Resources(context, FilenameUtils.getBaseName(srcKey));
 
         // Chain together XSLT calls (from properties)
         for (int i=0; i<xsltLocations.size(); i++) {
@@ -99,7 +111,7 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
 
         // write to efs storage (shared with ec2)
         String dstKey = dstPrefix+"/"+xsltHelper.translateSrcKeyToItemPath(srcKey);
-        fileOutput.writeFromFile(sourceFile, dstKey);
+        efsFileOutput.writeFromFile(sourceFile, dstKey);
 
         // write to s3
         String dstS3Key = dstS3Prefix+xsltHelper.translateSrcKeyToItemPath(srcKey);
@@ -116,7 +128,7 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
         String jsonItemPath = xsltHelper.translateSrcKeyToItemPath(srcKey);
         String dst = dstPrefix+"/"+jsonItemPath;
         logger.info("Deleting from EFS: "+dst);
-        fileOutput.deleteFromPath(dst);
+        efsFileOutput.deleteFromPath(dst);
 
         String dstKey = s3Output.translateSrcKeyToDestPath(jsonItemPath);
         logger.info("Deleting from S3: "+dstKey);
@@ -125,4 +137,33 @@ public class XSLTTransformRequestHandler extends AbstractRequestHandler {
         return "Ok";
     }
 
+    private void getS3Resources(Context context, String itemId) throws Exception {
+        if (s3_item_resources !=null && !s3_item_resources.isBlank()) {
+            for (String resource: s3_item_resources.split(",")) {
+
+                Pattern pattern = Pattern.compile("^s3:\\/\\/([^\\/]+)\\/(.*)$", Pattern.CASE_INSENSITIVE);
+                Matcher matcher = pattern.matcher(resource);
+                if (matcher.find()) {
+                    // get the external resource required from s3
+                    String bucket = matcher.group(1);
+                    String key = matcher.group(2);
+                    key = xsltHelper.replacePlaceholders(key, itemId);
+
+                    logger.debug("Getting the resource from: bucket: "+bucket+" key: "+key);
+                    logger.debug("Getting the resource from: bucket: "+bucket+" key: "+key);
+                    File sourceFile = getSourceFile(bucket, key, context, s3Input, tmpDir);
+
+                    FileUtils.writeStringToFile(new File("/tmp/test.txt"), "test", "UTF-8");
+                    FileUtils.writeStringToFile(new File("/tmp/subdir/test.txt"), "test", "UTF-8");
+
+                    // save to the correct location
+                    String dst = "/tmp/"+bucket+"/"+key;
+
+                    logger.debug("saving to: "+dst);
+                    localFileOutput.writeFromFile(sourceFile, dst);
+
+                }
+            }
+        }
+    }
 }
