@@ -1,0 +1,38 @@
+{
+  "Records": [
+    {
+      "eventVersion": "2.1",
+      "eventSource": "aws:s3",
+      "awsRegion": "eu-west-1",
+      "eventTime": "2024-05-16T14:05:25.677Z",
+      "eventName": "ObjectCreated:Put",
+      "userIdentity": {
+        "principalId": "AWS:AROAYGIB2F2YEZG34LA2X:jlf44@cam.ac.uk"
+      },
+      "requestParameters": {
+        "sourceIPAddress": "84.71.126.104"
+      },
+      "responseElements": {
+        "x-amz-request-id": "Q34G5GV7SYTN4EST",
+        "x-amz-id-2": "0RVaSmYbuca66dps7EtgQjhS01Wg0sVpchNfik1FDh9GoGZmoeaC3DUediKiu1lTGC9Et+SVt1FmchLm/4PSjkRq37g730k4"
+      },
+      "s3": {
+        "s3SchemaVersion": "1.0",
+        "configurationId": "tf-s3-topic-20240501130028248000000009",
+        "bucket": {
+          "name": "rmm98-sandbox-cudl-data-source",
+          "ownerIdentity": {
+            "principalId": "A3SYPCOIV47IBJ"
+          },
+          "arn": "arn:aws:s3:::rmm98-sandbox-cudl-data-source"
+        },
+        "object": {
+          "key": "items/data/tei/MS-AA-00003-00008/MS-AA-00003-00008.xml",
+          "size": 95533,
+          "eTag": "6c6fba951cf3cbea32ed13d81c22339d",
+          "sequencer": "00664612A5A298DFC2"
+        }
+      }
+    }
+  ]
+}

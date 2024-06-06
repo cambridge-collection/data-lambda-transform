@@ -4,27 +4,26 @@ import com.amazonaws.services.lambda.runtime.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.cam.lib.cudl.awslambda.input.S3Input;
-import uk.ac.cam.lib.cudl.awslambda.output.S3Output;
+import uk.ac.cam.lib.cudl.awslambda.output.EFSFileOutput;
 import uk.ac.cam.lib.cudl.awslambda.util.Properties;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 
-public class CopyFileHandler extends AbstractRequestHandler {
+public class CopyToEFSFileHandler extends AbstractRequestHandler {
 
-    private static final Logger logger = LoggerFactory.getLogger(CopyFileHandler.class);
+    private static final Logger logger = LoggerFactory.getLogger(CopyToEFSFileHandler.class);
     private final S3Input s3Input;
     private final String tmpDir;
-    private final S3Output s3Output;
+    private final EFSFileOutput fileOutput;
 
-    public CopyFileHandler() throws IOException {
+    public CopyToEFSFileHandler() throws IOException {
 
         Properties properties = new Properties();
         s3Input = new S3Input();
         tmpDir = properties.getProperty("TMP_DIR");
-        s3Output = new S3Output();
+        fileOutput = new EFSFileOutput();
     }
 
     @Override
@@ -38,12 +37,9 @@ public class CopyFileHandler extends AbstractRequestHandler {
             return "Ok";
         }
 
-        // Write to S3
-        String s3Dest = s3Output.translateSrcKeyToDestPath(srcKey);
-        byte[] bytes = Files.readAllBytes(sourceFile.toPath());
-        ByteArrayOutputStream os = new ByteArrayOutputStream();
-        os.write(bytes);
-        s3Output.writeFromStream(os, s3Dest);
+        // Write to EFS
+        String dst = fileOutput.translateSrcKeyToDestPath(srcKey);
+        fileOutput.writeFromFile(sourceFile, dst);
 
         return "Ok";
     }
@@ -52,8 +48,8 @@ public class CopyFileHandler extends AbstractRequestHandler {
     public String handleDeleteEvent(String srcBucket, String srcKey, Context context) throws IOException {
         logger.info("Delete Event");
 
-        String dstKey = s3Output.translateSrcKeyToDestPath(srcKey);
-        s3Output.deleteFromPath(dstKey);
+        String dst = fileOutput.translateSrcKeyToDestPath(srcKey);
+        fileOutput.deleteFromPath(dst);
 
         return "Ok";
     }
