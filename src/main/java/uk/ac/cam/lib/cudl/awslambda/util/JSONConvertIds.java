@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeType;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,12 +18,15 @@ import java.util.Map;
 
 public class JSONConvertIds {
 
+    public final String itemsFolder;
+    public final String dstSuffix;
+
     private static final Logger logger = LoggerFactory.getLogger(JSONConvertIds.class);
-    private final XSLTHelper xsltHelper;
 
     public JSONConvertIds() throws IOException, TransformerConfigurationException {
         Properties properties = new Properties();
-        xsltHelper = new XSLTHelper(properties.getProperty("XSLT"));
+        dstSuffix = properties.getProperty("DST_XSLT_OUTPUT_SUFFIX");
+        itemsFolder = properties.getProperty("DST_XSLT_OUTPUT_FOLDER");
     }
     /**
      * This process converts the @id elements to be relative to the root rather than
@@ -71,7 +75,7 @@ public class JSONConvertIds {
                     // Item ids are replaced at a different path
                     String newId;
                     if (isItemNode) {
-                        newId = xsltHelper.translateSrcKeyToItemPath(entry.getValue().asText());
+                        newId = translateSrcKeyToItemPath(entry.getValue().asText());
                     } else {
                         newId = convertIdToBeRelativeToRoot(entry.getValue().asText(), srcKey);
                     }
@@ -108,5 +112,29 @@ public class JSONConvertIds {
 
         return linkPath.normalize().toString();
 
+    }
+
+
+    /**
+     * NOTE: If <ITEM_ID> appears in the DST_XSLT_OUTPUT_FOLDER parameter this is
+     * replaced with the basename from the key.
+     *
+     * @param srcKey
+     * @return
+     */
+    private String translateSrcKeyToItemPath(String srcKey) {
+
+        logger.info("Item srcKey: "+srcKey);
+        String baseName = FilenameUtils.getBaseName(srcKey);
+
+        return replacePlaceholders(itemsFolder, baseName)+baseName+dstSuffix;
+
+    }
+
+    /**
+     * Only <ITEM_ID> is currently supported and repl
+     */
+    private String replacePlaceholders(String input, String itemId) {
+        return input.replaceAll("<ITEM_ID>", itemId);
     }
 }

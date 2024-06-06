@@ -4,7 +4,6 @@ import com.amazonaws.services.lambda.runtime.Context;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import uk.ac.cam.lib.cudl.awslambda.input.S3Input;
-import uk.ac.cam.lib.cudl.awslambda.output.EFSFileOutput;
 import uk.ac.cam.lib.cudl.awslambda.output.S3Output;
 import uk.ac.cam.lib.cudl.awslambda.util.HTMLConvertImgs;
 
@@ -15,14 +14,12 @@ public class ConvertHTMLIdsHandler extends AbstractRequestHandler {
     private static final Logger logger = LoggerFactory.getLogger(ConvertHTMLIdsHandler.class);
     private final S3Input s3Input;
     private final HTMLConvertImgs converter;
-    private final EFSFileOutput fileOutput;
     private final S3Output s3Output;
 
     public ConvertHTMLIdsHandler() throws IOException {
 
         s3Input = new S3Input();
         converter = new HTMLConvertImgs();
-        fileOutput = new EFSFileOutput();
         s3Output = new S3Output();
 
     }
@@ -37,10 +34,6 @@ public class ConvertHTMLIdsHandler extends AbstractRequestHandler {
         // transform url paths
         String output = converter.rewriteIds(file, srcKey);
 
-        // Write to EFS
-        String dst = fileOutput.translateSrcKeyToDestPath(srcKey);
-        fileOutput.writeFromString(output, dst);
-
         // Write to S3
         String s3Dest = s3Output.translateSrcKeyToDestPath(srcKey);
         s3Output.writeFromString(output, s3Dest);
@@ -51,9 +44,6 @@ public class ConvertHTMLIdsHandler extends AbstractRequestHandler {
     @Override
     public String handleDeleteEvent(String srcBucket, String srcKey, Context context) throws IOException {
         logger.info("Delete Event");
-
-        String dst = fileOutput.translateSrcKeyToDestPath(srcKey);
-        fileOutput.deleteFromPath(dst);
 
         String dstKey = s3Output.translateSrcKeyToDestPath(srcKey);
         s3Output.deleteFromPath(dstKey);
